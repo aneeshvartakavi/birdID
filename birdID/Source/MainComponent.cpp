@@ -57,7 +57,8 @@ MainContentComponent::MainContentComponent ()
 
 
     //[Constructor] You can add your own custom stuff here..
-	featureExtractor = new FeatureExtractor(1024,512);
+	birdID = new BirdID(1024,512);
+	//featureExtractor = new FeatureExtractor();
     //[/Constructor]
 }
 
@@ -72,7 +73,8 @@ MainContentComponent::~MainContentComponent()
 
 
     //[Destructor]. You can add your own custom destruction code here..
-    //[/Destructor]
+	birdID = nullptr;
+	//[/Destructor]
 }
 
 //==============================================================================
@@ -105,7 +107,9 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_browseButton] -- add your button handler code here..
 		readDirectory();
-		featureExtractor->computeFeatures(pathToFile);
+		birdID->readAudioFile(pathToFile);
+		birdID->process();
+		//		featureExtractor->computeFeatures(pathToFile);
         //[/UserButtonCode_browseButton]
     }
 

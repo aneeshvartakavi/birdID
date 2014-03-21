@@ -528,6 +528,14 @@
             file="Source/Eigen/UmfPackSupport.h"/>
     </GROUP>
     <GROUP id="{F7A16C6D-EFA5-8D82-2830-A70D3C0C94A8}" name="Source">
+      <FILE id="parTeY" name="BirdID.cpp" compile="1" resource="0" file="Source/BirdID.cpp"/>
+      <FILE id="n8cVQo" name="BirdID.h" compile="0" resource="0" file="Source/BirdID.h"/>
+      <GROUP id="{51850F17-C21B-F1C6-0656-6B777A2D608F}" name="Features">
+        <FILE id="JlKLJy" name="ComputeSpectralFeatures.cpp" compile="1" resource="0"
+              file="Source/Features/ComputeSpectralFeatures.cpp"/>
+        <FILE id="Eq4m2Y" name="ComputeSpectralFeatures.h" compile="0" resource="0"
+              file="Source/Features/ComputeSpectralFeatures.h"/>
+      </GROUP>
       <FILE id="bBl17Y" name="FeatureExtractor.cpp" compile="1" resource="0"
             file="Source/FeatureExtractor.cpp"/>
       <FILE id="sATaIG" name="FeatureExtractor.h" compile="0" resource="0"
