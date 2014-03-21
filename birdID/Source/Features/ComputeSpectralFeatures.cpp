@@ -10,6 +10,8 @@
 
 #include "ComputeSpectralFeatures.h"
 #include <math.h>
+#include <cmath>
+#include <limits>
 
 ComputeSpectralFeatures::ComputeSpectralFeatures()
 {
@@ -29,7 +31,16 @@ ComputeSpectralFeatures::~ComputeSpectralFeatures()
 
 	delete lastFeatureVector;
 	lastFeatureVector = nullptr;
-
+	
+	delete lastFrame;
+	lastFrame = nullptr;
+	
+	delete frame;
+	frameSquared = nullptr;
+	
+	delete frameSquared;
+	frame = nullptr;
+	
 	
 	if(meanFlag)
 	{
@@ -64,24 +75,32 @@ ComputeSpectralFeatures::~ComputeSpectralFeatures()
 }
 
 
-void ComputeSpectralFeatures::setFeaturesToCompute(int featureflags, int subFeatureFlags)
+void ComputeSpectralFeatures::setSpectralFeatureExtractionProps(int stftFrameLength,int featureflags, int subFeatureFlags)
 {
-	if(featureflags<1024 && subFeatureFlags<16)
+	if(featureflags<1024 && subFeatureFlags<16 && stftFrameLength>0)
 	{
+		// Simple initialization
 		firstRun = true;
 		numIter = 0;
+		
+		// Allocating memory for frames and temporary variables
+		numElementsInFrame = stftFrameLength;
+		frame = new float[numElementsInFrame];
+		frameSquared = new float [numElementsInFrame];
+		lastFrame = new float [numElementsInFrame];
+
+		// Setting flags for features
 		featuresToCompute = featureflags;
-
 		numFeatures = getSetBitCount(featureflags);
-	
+		// Setting flags for subfeatures
 		subFeaturesToCompute = subFeatureFlags;
-
 		numSubFeatures = getSetBitCount(subFeatureFlags);
-
+		
+		//Allocating
 		featureVector = new float[numFeatures];
 		lastFeatureVector = new float[numFeatures];
-		// Allocating memory for running mean and std
 		
+		// Allocating memory for running mean and std
 		subFeatureVector = new float[numFeatures*numSubFeatures];
 
 		// Set flags and allocate memory for subfeatures
@@ -135,145 +154,204 @@ void ComputeSpectralFeatures::setFeaturesToCompute(int featureflags, int subFeat
 }
 
 
-
-void ComputeSpectralFeatures::getFeatureVector(float* computedFeatureVector)
+void ComputeSpectralFeatures::getFeatureVector(float* computedFeatureVector, const int length)
 {
-	// Deep copy feature vector
-	copyFrame(featureVector,computedFeatureVector,numFeatures*numSubFeatures);
-
-	//numElements = numFeatures;
+	if(length==numFeatures)
+	{
+		// Deep copy feature vector
+		copyFrame(featureVector,computedFeatureVector,numFeatures);
+	}
+	else
+	{
+		//DBG("Incorrect vector length");
+	}
+		
 }
 
+void ComputeSpectralFeatures::getSubFeatureVector(float* computedSubFeatureVector, const int length)
+{
+	if(length==numSubFeatures*numFeatures)
+	{
+		int offset=0;
 
-void ComputeSpectralFeatures::computeFeatures(const float* stftFrame, int numElementsInFrame_)
+		// Fill the vector with the subfeatures
+		for(int w=0;w<numFeatures;w++)
+		{
+			offset = 0;
+
+			if(meanFlag)
+			{
+				if(numIter>0)
+				{
+					subFeatureVector[(offset*numFeatures)+w] = newMean[w];
+				}
+				else
+				{
+					subFeatureVector[(offset*numFeatures)+w] = 0;
+				}
+				offset++;
+			}
+			
+			if(stdFlag)
+			{
+				if(numIter>1)
+				{
+					subFeatureVector[(offset*numFeatures)+w] = sqrtf(newStd[w]/static_cast<float>((numIter-1)));
+				}
+				else
+				{
+					subFeatureVector[(offset*numFeatures)+w] = 0;
+				}
+				offset++;
+			}
+
+			if(dMeanFlag)
+			{
+				if(numIter>0)
+				{
+					subFeatureVector[(offset*numFeatures)+w] = dNewMean[w];
+				}
+				else
+				{
+					subFeatureVector[(offset*numFeatures)+w] = 0;
+				}
+				offset++;
+			}
+
+			if(dStdFlag)
+			{
+				if(numIter>1)
+				{
+					subFeatureVector[(offset*numFeatures)+w] = sqrtf(dNewStd[w]/static_cast<float>((numIter-1)));
+				}
+				else
+				{
+					subFeatureVector[(offset*numFeatures)+w] = 0;
+				}
+				offset++;
+			}
+		}
+
+		
+		// Deep copy feature vector
+		copyFrame(subFeatureVector,computedSubFeatureVector,numFeatures*numSubFeatures);
+	}
+	else
+	{
+		//DBG("Incorrect vector length");
+	}
+
+	
+}
+
+void ComputeSpectralFeatures::computeFeatures(const float* stftFrame)
 {
 	// Allocate feature vector in setFeaturesToComputeFunction
 	
-	if(numElementsInFrame_!=0)
-	{
-		//Store the frame
-		numElementsInFrame = numElementsInFrame_;
+	//Store the frame
+	copyFrame(stftFrame,frame,numElementsInFrame);
+	// Take the absolute value just in case
+	absFrame(frame,numElementsInFrame);
+	// Compute temporary variables
 		
-		frame = new float[numElementsInFrame_];
-
-		copyFrame(stftFrame,frame,numElementsInFrame);
+	// Frame sum
+	frameSum = sumFrame(frame,numElementsInFrame);
+	// Squared frame
+	squareFrame(frame,numElementsInFrame,frameSquared);
+	// Squared frame sum
+	squaredFrameSum = sumFrame(frameSquared,numElementsInFrame);
+	// Store last frame for flux
 	
-		// Compute temporary variables
+	int tempFeaturesToCompute = featuresToCompute;
 		
-		// Frame sum
-		frameSum = sumFrame(frame,numElementsInFrame);
-		// Squared frame
-		frameSquared = new float [numElementsInFrame];
-		squareFrame(frame,numElementsInFrame,frameSquared);
-		// Squared frame sum
-		squaredFrameSum = sumFrame(frameSquared,numElementsInFrame);
-		// Store last frame for flux
-		lastFrame = new float [numElementsInFrame];
-
-		int tempFeaturesToCompute = featuresToCompute;
-		
-		// Check flags and call feature functions
-		for(int j=0;j<numFeatures;j++)
+	// Check flags and call feature functions
+	for(int j=0;j<numFeatures;j++)
+	{
+		if((tempFeaturesToCompute & spectralFeatures::spectralCentroid) == spectralFeatures::spectralCentroid)
 		{
-			if((tempFeaturesToCompute & spectralFeatures::spectralCentroid) == spectralFeatures::spectralCentroid)
-			{
-				featureVector[j] = featureSpectralCentroid();
-				// Reset the flag
-				tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralCentroid;
-			}
+			featureVector[j] = featureSpectralCentroid();
+			// Reset the flag
+			tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralCentroid;
+		}
 				
-			else if((tempFeaturesToCompute & spectralFeatures::spectralCrest) == spectralFeatures::spectralCrest)
-			{
-				featureVector[j] = featureSpectralCrest();
-				// Reset the flag
-				tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralCrest;
-			}
-
-			else if((tempFeaturesToCompute & spectralFeatures::spectralDecrease) == spectralFeatures::spectralDecrease)
-			{
-				featureVector[j] = featureSpectralDecrease();
-				// Reset the flag
-				tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralDecrease;
-			}
-
-			else if((tempFeaturesToCompute & spectralFeatures::spectralFlatness) == spectralFeatures::spectralFlatness)
-			{
-				featureVector[j] = featureSpectralFlatness();
-				// Reset the flag
-				tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralFlatness;
-			}
-
-
-			else if((tempFeaturesToCompute & spectralFeatures::spectralFlux) == spectralFeatures::spectralFlux)
-			{
-				featureVector[j] = featureSpectralFlux();
-				// Reset the flag
-				tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralFlux;
-			}
-
-			else if((tempFeaturesToCompute & spectralFeatures::spectralKurtosis) == spectralFeatures::spectralKurtosis)
-			{
-				featureVector[j] = featureSpectralKurtosis();
-				// Reset the flag
-				tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralKurtosis;
-			}
-
-			else if((tempFeaturesToCompute & spectralFeatures::spectralRolloff) == spectralFeatures::spectralRolloff)
-			{
-				featureVector[j] = featureSpectralRolloff();
-				// Reset the flag
-				tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralRolloff;
-			}
-
-			else if((tempFeaturesToCompute & spectralFeatures::spectralSkewness) == spectralFeatures::spectralSkewness)
-			{
-				featureVector[j] = featureSpectralSkewness();
-				// Reset the flag
-				tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralSkewness;
-			}
-
-			else if((tempFeaturesToCompute & spectralFeatures::spectralSlope) == spectralFeatures::spectralSlope)
-			{
-				featureVector[j] = featureSpectralSlope();
-				// Reset the flag
-				tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralSlope;
-			}
-
-			else if((tempFeaturesToCompute & spectralFeatures::spectralSpread) == spectralFeatures::spectralSpread)
-			{
-				featureVector[j] = featureSpectralSpread();
-				// Reset the flag
-				tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralSpread;
-			}
-			else
-			{
-				// DBG("Incorrect flag!");
-				featureVector[j] = 0;
-			}
-
-		}
-
-		computeRunningStats(featureVector,numFeatures);
-
-		if(firstRun)
+		else if((tempFeaturesToCompute & spectralFeatures::spectralCrest) == spectralFeatures::spectralCrest)
 		{
-			firstRun = false;
+			featureVector[j] = featureSpectralCrest();
+			// Reset the flag
+			tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralCrest;
 		}
 
+		else if((tempFeaturesToCompute & spectralFeatures::spectralDecrease) == spectralFeatures::spectralDecrease)
+		{
+			featureVector[j] = featureSpectralDecrease();
+			// Reset the flag
+			tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralDecrease;
+		}
 
-		// Cleaning up
-		delete frame;
-		delete frameSquared;
-		delete lastFrame;
+		else if((tempFeaturesToCompute & spectralFeatures::spectralFlatness) == spectralFeatures::spectralFlatness)
+		{
+			featureVector[j] = featureSpectralFlatness();
+			// Reset the flag
+			tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralFlatness;
+		}
 
-		frame = nullptr;
-		frameSquared = nullptr;
-		lastFrame = nullptr;
+		else if((tempFeaturesToCompute & spectralFeatures::spectralFlux) == spectralFeatures::spectralFlux)
+		{
+			featureVector[j] = featureSpectralFlux();
+			// Reset the flag
+			tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralFlux;
+		}
+
+		else if((tempFeaturesToCompute & spectralFeatures::spectralKurtosis) == spectralFeatures::spectralKurtosis)
+		{
+			featureVector[j] = featureSpectralKurtosis();
+			// Reset the flag
+			tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralKurtosis;
+		}
+
+		else if((tempFeaturesToCompute & spectralFeatures::spectralRolloff) == spectralFeatures::spectralRolloff)
+		{
+			featureVector[j] = featureSpectralRolloff();
+			// Reset the flag
+			tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralRolloff;
+		}
+
+		else if((tempFeaturesToCompute & spectralFeatures::spectralSkewness) == spectralFeatures::spectralSkewness)
+		{
+			featureVector[j] = featureSpectralSkewness();
+			// Reset the flag
+			tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralSkewness;
+		}
+
+		else if((tempFeaturesToCompute & spectralFeatures::spectralSlope) == spectralFeatures::spectralSlope)
+		{
+			featureVector[j] = featureSpectralSlope();
+			// Reset the flag
+			tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralSlope;
+		}
+
+		else if((tempFeaturesToCompute & spectralFeatures::spectralSpread) == spectralFeatures::spectralSpread)
+		{
+			featureVector[j] = featureSpectralSpread();
+			// Reset the flag
+			tempFeaturesToCompute = tempFeaturesToCompute & ~spectralFeatures::spectralSpread;
+		}
+		else
+		{
+			// DBG("Incorrect flag!");
+			featureVector[j] = 0;
+		}
 
 	}
-
-
 	
+	computeRunningStats(featureVector,numFeatures);
+
+	copyFrame(frame,lastFrame, numElementsInFrame);
+
+	if(firstRun)
+	{
+		firstRun = false;
+	}
 }
 
 float ComputeSpectralFeatures::featureSpectralCentroid()
@@ -299,7 +377,7 @@ float ComputeSpectralFeatures::featureSpectralCrest()
 	
 	if(frameSum!=0)
 	{
-		maxFrame(frame,numElementsInFrame);
+		retVal = maxFrame(frame,numElementsInFrame);
 	
 		retVal /= frameSum;
 	}
@@ -331,17 +409,34 @@ float ComputeSpectralFeatures::featureSpectralFlatness()
 	
 	if(frameSum!=0)
 	{
+		// Effecient Geometric mean without overflow
+		// http://stackoverflow.com/a/19982259
+		double mantissa = 1.0;
+		long long exponent = 0;
+		double invN = 1.0/ static_cast<double>(numElementsInFrame);
+
 		for(int i=0;i<numElementsInFrame;i++)
 		{
-			retVal*= frame[i];
+			int r;
+			double f1 = std::frexp(frame[i],&r);
+			mantissa*=f1;
+			exponent+=r;
 		}
-		// Taking nth root, Geometric mean complete
-		retVal = powf(retVal,(1.0f/numElementsInFrame));
-		// Dividing by sum
-		retVal/= frameSum;
-		// Operation complete
-		retVal *=numElementsInFrame;
+
+		retVal = std::pow( std::numeric_limits<double>::radix,exponent * invN) * std::pow(mantissa,invN);
 	}
+	//retVal = 1.0f;
+	//	for(int i=0;i<numElementsInFrame;i++)
+	//	{
+	//		retVal*= frame[i];
+	//	}
+	//	// Taking nth root, Geometric mean complete
+	//	retVal = powf(retVal,(1.0f/static_cast<float>(numElementsInFrame)));
+	//	// Dividing by sum
+	//	retVal/= frameSum;
+	//	// Operation complete
+	//	retVal *=numElementsInFrame;
+	//}
 
 	return retVal;
 }
@@ -361,6 +456,8 @@ float ComputeSpectralFeatures::featureSpectralFlux()
 	retVal = sqrtf(retVal);
 
 	retVal /= numElementsInFrame;
+	
+	//copyFrame(frame,lastFrame, numElementsInFrame);
 
 	return retVal;
 }
@@ -510,6 +607,16 @@ float ComputeSpectralFeatures::maxFrame(const float* stftFrame, int numElementsI
 	return returnVal;
 }
 
+void ComputeSpectralFeatures::absFrame(float* stftFrame, int numElementsInFrame)
+{
+	
+	for(int i=0;i<numElementsInFrame;i++)
+	{
+		stftFrame[i] = fabsf(stftFrame[i]);
+	}
+
+}
+
 void ComputeSpectralFeatures::squareFrame(const float* stftFrame, int numElementsInFrame, float* squaredFrame)
 {
 	for(int i=0;i<numElementsInFrame;i++)
@@ -542,7 +649,7 @@ void ComputeSpectralFeatures::copyFrame(const float* sourceFrame, float* destina
 {
 	for(int i=0;i<numElementsInFrame;i++)
 	{
-		destinationFrame[i] = fabsf(sourceFrame[i]);
+		destinationFrame[i] = sourceFrame[i];
 	}
 
 }
@@ -571,6 +678,7 @@ void ComputeSpectralFeatures::computeRunningStats(float* vector, int numElements
 	{
 		if(numIter==1)
 		{
+			// If this is the first time, initialize variables
 			if(meanFlag)
 			{
 				oldMean[w] = vector[w];
@@ -600,6 +708,7 @@ void ComputeSpectralFeatures::computeRunningStats(float* vector, int numElements
 		{
 			if(dMeanFlag||dStdFlag)
 			{
+				// If we need to calculate the derivative, do it here
 				lastFeatureVector[w] = vector[w] - lastFeatureVector[w];
 			}
 
@@ -637,43 +746,3 @@ void ComputeSpectralFeatures::computeRunningStats(float* vector, int numElements
 
 }
 
-
-//void ComputeSpectralFeatures::computeRunningMean(float* vector, int numElements)
-//{
-//	numIterMean++;
-//	for(int w=0; w<numElements ; w++)
-//	{
-//		if(numIterMean==1)
-//		{
-//			oldMean[w] = vector[w];
-//			newMean[w] = vector[w];
-//		}
-//
-//		else
-//		{
-//			newMean[w] = oldMean[w] + (vector[w]-oldMean[w])/numIterMean;
-//			oldMean[w] = newMean[w];
-//		}
-//	}
-//
-//	
-//}
-//
-//void ComputeSpectralFeatures::computeRunningStd(float* vector, int numElements)
-//{
-//	numIterStd++;
-//	for(int w=0; w<numElements ; w++)
-//	{
-//		if(numIterStd==1)
-//		{
-//			oldStd[w] = 0.0f;
-//			newStd[w] = 0.0f;
-//		}
-//		else
-//		{
-//
-//		}
-//
-//	}
-//	
-//}

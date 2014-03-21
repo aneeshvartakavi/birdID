@@ -42,7 +42,7 @@ public:
 
 	void setSpectralFeatureExtractionProperties(int featuresToCompute = 1023,int subFeaturesToCompute = 15)
 	{
-		computeSpectralFeatures->setFeaturesToCompute(featuresToCompute,subFeaturesToCompute);
+		computeSpectralFeatures->setSpectralFeatureExtractionProps(numRows,featuresToCompute,subFeaturesToCompute);
 		
 		numSpectralFeatures = computeSpectralFeatures->getNumFeatures();
 		numSpectralSubFeatures = computeSpectralFeatures->getNumSubFeatures();
@@ -55,14 +55,25 @@ public:
 		
 		featureVec = new float[numSpectralFeatures*numSpectralSubFeatures];
 		
-		float *tempData = new float[1024];
-		for(int y=0;y<1024;y++)
+		float *tempData = new float[513];
+		
+		for(int y=0;y<513;y++)
 		{
-			tempData[y] = 0.0f;
+			tempData[y] = 1.0f;
 		}
 
 
-		computeSpectralFeatures->computeFeatures(tempData,1024);
+		computeSpectralFeatures->computeFeatures(tempData);
+		float* resultVector = new float[numSpectralFeatures*numSpectralSubFeatures];
+		computeSpectralFeatures->getSubFeatureVector(resultVector,numSpectralFeatures*numSpectralSubFeatures);
+
+		for(int y=0;y<513;y++)
+		{
+			tempData[y] = 2.0f;
+		}
+
+		computeSpectralFeatures->computeFeatures(tempData);
+		computeSpectralFeatures->getSubFeatureVector(resultVector,numSpectralFeatures*numSpectralSubFeatures);
 
 		//for(int t=0;t<numCols;t++)
 		//{

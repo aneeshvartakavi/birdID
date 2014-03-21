@@ -57,9 +57,9 @@ public:
 	}
 
 	// Call to set flags
-	void setFeaturesToCompute(int featureflags, int subFeatureFlags);
+	void setSpectralFeatureExtractionProps(int stftFrameLength,int featureflags, int subFeatureFlags);
 	
-	void computeFeatures(const float* stftFrame, int numElementsInFrame);
+	void computeFeatures(const float* stftFrame);
 
 	int getNumFeatures()
 	{
@@ -72,7 +72,8 @@ public:
 	}
 
 
-	void getFeatureVector(float* computedFeatureVector);
+	void getFeatureVector(float* computedFeatureVector, const int length);
+	void getSubFeatureVector(float* computedSubFeatureVector, const int length);
 
 private:
 
@@ -114,6 +115,7 @@ private:
 
 	// General math functions to speed up math, try making this inline
 	float sumFrame(const float* stftFrame, int numElementsInFrame);
+	void absFrame(float* stftFrame, int numElementsInFrame);
 	float stdFrame(const float* stftFrame, int numElementsInFrame);
 	float maxFrame(const float* stftFrame, int numElementsInFrame);
 	void squareFrame(const float* stftFrame, int numElementsInFrame, float* squaredFrame);
