@@ -5,6 +5,9 @@
     <Filter Include="birdID">
       <UniqueIdentifier>{747174DD-6779-1CFE-D16F-15B6C8473F3C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="birdID\Export">
+      <UniqueIdentifier>{97CAF9E9-A67B-CFD9-2413-0B6B570A7A48}</UniqueIdentifier>
+    </Filter>
     <Filter Include="birdID\Eigen">
       <UniqueIdentifier>{E21F305F-363C-C4C6-9E73-11313C7B49F6}</UniqueIdentifier>
     </Filter>
@@ -124,6 +127,12 @@
     </Filter>
     <Filter Include="birdID\Source">
       <UniqueIdentifier>{B5C121F2-6AEB-14AC-B4FE-800D7200963B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="birdID\Source\Yin">
+      <UniqueIdentifier>{5C0A5686-B61C-1B0D-F46B-10E493446C06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="birdID\Source\Features">
+      <UniqueIdentifier>{94299ABC-3375-F034-6042-C90FEFC9CEF3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Juce Modules">
       <UniqueIdentifier>{422C46B7-0467-2DB0-BF3C-16DFCAFD69AC}</UniqueIdentifier>
@@ -367,6 +376,42 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Export\denoiseSpectrogram.c">
+      <Filter>birdID\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Export\processLabelMatrix.c">
+      <Filter>birdID\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Export\rt_nonfinite.c">
+      <Filter>birdID\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Export\rtGetInf.c">
+      <Filter>birdID\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Export\rtGetNaN.c">
+      <Filter>birdID\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\PreProcessor.cpp">
+      <Filter>birdID\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Yin\Yin.cpp">
+      <Filter>birdID\Source\Yin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\BirdID.cpp">
+      <Filter>birdID\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Features\ComputeCCFeatures.cpp">
+      <Filter>birdID\Source\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Features\ComputeOnsetFeatures.cpp">
+      <Filter>birdID\Source\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Features\ComputePitchFeatures.cpp">
+      <Filter>birdID\Source\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Features\ComputeSpectralFeatures.cpp">
+      <Filter>birdID\Source\Features</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\FeatureExtractor.cpp">
       <Filter>birdID\Source</Filter>
     </ClCompile>
@@ -1461,6 +1506,30 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Export\denoiseSpectrogram.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\denoiseSpectrogram_types.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\processLabelMatrix.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\processLabelMatrix_types.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\rt_nonfinite.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\rtGetInf.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\rtGetNaN.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\rtwtypes.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Eigen\Array.h">
       <Filter>birdID\Eigen</Filter>
     </ClInclude>
@@ -2327,6 +2396,30 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Eigen\UmfPackSupport.h">
       <Filter>birdID\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ConnectedComponents.h">
+      <Filter>birdID\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\PreProcessor.h">
+      <Filter>birdID\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Yin\Yin.h">
+      <Filter>birdID\Source\Yin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\BirdID.h">
+      <Filter>birdID\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Features\ComputeCCFeatures.h">
+      <Filter>birdID\Source\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Features\ComputeOnsetFeatures.h">
+      <Filter>birdID\Source\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Features\ComputePitchFeatures.h">
+      <Filter>birdID\Source\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Features\ComputeSpectralFeatures.h">
+      <Filter>birdID\Source\Features</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\FeatureExtractor.h">
       <Filter>birdID\Source</Filter>

@@ -131,6 +131,18 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Export\denoiseSpectrogram.c"/>
+    <ClCompile Include="..\..\Source\Export\processLabelMatrix.c"/>
+    <ClCompile Include="..\..\Source\Export\rt_nonfinite.c"/>
+    <ClCompile Include="..\..\Source\Export\rtGetInf.c"/>
+    <ClCompile Include="..\..\Source\Export\rtGetNaN.c"/>
+    <ClCompile Include="..\..\Source\PreProcessor.cpp"/>
+    <ClCompile Include="..\..\Source\Yin\Yin.cpp"/>
+    <ClCompile Include="..\..\Source\BirdID.cpp"/>
+    <ClCompile Include="..\..\Source\Features\ComputeCCFeatures.cpp"/>
+    <ClCompile Include="..\..\Source\Features\ComputeOnsetFeatures.cpp"/>
+    <ClCompile Include="..\..\Source\Features\ComputePitchFeatures.cpp"/>
+    <ClCompile Include="..\..\Source\Features\ComputeSpectralFeatures.cpp"/>
     <ClCompile Include="..\..\Source\FeatureExtractor.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
@@ -1133,6 +1145,14 @@
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_gui_extra\juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Export\denoiseSpectrogram.h"/>
+    <ClInclude Include="..\..\Source\Export\denoiseSpectrogram_types.h"/>
+    <ClInclude Include="..\..\Source\Export\processLabelMatrix.h"/>
+    <ClInclude Include="..\..\Source\Export\processLabelMatrix_types.h"/>
+    <ClInclude Include="..\..\Source\Export\rt_nonfinite.h"/>
+    <ClInclude Include="..\..\Source\Export\rtGetInf.h"/>
+    <ClInclude Include="..\..\Source\Export\rtGetNaN.h"/>
+    <ClInclude Include="..\..\Source\Export\rtwtypes.h"/>
     <ClInclude Include="..\..\Source\Eigen\Array.h"/>
     <ClInclude Include="..\..\Source\Eigen\Cholesky.h"/>
     <ClInclude Include="..\..\Source\Eigen\CholmodSupport.h"/>
@@ -1422,6 +1442,14 @@
     <ClInclude Include="..\..\Source\Eigen\SuperLUSupport.h"/>
     <ClInclude Include="..\..\Source\Eigen\SVD.h"/>
     <ClInclude Include="..\..\Source\Eigen\UmfPackSupport.h"/>
+    <ClInclude Include="..\..\Source\ConnectedComponents.h"/>
+    <ClInclude Include="..\..\Source\PreProcessor.h"/>
+    <ClInclude Include="..\..\Source\Yin\Yin.h"/>
+    <ClInclude Include="..\..\Source\BirdID.h"/>
+    <ClInclude Include="..\..\Source\Features\ComputeCCFeatures.h"/>
+    <ClInclude Include="..\..\Source\Features\ComputeOnsetFeatures.h"/>
+    <ClInclude Include="..\..\Source\Features\ComputePitchFeatures.h"/>
+    <ClInclude Include="..\..\Source\Features\ComputeSpectralFeatures.h"/>
     <ClInclude Include="..\..\Source\FeatureExtractor.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>
