@@ -124,9 +124,6 @@ private:
 
 	// Sub-features
 	void computeRunningStats(float* vector, int numElements);
-	//void computeRunningMean(float* vector, int numElements);
-	//void computeRunningStd(float* vector, int numElements);
-	//void firstDerivative(float* vector, int numElements);
 
 	// Flags for subfeatures
 	bool meanFlag;
@@ -136,11 +133,6 @@ private:
 
 	// Memory for sub features
 	int numIter;
-	
-	//int numIterMean; // m_n
-	//int numIterStd;
-	//int numIterdMean;
-	//int numIterdStd;
 
 	// Pointers for running statistics
     float* oldMean;

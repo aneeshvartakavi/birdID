@@ -15,6 +15,7 @@
 
 #include "JuceHeader.h"
 #include "FeatureExtractor.h"
+#include "PreProcessor.h"
 
 #if JUCE_WINDOWS
 #include "Eigen\Dense.h"
@@ -46,6 +47,8 @@ private:
 	File audioFile;
 
 	ScopedPointer<FeatureExtractor> featureExtractor;
+	ScopedPointer<PreProcessor> preProcessor;
+
 	Eigen::MatrixXf magSpec;
 
 	// For the FFT

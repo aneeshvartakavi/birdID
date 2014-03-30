@@ -745,4 +745,3 @@ void ComputeSpectralFeatures::computeRunningStats(float* vector, int numElements
 	}
 
 }
-

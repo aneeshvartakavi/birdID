@@ -4,6 +4,27 @@
               bundleIdentifier="com.yourcompany.birdID" includeBinaryInAppConfig="1"
               jucerVersion="3.1.0">
   <MAINGROUP id="kn7qzG" name="birdID">
+    <GROUP id="{6FC844E7-B40C-8F4C-42F7-003ACB0CE33A}" name="Export">
+      <FILE id="VBbkxH" name="denoiseSpectrogram.c" compile="1" resource="0"
+            file="Source/Export/denoiseSpectrogram.c"/>
+      <FILE id="rGwRIk" name="denoiseSpectrogram.h" compile="0" resource="0"
+            file="Source/Export/denoiseSpectrogram.h"/>
+      <FILE id="v2pHBU" name="denoiseSpectrogram_types.h" compile="0" resource="0"
+            file="Source/Export/denoiseSpectrogram_types.h"/>
+      <FILE id="EsOFWz" name="processLabelMatrix.c" compile="1" resource="0"
+            file="Source/Export/processLabelMatrix.c"/>
+      <FILE id="EIgE4D" name="processLabelMatrix.h" compile="0" resource="0"
+            file="Source/Export/processLabelMatrix.h"/>
+      <FILE id="OCkSSG" name="processLabelMatrix_types.h" compile="0" resource="0"
+            file="Source/Export/processLabelMatrix_types.h"/>
+      <FILE id="Tt8qcm" name="rt_nonfinite.c" compile="1" resource="0" file="Source/Export/rt_nonfinite.c"/>
+      <FILE id="jsiAnn" name="rt_nonfinite.h" compile="0" resource="0" file="Source/Export/rt_nonfinite.h"/>
+      <FILE id="BnxG28" name="rtGetInf.c" compile="1" resource="0" file="Source/Export/rtGetInf.c"/>
+      <FILE id="Zqqsp9" name="rtGetInf.h" compile="0" resource="0" file="Source/Export/rtGetInf.h"/>
+      <FILE id="l5SB26" name="rtGetNaN.c" compile="1" resource="0" file="Source/Export/rtGetNaN.c"/>
+      <FILE id="D69Rjc" name="rtGetNaN.h" compile="0" resource="0" file="Source/Export/rtGetNaN.h"/>
+      <FILE id="VKyVCF" name="rtwtypes.h" compile="0" resource="0" file="Source/Export/rtwtypes.h"/>
+    </GROUP>
     <GROUP id="{7E4FE96C-C096-5A1D-412B-02680392F4EE}" name="Eigen">
       <FILE id="Dfq0ql" name="Array.h" compile="0" resource="0" file="Source/Eigen/Array.h"/>
       <FILE id="gCSrtn" name="Cholesky.h" compile="0" resource="0" file="Source/Eigen/Cholesky.h"/>
@@ -528,9 +549,30 @@
             file="Source/Eigen/UmfPackSupport.h"/>
     </GROUP>
     <GROUP id="{F7A16C6D-EFA5-8D82-2830-A70D3C0C94A8}" name="Source">
+      <FILE id="MU6Nh6" name="ConnectedComponents.h" compile="0" resource="0"
+            file="Source/ConnectedComponents.h"/>
+      <FILE id="PSwAaH" name="PreProcessor.cpp" compile="1" resource="0"
+            file="Source/PreProcessor.cpp"/>
+      <FILE id="kYNOH2" name="PreProcessor.h" compile="0" resource="0" file="Source/PreProcessor.h"/>
+      <GROUP id="{2248CDB0-5799-FA2D-9889-8E584BC8B104}" name="Yin">
+        <FILE id="xX95L7" name="Yin.cpp" compile="1" resource="0" file="Source/Yin/Yin.cpp"/>
+        <FILE id="gpzbeL" name="Yin.h" compile="0" resource="0" file="Source/Yin/Yin.h"/>
+      </GROUP>
       <FILE id="parTeY" name="BirdID.cpp" compile="1" resource="0" file="Source/BirdID.cpp"/>
       <FILE id="n8cVQo" name="BirdID.h" compile="0" resource="0" file="Source/BirdID.h"/>
       <GROUP id="{51850F17-C21B-F1C6-0656-6B777A2D608F}" name="Features">
+        <FILE id="D5opHt" name="ComputeCCFeatures.cpp" compile="1" resource="0"
+              file="Source/Features/ComputeCCFeatures.cpp"/>
+        <FILE id="sy7rDS" name="ComputeCCFeatures.h" compile="0" resource="0"
+              file="Source/Features/ComputeCCFeatures.h"/>
+        <FILE id="I02Cyj" name="ComputeOnsetFeatures.cpp" compile="1" resource="0"
+              file="Source/Features/ComputeOnsetFeatures.cpp"/>
+        <FILE id="fhAeW7" name="ComputeOnsetFeatures.h" compile="0" resource="0"
+              file="Source/Features/ComputeOnsetFeatures.h"/>
+        <FILE id="pFaNrO" name="ComputePitchFeatures.cpp" compile="1" resource="0"
+              file="Source/Features/ComputePitchFeatures.cpp"/>
+        <FILE id="HaiGWT" name="ComputePitchFeatures.h" compile="0" resource="0"
+              file="Source/Features/ComputePitchFeatures.h"/>
         <FILE id="JlKLJy" name="ComputeSpectralFeatures.cpp" compile="1" resource="0"
               file="Source/Features/ComputeSpectralFeatures.cpp"/>
         <FILE id="Eq4m2Y" name="ComputeSpectralFeatures.h" compile="0" resource="0"

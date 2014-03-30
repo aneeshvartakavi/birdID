@@ -29,6 +29,7 @@ BirdID::~BirdID()
 	featureExtractor = nullptr;
 	//delete featureVector;
 	featureVector = nullptr;
+	preProcessor = nullptr;
 }
 
 
@@ -45,11 +46,12 @@ void BirdID::process()
 	// 2. Compute Spectrum
 	computeMagnitudeSpectrum();
 	// 3. Denoising
-	
+	preProcessor = new PreProcessor(magSpec);
+	preProcessor->process();
 	// 4. Extract features
-	featureExtractor = new FeatureExtractor(magSpec);
+	featureExtractor = new FeatureExtractor(magSpec,audioFile);
 	featureExtractor->setSpectralFeatureExtractionProperties();
-	featureExtractor->extractFeatures(featureVector,numFeatures);
+	featureExtractor->extractFeatures(/*featureVector,numFeatures*/);
 
 	// 5. Classify
 

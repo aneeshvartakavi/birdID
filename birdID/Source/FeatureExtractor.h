@@ -13,31 +13,35 @@
 
 #include "JuceHeader.h"
 #include "Eigen\Dense.h"
+
 #include "Features\ComputeSpectralFeatures.h"
+#include "Features\ComputePitchFeatures.h"
 
 class FeatureExtractor
 {
 
 public:
 		
-	FeatureExtractor(const Eigen::MatrixXf magnitudeSpectrum_)
+	FeatureExtractor(const Eigen::MatrixXf magnitudeSpectrum_, File& audioFile_)
 	{
 		
 		computeSpectralFeatures = new ComputeSpectralFeatures();
-		
+		blockSize = 8192;
+		hopSize = 32;
+		audioFile = audioFile_;
+
+		computePitchFeatures = new ComputePitchFeatures(blockSize,hopSize);
+
 		magSpec = magnitudeSpectrum_;
 		numRows = magSpec.rows();
 		numCols = magSpec.cols();
-		//magSpec = new float[numRows*numCols];
-		// Copy Magnitude spectum over
-		//featureVec = new float[10];
+
 	}
 
 	~FeatureExtractor()
 	{
 		computeSpectralFeatures = nullptr;
-		//delete magSpec;
-		//magSpec = nullptr;
+		computePitchFeatures = nullptr;
 	}
 
 	void setSpectralFeatureExtractionProperties(int featuresToCompute = 1023,int subFeaturesToCompute = 15)
@@ -49,9 +53,12 @@ public:
 	}
 
 
-	void extractFeatures(float* featureVec_, int &numFeatures_)
+	void extractFeatures(/*float* featureVec_, int &numFeatures_*/)
 	{
 		//int featuresToCompute =  1023; //ComputeSpectralFeatures::spectralFeatures::spectralCentroid; // Set to 1023 for all
+		
+		computePitchFeatures->computeFeatures(audioFile);
+		
 		
 		featureVec = new float[numSpectralFeatures*numSpectralSubFeatures];
 		
@@ -75,14 +82,6 @@ public:
 		computeSpectralFeatures->computeFeatures(tempData);
 		computeSpectralFeatures->getSubFeatureVector(resultVector,numSpectralFeatures*numSpectralSubFeatures);
 
-		//for(int t=0;t<numCols;t++)
-		//{
-//			computeSpectralFeatures->computeFeatures(magSpec.col(t).data(),numRows);
-//			// Can now call getFeatureVector at the end
-//			// computeSpectralFeatures->getFeatureVector(featureVec);
-//			
-//		}
-
 		delete featureVec;
 		featureVec = nullptr;
 		
@@ -92,8 +91,14 @@ public:
 
 
 	private:
-		ScopedPointer<ComputeSpectralFeatures> computeSpectralFeatures;
 		
+		ScopedPointer<ComputeSpectralFeatures> computeSpectralFeatures;
+		ScopedPointer<ComputePitchFeatures> computePitchFeatures;
+
+		// Used for Pitch features
+		int blockSize;	
+		int hopSize;
+
 		int numRows, numCols;
 
 		int numSpectralFeatures;
@@ -101,6 +106,8 @@ public:
 		float* featureVec;
 
 		Eigen::MatrixXf magSpec;
+
+		File audioFile;
 };
 
 
