@@ -1,9 +1,9 @@
 /*
   ==============================================================================
 
-    PreProcessor.cpp
-    Created: 27 Mar 2014 10:15:17pm
-    Author:  Aneesh
+	PreProcessor.cpp
+	Created: 27 Mar 2014 10:15:17pm
+	Author:  Aneesh
 
   ==============================================================================
 */
@@ -86,25 +86,7 @@ void PreProcessor::DenoiseSpectrogram()
 
 void PreProcessor::ccDenoising()
 {
-	//float * temp = new float[20];
-	//for(int i=0;i<20;i++)
-	//{
-	//	temp[i] = 0;
-	//}
-	//temp[4] = 1;
-	//temp[5] = 1;
-	//temp[8] = 1;
-	//temp [14] =1;
-	//temp [15] =1;
-	//temp [16] =1;
-	//temp [17] =1;
-	
-	// Initialize the object
-		//ccFeatures = new ComputeCCFeatures(temp,20,1);
-	// Hopefully now the first component will always be zeros
-	denoisedSpectrogram[0] = 0;
-	denoisedSpectrogram[1] = 0;
 	ccFeatures = new ComputeCCFeatures(denoisedSpectrogram,numRows,numCols);
-
-	ccFeatures->performCCDenoising();
+	// The denoised spectrogram is overwritten
+	ccFeatures->performCCDenoising(denoisedSpectrogram);
 }

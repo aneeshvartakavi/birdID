@@ -3,7 +3,7 @@
  *
  * Code generation for function 'processLabelMatrix'
  *
- * C source code generated on: Sat Mar 29 23:42:07 2014
+ * C source code generated on: Sun Mar 30 00:15:01 2014
  *
  */
 
@@ -239,7 +239,7 @@ static void eml_null_assignment(emxArray_real_T *x, const emxArray_boolean_T
       k0 = nxout;
     }
 
-    b_emxInit_real_T(&b_x, 1);
+    emxInit_real_T(&b_x, 1);
     nxout = b_x->size[0];
     b_x->size[0] = k0;
     emxEnsureCapacity((emxArray__common *)b_x, nxout, (int32_T)sizeof(real_T));
@@ -263,7 +263,7 @@ static void eml_null_assignment(emxArray_real_T *x, const emxArray_boolean_T
       k0 = 0;
     }
 
-    b_emxInit_real_T(&b_x, 1);
+    emxInit_real_T(&b_x, 1);
     nxout = b_x->size[0];
     b_x->size[0] = k0 + 1;
     emxEnsureCapacity((emxArray__common *)b_x, nxout, (int32_T)sizeof(real_T));
@@ -316,7 +316,7 @@ static void eml_sort(const emxArray_real_T *x, emxArray_real_T *y)
     vlen = 0;
   }
 
-  b_emxInit_real_T(&vwork, 1);
+  emxInit_real_T(&vwork, 1);
   i2 = vwork->size[0];
   vwork->size[0] = vlen + 1;
   emxEnsureCapacity((emxArray__common *)vwork, i2, (int32_T)sizeof(real_T));
@@ -617,7 +617,7 @@ static void sum(const emxArray_boolean_T *x, emxArray_real_T *y)
 //  emxArray_real_T *emx;
 //  int32_T numEl;
 //  int32_T i;
-//  emxInit_real_T(&emx, numDimensions);
+//  b_emxInit_real_T(&emx, numDimensions);
 //  numEl = 1;
 //  for (i = 0; i < numDimensions; i++) {
 //    numEl *= size[i];
@@ -636,7 +636,7 @@ static void sum(const emxArray_boolean_T *x, emxArray_real_T *y)
 //  emxArray_real_T *emx;
 //  int32_T numEl;
 //  int32_T i;
-//  emxInit_real_T(&emx, numDimensions);
+//  b_emxInit_real_T(&emx, numDimensions);
 //  numEl = 1;
 //  for (i = 0; i < numDimensions; i++) {
 //    numEl *= size[i];
@@ -659,7 +659,7 @@ static void sum(const emxArray_boolean_T *x, emxArray_real_T *y)
 //  int32_T i;
 //  size[0] = rows;
 //  size[1] = cols;
-//  emxInit_real_T(&emx, 2);
+//  b_emxInit_real_T(&emx, 2);
 //  numEl = 1;
 //  for (i = 0; i < 2; i++) {
 //    numEl *= size[i];
@@ -681,7 +681,7 @@ static void sum(const emxArray_boolean_T *x, emxArray_real_T *y)
 //  int32_T i;
 //  size[0] = rows;
 //  size[1] = cols;
-//  emxInit_real_T(&emx, 2);
+//  b_emxInit_real_T(&emx, 2);
 //  numEl = 1;
 //  for (i = 0; i < 2; i++) {
 //    numEl *= size[i];
@@ -699,17 +699,18 @@ static void sum(const emxArray_boolean_T *x, emxArray_real_T *y)
 //  emxFree_real_T(&emxArray);
 //}
 
-void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
+void processLabelMatrix(emxArray_real_T *labels, const emxArray_real_T
+  *originalSpec, emxArray_real_T *denoisedSpec)
 {
-  int32_T outsz[2];
-  int32_T ix;
+  uint32_T outsz[2];
+  int32_T ixstop;
   emxArray_real_T *maxval;
-  int32_T b_ix;
+  int32_T ix;
   int32_T iy;
   int32_T i;
   int32_T ixstart;
-  int32_T apnd;
   real_T cdiff;
+  int32_T apnd;
   boolean_T exitg5;
   boolean_T exitg4;
   emxArray_int32_T *ii;
@@ -739,40 +740,40 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
 
   /* UNTITLED2 Summary of this function goes here */
   /*    Detailed explanation goes here */
-  for (ix = 0; ix < 2; ix++) {
-    outsz[ix] = labels->size[ix];
+  for (ixstop = 0; ixstop < 2; ixstop++) {
+    outsz[ixstop] = (uint32_T)labels->size[ixstop];
   }
 
-  emxInit_real_T(&maxval, 2);
-  ix = maxval->size[0] * maxval->size[1];
+  b_emxInit_real_T(&maxval, 2);
+  ixstop = maxval->size[0] * maxval->size[1];
   maxval->size[0] = 1;
-  maxval->size[1] = outsz[1];
-  emxEnsureCapacity((emxArray__common *)maxval, ix, (int32_T)sizeof(real_T));
-  b_ix = 0;
+  maxval->size[1] = (int32_T)outsz[1];
+  emxEnsureCapacity((emxArray__common *)maxval, ixstop, (int32_T)sizeof(real_T));
+  ix = 0;
   iy = -1;
   for (i = 1; i <= labels->size[1]; i++) {
-    ixstart = b_ix;
-    apnd = b_ix + labels->size[0];
-    cdiff = labels->data[b_ix];
+    ixstart = ix;
+    ixstop = ix + labels->size[0];
+    cdiff = labels->data[ix];
     if (labels->size[0] > 1) {
-      if (rtIsNaN(labels->data[b_ix])) {
-        ix = b_ix + 1;
+      if (rtIsNaN(labels->data[ix])) {
+        apnd = ix + 1;
         exitg5 = FALSE;
-        while ((exitg5 == FALSE) && (ix + 1 <= apnd)) {
-          ixstart = ix;
-          if (!rtIsNaN(labels->data[ix])) {
-            cdiff = labels->data[ix];
+        while ((exitg5 == FALSE) && (apnd + 1 <= ixstop)) {
+          ixstart = apnd;
+          if (!rtIsNaN(labels->data[apnd])) {
+            cdiff = labels->data[apnd];
             exitg5 = TRUE;
           } else {
-            ix++;
+            apnd++;
           }
         }
       }
 
-      if (ixstart + 1 < apnd) {
-        for (ix = ixstart + 1; ix + 1 <= apnd; ix++) {
-          if (labels->data[ix] > cdiff) {
-            cdiff = labels->data[ix];
+      if (ixstart + 1 < ixstop) {
+        for (apnd = ixstart + 1; apnd + 1 <= ixstop; apnd++) {
+          if (labels->data[apnd] > cdiff) {
+            cdiff = labels->data[apnd];
           }
         }
       }
@@ -780,22 +781,22 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
 
     iy++;
     maxval->data[iy] = cdiff;
-    b_ix += labels->size[0];
+    ix += labels->size[0];
   }
 
   ixstart = 1;
   cdiff = maxval->data[0];
   if (maxval->size[1] > 1) {
     if (rtIsNaN(maxval->data[0])) {
-      b_ix = 2;
+      ix = 2;
       exitg4 = FALSE;
-      while ((exitg4 == FALSE) && (b_ix <= maxval->size[1])) {
-        ixstart = b_ix;
-        if (!rtIsNaN(maxval->data[b_ix - 1])) {
-          cdiff = maxval->data[b_ix - 1];
+      while ((exitg4 == FALSE) && (ix <= maxval->size[1])) {
+        ixstart = ix;
+        if (!rtIsNaN(maxval->data[ix - 1])) {
+          cdiff = maxval->data[ix - 1];
           exitg4 = TRUE;
         } else {
-          b_ix++;
+          ix++;
         }
       }
     }
@@ -818,34 +819,34 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
   emxInit_boolean_T(&b_labels, 2);
   emxInit_boolean_T(&c_labels, 2);
   while (i <= (int32_T)cdiff - 1) {
-    ix = c_labels->size[0] * c_labels->size[1];
+    ixstop = c_labels->size[0] * c_labels->size[1];
     c_labels->size[0] = labels->size[0];
     c_labels->size[1] = labels->size[1];
-    emxEnsureCapacity((emxArray__common *)c_labels, ix, (int32_T)sizeof
+    emxEnsureCapacity((emxArray__common *)c_labels, ixstop, (int32_T)sizeof
                       (boolean_T));
-    ixstart = labels->size[0] * labels->size[1];
-    for (ix = 0; ix < ixstart; ix++) {
-      c_labels->data[ix] = (labels->data[ix] == 1.0 + (real_T)i);
+    ix = labels->size[0] * labels->size[1];
+    for (ixstop = 0; ixstop < ix; ixstop++) {
+      c_labels->data[ixstop] = (labels->data[ixstop] == 1.0 + (real_T)i);
     }
 
     sum(c_labels, maxval);
     ndbl = b_sum(maxval);
     if (ndbl <= 30.0) {
       /*  Set that label to zero */
-      ix = b_labels->size[0] * b_labels->size[1];
+      ixstop = b_labels->size[0] * b_labels->size[1];
       b_labels->size[0] = labels->size[0];
       b_labels->size[1] = labels->size[1];
-      emxEnsureCapacity((emxArray__common *)b_labels, ix, (int32_T)sizeof
+      emxEnsureCapacity((emxArray__common *)b_labels, ixstop, (int32_T)sizeof
                         (boolean_T));
-      ixstart = labels->size[0] * labels->size[1];
-      for (ix = 0; ix < ixstart; ix++) {
-        b_labels->data[ix] = (labels->data[ix] == 1.0 + (real_T)i);
+      ix = labels->size[0] * labels->size[1];
+      for (ixstop = 0; ixstop < ix; ixstop++) {
+        b_labels->data[ixstop] = (labels->data[ixstop] == 1.0 + (real_T)i);
       }
 
       eml_li_find(b_labels, ii);
-      ixstart = ii->size[0];
-      for (ix = 0; ix < ixstart; ix++) {
-        labels->data[ii->data[ix] - 1] = 0.0;
+      ix = ii->size[0];
+      for (ixstop = 0; ixstop < ix; ixstop++) {
+        labels->data[ii->data[ixstop] - 1] = 0.0;
       }
     }
 
@@ -854,7 +855,7 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
 
   emxFree_boolean_T(&c_labels);
   emxFree_boolean_T(&b_labels);
-  b_emxInit_real_T(&labels_left, 1);
+  emxInit_real_T(&labels_left, 1);
 
   /*  Re-ordering labels */
   d_labels[0] = labels->size[0] * labels->size[1];
@@ -888,25 +889,25 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
     iy = (int32_T)ndbl - 1;
   }
 
-  ix = maxval->size[0] * maxval->size[1];
+  ixstop = maxval->size[0] * maxval->size[1];
   maxval->size[0] = 1;
   maxval->size[1] = iy + 1;
-  emxEnsureCapacity((emxArray__common *)maxval, ix, (int32_T)sizeof(real_T));
+  emxEnsureCapacity((emxArray__common *)maxval, ixstop, (int32_T)sizeof(real_T));
   if (iy + 1 > 0) {
     maxval->data[0] = 1.0;
     if (iy + 1 > 1) {
       maxval->data[iy] = b_apnd;
-      b_ix = iy / 2;
-      for (ixstart = 1; ixstart < b_ix; ixstart++) {
+      ix = iy / 2;
+      for (ixstart = 1; ixstart < ix; ixstart++) {
         maxval->data[ixstart] = 1.0 + (real_T)ixstart;
         maxval->data[iy - ixstart] = b_apnd - (real_T)ixstart;
       }
 
-      if (b_ix << 1 == iy) {
-        maxval->data[b_ix] = (1.0 + b_apnd) / 2.0;
+      if (ix << 1 == iy) {
+        maxval->data[ix] = (1.0 + b_apnd) / 2.0;
       } else {
-        maxval->data[b_ix] = 1.0 + (real_T)b_ix;
-        maxval->data[b_ix + 1] = b_apnd - (real_T)b_ix;
+        maxval->data[ix] = 1.0 + (real_T)ix;
+        maxval->data[ix + 1] = b_apnd - (real_T)ix;
       }
     }
   }
@@ -915,114 +916,114 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
     iy = -1;
     apnd = labels_left->size[0];
   } else {
-    b_ix = (int32_T)floor(((real_T)labels_left->size[0] - 2.0) + 0.5) + 2;
-    apnd = b_ix;
-    iy = b_ix - labels_left->size[0];
+    ix = (int32_T)floor(((real_T)labels_left->size[0] - 2.0) + 0.5) + 2;
+    apnd = ix;
+    iy = ix - labels_left->size[0];
     ixstart = labels_left->size[0];
     if (fabs(iy) < 4.4408920985006262E-16 * (real_T)ixstart) {
-      b_ix++;
+      ix++;
       apnd = labels_left->size[0];
     } else if (iy > 0) {
-      apnd = b_ix - 1;
+      apnd = ix - 1;
     } else {
-      b_ix++;
+      ix++;
     }
 
-    iy = b_ix - 3;
+    iy = ix - 3;
   }
 
-  emxInit_real_T(&y, 2);
-  ix = y->size[0] * y->size[1];
+  b_emxInit_real_T(&y, 2);
+  ixstop = y->size[0] * y->size[1];
   y->size[0] = 1;
   y->size[1] = iy + 1;
-  emxEnsureCapacity((emxArray__common *)y, ix, (int32_T)sizeof(real_T));
+  emxEnsureCapacity((emxArray__common *)y, ixstop, (int32_T)sizeof(real_T));
   if (iy + 1 > 0) {
     y->data[0] = 2.0;
     if (iy + 1 > 1) {
       y->data[iy] = apnd;
-      b_ix = iy / 2;
-      for (ixstart = 1; ixstart < b_ix; ixstart++) {
+      ix = iy / 2;
+      for (ixstart = 1; ixstart < ix; ixstart++) {
         y->data[ixstart] = 2.0 + (real_T)ixstart;
         y->data[iy - ixstart] = apnd - ixstart;
       }
 
-      if (b_ix << 1 == iy) {
-        y->data[b_ix] = (2.0 + (real_T)apnd) / 2.0;
+      if (ix << 1 == iy) {
+        y->data[ix] = (2.0 + (real_T)apnd) / 2.0;
       } else {
-        y->data[b_ix] = 2.0 + (real_T)b_ix;
-        y->data[b_ix + 1] = apnd - b_ix;
+        y->data[ix] = 2.0 + (real_T)ix;
+        y->data[ix + 1] = apnd - ix;
       }
     }
   }
 
   b_emxInit_boolean_T(&r0, 1);
-  ix = r0->size[0];
+  ixstop = r0->size[0];
   r0->size[0] = maxval->size[1];
-  emxEnsureCapacity((emxArray__common *)r0, ix, (int32_T)sizeof(boolean_T));
-  ixstart = maxval->size[1];
-  for (ix = 0; ix < ixstart; ix++) {
-    r0->data[ix] = (labels_left->data[(int32_T)maxval->data[ix] - 1] ==
-                    labels_left->data[(int32_T)y->data[ix] - 1]);
+  emxEnsureCapacity((emxArray__common *)r0, ixstop, (int32_T)sizeof(boolean_T));
+  ix = maxval->size[1];
+  for (ixstop = 0; ixstop < ix; ixstop++) {
+    r0->data[ixstop] = (labels_left->data[(int32_T)maxval->data[ixstop] - 1] ==
+                        labels_left->data[(int32_T)y->data[ixstop] - 1]);
   }
 
   eml_null_assignment(labels_left, r0);
   i = 0;
   emxInit_boolean_T(&f_labels, 2);
   while (i <= (int32_T)((real_T)labels_left->size[0] + -1.0) - 1) {
-    ix = f_labels->size[0] * f_labels->size[1];
+    ixstop = f_labels->size[0] * f_labels->size[1];
     f_labels->size[0] = labels->size[0];
     f_labels->size[1] = labels->size[1];
-    emxEnsureCapacity((emxArray__common *)f_labels, ix, (int32_T)sizeof
+    emxEnsureCapacity((emxArray__common *)f_labels, ixstop, (int32_T)sizeof
                       (boolean_T));
     ndbl = labels_left->data[(int32_T)(2.0 + (real_T)i) - 1];
-    ixstart = labels->size[0] * labels->size[1];
-    for (ix = 0; ix < ixstart; ix++) {
-      f_labels->data[ix] = (labels->data[ix] == ndbl);
+    ix = labels->size[0] * labels->size[1];
+    for (ixstop = 0; ixstop < ix; ixstop++) {
+      f_labels->data[ixstop] = (labels->data[ixstop] == ndbl);
     }
 
     eml_li_find(f_labels, ii);
-    ixstart = ii->size[0];
-    for (ix = 0; ix < ixstart; ix++) {
-      labels->data[ii->data[ix] - 1] = (2.0 + (real_T)i) - 1.0;
+    ix = ii->size[0];
+    for (ixstop = 0; ixstop < ix; ixstop++) {
+      labels->data[ii->data[ixstop] - 1] = (2.0 + (real_T)i) - 1.0;
     }
 
     i++;
   }
 
   emxFree_boolean_T(&f_labels);
-  for (ix = 0; ix < 2; ix++) {
-    outsz[ix] = labels->size[ix];
+  for (ixstop = 0; ixstop < 2; ixstop++) {
+    outsz[ixstop] = (uint32_T)labels->size[ixstop];
   }
 
-  ix = maxval->size[0] * maxval->size[1];
+  ixstop = maxval->size[0] * maxval->size[1];
   maxval->size[0] = 1;
-  maxval->size[1] = outsz[1];
-  emxEnsureCapacity((emxArray__common *)maxval, ix, (int32_T)sizeof(real_T));
-  b_ix = 0;
+  maxval->size[1] = (int32_T)outsz[1];
+  emxEnsureCapacity((emxArray__common *)maxval, ixstop, (int32_T)sizeof(real_T));
+  ix = 0;
   iy = -1;
   for (i = 1; i <= labels->size[1]; i++) {
-    ixstart = b_ix;
-    apnd = b_ix + labels->size[0];
-    cdiff = labels->data[b_ix];
+    ixstart = ix;
+    ixstop = ix + labels->size[0];
+    cdiff = labels->data[ix];
     if (labels->size[0] > 1) {
-      if (rtIsNaN(labels->data[b_ix])) {
-        ix = b_ix + 1;
+      if (rtIsNaN(labels->data[ix])) {
+        apnd = ix + 1;
         exitg3 = FALSE;
-        while ((exitg3 == FALSE) && (ix + 1 <= apnd)) {
-          ixstart = ix;
-          if (!rtIsNaN(labels->data[ix])) {
-            cdiff = labels->data[ix];
+        while ((exitg3 == FALSE) && (apnd + 1 <= ixstop)) {
+          ixstart = apnd;
+          if (!rtIsNaN(labels->data[apnd])) {
+            cdiff = labels->data[apnd];
             exitg3 = TRUE;
           } else {
-            ix++;
+            apnd++;
           }
         }
       }
 
-      if (ixstart + 1 < apnd) {
-        for (ix = ixstart + 1; ix + 1 <= apnd; ix++) {
-          if (labels->data[ix] > cdiff) {
-            cdiff = labels->data[ix];
+      if (ixstart + 1 < ixstop) {
+        for (apnd = ixstart + 1; apnd + 1 <= ixstop; apnd++) {
+          if (labels->data[apnd] > cdiff) {
+            cdiff = labels->data[apnd];
           }
         }
       }
@@ -1030,22 +1031,22 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
 
     iy++;
     maxval->data[iy] = cdiff;
-    b_ix += labels->size[0];
+    ix += labels->size[0];
   }
 
   ixstart = 1;
   cdiff = maxval->data[0];
   if (maxval->size[1] > 1) {
     if (rtIsNaN(maxval->data[0])) {
-      b_ix = 2;
+      ix = 2;
       exitg2 = FALSE;
-      while ((exitg2 == FALSE) && (b_ix <= maxval->size[1])) {
-        ixstart = b_ix;
-        if (!rtIsNaN(maxval->data[b_ix - 1])) {
-          cdiff = maxval->data[b_ix - 1];
+      while ((exitg2 == FALSE) && (ix <= maxval->size[1])) {
+        ixstart = ix;
+        if (!rtIsNaN(maxval->data[ix - 1])) {
+          cdiff = maxval->data[ix - 1];
           exitg2 = TRUE;
         } else {
-          b_ix++;
+          ix++;
         }
       }
     }
@@ -1065,32 +1066,32 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
   /*  Avoid zero label */
   i = 0;
   emxInit_boolean_T(&x, 2);
-  b_emxInit_real_T(&b_x, 1);
+  emxInit_real_T(&b_x, 1);
   emxInit_boolean_T(&g_labels, 2);
   emxInit_int32_T(&b_ii, 1);
   while (i <= (int32_T)cdiff - 1) {
     /*  Get all the y-coords */
-    ix = x->size[0] * x->size[1];
+    ixstop = x->size[0] * x->size[1];
     x->size[0] = labels->size[0];
     x->size[1] = labels->size[1];
-    emxEnsureCapacity((emxArray__common *)x, ix, (int32_T)sizeof(boolean_T));
-    ixstart = labels->size[0] * labels->size[1];
-    for (ix = 0; ix < ixstart; ix++) {
-      x->data[ix] = (labels->data[ix] == 1.0 + (real_T)i);
+    emxEnsureCapacity((emxArray__common *)x, ixstop, (int32_T)sizeof(boolean_T));
+    ix = labels->size[0] * labels->size[1];
+    for (ixstop = 0; ixstop < ix; ixstop++) {
+      x->data[ixstop] = (labels->data[ixstop] == 1.0 + (real_T)i);
     }
 
     iy = x->size[0] * x->size[1];
     ixstart = 0;
-    ix = ii->size[0];
+    ixstop = ii->size[0];
     ii->size[0] = iy;
-    emxEnsureCapacity((emxArray__common *)ii, ix, (int32_T)sizeof(int32_T));
-    b_ix = 1;
+    emxEnsureCapacity((emxArray__common *)ii, ixstop, (int32_T)sizeof(int32_T));
+    ix = 1;
     exitg1 = FALSE;
-    while ((exitg1 == FALSE) && (b_ix <= iy)) {
+    while ((exitg1 == FALSE) && (ix <= iy)) {
       guard1 = FALSE;
-      if (x->data[b_ix - 1]) {
+      if (x->data[ix - 1]) {
         ixstart++;
-        ii->data[ixstart - 1] = b_ix;
+        ii->data[ixstart - 1] = ix;
         if (ixstart >= iy) {
           exitg1 = TRUE;
         } else {
@@ -1101,74 +1102,79 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
       }
 
       if (guard1 == TRUE) {
-        b_ix++;
+        ix++;
       }
     }
 
     if (iy == 1) {
       if (ixstart == 0) {
-        ix = ii->size[0];
+        ixstop = ii->size[0];
         ii->size[0] = 0;
-        emxEnsureCapacity((emxArray__common *)ii, ix, (int32_T)sizeof(int32_T));
+        emxEnsureCapacity((emxArray__common *)ii, ixstop, (int32_T)sizeof
+                          (int32_T));
       }
     } else {
       if (1 > ixstart) {
-        ixstart = 0;
+        ix = 0;
+      } else {
+        ix = ixstart;
       }
 
-      ix = b_ii->size[0];
-      b_ii->size[0] = ixstart;
-      emxEnsureCapacity((emxArray__common *)b_ii, ix, (int32_T)sizeof(int32_T));
-      for (ix = 0; ix < ixstart; ix++) {
-        b_ii->data[ix] = ii->data[ix];
+      ixstop = b_ii->size[0];
+      b_ii->size[0] = ix;
+      emxEnsureCapacity((emxArray__common *)b_ii, ixstop, (int32_T)sizeof
+                        (int32_T));
+      for (ixstop = 0; ixstop < ix; ixstop++) {
+        b_ii->data[ixstop] = ii->data[ixstop];
       }
 
-      ix = ii->size[0];
+      ixstop = ii->size[0];
       ii->size[0] = b_ii->size[0];
-      emxEnsureCapacity((emxArray__common *)ii, ix, (int32_T)sizeof(int32_T));
-      ixstart = b_ii->size[0];
-      for (ix = 0; ix < ixstart; ix++) {
-        ii->data[ix] = b_ii->data[ix];
+      emxEnsureCapacity((emxArray__common *)ii, ixstop, (int32_T)sizeof(int32_T));
+      ix = b_ii->size[0];
+      for (ixstop = 0; ixstop < ix; ixstop++) {
+        ii->data[ixstop] = b_ii->data[ixstop];
       }
     }
 
-    ix = labels_left->size[0];
+    ixstop = labels_left->size[0];
     labels_left->size[0] = ii->size[0];
-    emxEnsureCapacity((emxArray__common *)labels_left, ix, (int32_T)sizeof
+    emxEnsureCapacity((emxArray__common *)labels_left, ixstop, (int32_T)sizeof
                       (real_T));
-    ixstart = ii->size[0];
-    for (ix = 0; ix < ixstart; ix++) {
-      labels_left->data[ix] = ii->data[ix];
+    ix = ii->size[0];
+    for (ixstop = 0; ixstop < ix; ixstop++) {
+      labels_left->data[ixstop] = ii->data[ixstop];
     }
 
-    if ((!(labels_left->size[0] == 0)) && (denoisedSpec->data[(int32_T)
+    if ((!(labels_left->size[0] == 0)) && (originalSpec->data[(int32_T)
          labels_left->data[0] - 1] != 0.0)) {
-      for (ix = 0; ix < 2; ix++) {
-        outsz[ix] = denoisedSpec->size[ix];
+      for (ixstop = 0; ixstop < 2; ixstop++) {
+        outsz[ixstop] = (uint32_T)originalSpec->size[ixstop];
       }
 
-      ix = ii->size[0];
+      ixstop = ii->size[0];
       ii->size[0] = labels_left->size[0];
-      emxEnsureCapacity((emxArray__common *)ii, ix, (int32_T)sizeof(int32_T));
-      ixstart = labels_left->size[0];
-      for (ix = 0; ix < ixstart; ix++) {
-        ii->data[ix] = (int32_T)labels_left->data[ix] - 1;
+      emxEnsureCapacity((emxArray__common *)ii, ixstop, (int32_T)sizeof(int32_T));
+      ix = labels_left->size[0];
+      for (ixstop = 0; ixstop < ix; ixstop++) {
+        ii->data[ixstop] = (int32_T)labels_left->data[ixstop] - 1;
       }
 
+      ixstop = ii->size[0];
+      emxEnsureCapacity((emxArray__common *)ii, ixstop, (int32_T)sizeof(int32_T));
       ix = ii->size[0];
-      emxEnsureCapacity((emxArray__common *)ii, ix, (int32_T)sizeof(int32_T));
-      ixstart = ii->size[0];
-      for (ix = 0; ix < ixstart; ix++) {
-        ii->data[ix] -= div_s32(ii->data[ix], outsz[0]) * outsz[0];
+      for (ixstop = 0; ixstop < ix; ixstop++) {
+        ii->data[ixstop] -= div_s32(ii->data[ixstop], (int32_T)outsz[0]) *
+          (int32_T)outsz[0];
       }
 
-      ix = b_x->size[0];
+      ixstop = b_x->size[0];
       b_x->size[0] = ii->size[0];
-      emxEnsureCapacity((emxArray__common *)b_x, ix, (int32_T)sizeof(real_T));
-      ixstart = ii->size[0];
-      for (ix = 0; ix < ixstart; ix++) {
-        b_x->data[ix] = (real_T)(ii->data[ix] + 1) * denoisedSpec->data[(int32_T)
-          labels_left->data[ix] - 1];
+      emxEnsureCapacity((emxArray__common *)b_x, ixstop, (int32_T)sizeof(real_T));
+      ix = ii->size[0];
+      for (ixstop = 0; ixstop < ix; ixstop++) {
+        b_x->data[ixstop] = (real_T)(ii->data[ixstop] + 1) * originalSpec->data
+          [(int32_T)labels_left->data[ixstop] - 1];
       }
 
       ndbl = b_x->data[0];
@@ -1176,27 +1182,27 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
         ndbl += b_x->data[ixstart - 1];
       }
 
-      b_apnd = denoisedSpec->data[(int32_T)labels_left->data[0] - 1];
+      b_apnd = originalSpec->data[(int32_T)labels_left->data[0] - 1];
       for (ixstart = 2; ixstart <= labels_left->size[0]; ixstart++) {
-        b_apnd += denoisedSpec->data[(int32_T)labels_left->data[ixstart - 1] - 1];
+        b_apnd += originalSpec->data[(int32_T)labels_left->data[ixstart - 1] - 1];
       }
 
       /* imagesc(labels==i); */
       if (ndbl / b_apnd <= 20.0) {
-        ix = g_labels->size[0] * g_labels->size[1];
+        ixstop = g_labels->size[0] * g_labels->size[1];
         g_labels->size[0] = labels->size[0];
         g_labels->size[1] = labels->size[1];
-        emxEnsureCapacity((emxArray__common *)g_labels, ix, (int32_T)sizeof
+        emxEnsureCapacity((emxArray__common *)g_labels, ixstop, (int32_T)sizeof
                           (boolean_T));
-        ixstart = labels->size[0] * labels->size[1];
-        for (ix = 0; ix < ixstart; ix++) {
-          g_labels->data[ix] = (labels->data[ix] == 1.0 + (real_T)i);
+        ix = labels->size[0] * labels->size[1];
+        for (ixstop = 0; ixstop < ix; ixstop++) {
+          g_labels->data[ixstop] = (labels->data[ixstop] == 1.0 + (real_T)i);
         }
 
         eml_li_find(g_labels, ii);
-        ixstart = ii->size[0];
-        for (ix = 0; ix < ixstart; ix++) {
-          labels->data[ii->data[ix] - 1] = 0.0;
+        ix = ii->size[0];
+        for (ixstop = 0; ixstop < ix; ixstop++) {
+          labels->data[ii->data[ixstop] - 1] = 0.0;
         }
       }
     }
@@ -1239,25 +1245,25 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
     iy = (int32_T)ndbl - 1;
   }
 
-  ix = maxval->size[0] * maxval->size[1];
+  ixstop = maxval->size[0] * maxval->size[1];
   maxval->size[0] = 1;
   maxval->size[1] = iy + 1;
-  emxEnsureCapacity((emxArray__common *)maxval, ix, (int32_T)sizeof(real_T));
+  emxEnsureCapacity((emxArray__common *)maxval, ixstop, (int32_T)sizeof(real_T));
   if (iy + 1 > 0) {
     maxval->data[0] = 1.0;
     if (iy + 1 > 1) {
       maxval->data[iy] = b_apnd;
-      b_ix = iy / 2;
-      for (ixstart = 1; ixstart < b_ix; ixstart++) {
+      ix = iy / 2;
+      for (ixstart = 1; ixstart < ix; ixstart++) {
         maxval->data[ixstart] = 1.0 + (real_T)ixstart;
         maxval->data[iy - ixstart] = b_apnd - (real_T)ixstart;
       }
 
-      if (b_ix << 1 == iy) {
-        maxval->data[b_ix] = (1.0 + b_apnd) / 2.0;
+      if (ix << 1 == iy) {
+        maxval->data[ix] = (1.0 + b_apnd) / 2.0;
       } else {
-        maxval->data[b_ix] = 1.0 + (real_T)b_ix;
-        maxval->data[b_ix + 1] = b_apnd - (real_T)b_ix;
+        maxval->data[ix] = 1.0 + (real_T)ix;
+        maxval->data[ix + 1] = b_apnd - (real_T)ix;
       }
     }
   }
@@ -1266,52 +1272,52 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
     iy = -1;
     apnd = labels_left->size[0];
   } else {
-    b_ix = (int32_T)floor(((real_T)labels_left->size[0] - 2.0) + 0.5) + 2;
-    apnd = b_ix;
-    iy = b_ix - labels_left->size[0];
+    ix = (int32_T)floor(((real_T)labels_left->size[0] - 2.0) + 0.5) + 2;
+    apnd = ix;
+    iy = ix - labels_left->size[0];
     ixstart = labels_left->size[0];
     if (fabs(iy) < 4.4408920985006262E-16 * (real_T)ixstart) {
-      b_ix++;
+      ix++;
       apnd = labels_left->size[0];
     } else if (iy > 0) {
-      apnd = b_ix - 1;
+      apnd = ix - 1;
     } else {
-      b_ix++;
+      ix++;
     }
 
-    iy = b_ix - 3;
+    iy = ix - 3;
   }
 
-  ix = y->size[0] * y->size[1];
+  ixstop = y->size[0] * y->size[1];
   y->size[0] = 1;
   y->size[1] = iy + 1;
-  emxEnsureCapacity((emxArray__common *)y, ix, (int32_T)sizeof(real_T));
+  emxEnsureCapacity((emxArray__common *)y, ixstop, (int32_T)sizeof(real_T));
   if (iy + 1 > 0) {
     y->data[0] = 2.0;
     if (iy + 1 > 1) {
       y->data[iy] = apnd;
-      b_ix = iy / 2;
-      for (ixstart = 1; ixstart < b_ix; ixstart++) {
+      ix = iy / 2;
+      for (ixstart = 1; ixstart < ix; ixstart++) {
         y->data[ixstart] = 2.0 + (real_T)ixstart;
         y->data[iy - ixstart] = apnd - ixstart;
       }
 
-      if (b_ix << 1 == iy) {
-        y->data[b_ix] = (2.0 + (real_T)apnd) / 2.0;
+      if (ix << 1 == iy) {
+        y->data[ix] = (2.0 + (real_T)apnd) / 2.0;
       } else {
-        y->data[b_ix] = 2.0 + (real_T)b_ix;
-        y->data[b_ix + 1] = apnd - b_ix;
+        y->data[ix] = 2.0 + (real_T)ix;
+        y->data[ix + 1] = apnd - ix;
       }
     }
   }
 
-  ix = r0->size[0];
+  ixstop = r0->size[0];
   r0->size[0] = maxval->size[1];
-  emxEnsureCapacity((emxArray__common *)r0, ix, (int32_T)sizeof(boolean_T));
-  ixstart = maxval->size[1];
-  for (ix = 0; ix < ixstart; ix++) {
-    r0->data[ix] = (labels_left->data[(int32_T)maxval->data[ix] - 1] ==
-                    labels_left->data[(int32_T)y->data[ix] - 1]);
+  emxEnsureCapacity((emxArray__common *)r0, ixstop, (int32_T)sizeof(boolean_T));
+  ix = maxval->size[1];
+  for (ixstop = 0; ixstop < ix; ixstop++) {
+    r0->data[ixstop] = (labels_left->data[(int32_T)maxval->data[ixstop] - 1] ==
+                        labels_left->data[(int32_T)y->data[ixstop] - 1]);
   }
 
   emxFree_real_T(&y);
@@ -1321,21 +1327,21 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
   emxFree_boolean_T(&r0);
   emxInit_boolean_T(&i_labels, 2);
   while (i <= (int32_T)((real_T)labels_left->size[0] + -1.0) - 1) {
-    ix = i_labels->size[0] * i_labels->size[1];
+    ixstop = i_labels->size[0] * i_labels->size[1];
     i_labels->size[0] = labels->size[0];
     i_labels->size[1] = labels->size[1];
-    emxEnsureCapacity((emxArray__common *)i_labels, ix, (int32_T)sizeof
+    emxEnsureCapacity((emxArray__common *)i_labels, ixstop, (int32_T)sizeof
                       (boolean_T));
     ndbl = labels_left->data[(int32_T)(2.0 + (real_T)i) - 1];
-    ixstart = labels->size[0] * labels->size[1];
-    for (ix = 0; ix < ixstart; ix++) {
-      i_labels->data[ix] = (labels->data[ix] == ndbl);
+    ix = labels->size[0] * labels->size[1];
+    for (ixstop = 0; ixstop < ix; ixstop++) {
+      i_labels->data[ixstop] = (labels->data[ixstop] == ndbl);
     }
 
     eml_li_find(i_labels, ii);
-    ixstart = ii->size[0];
-    for (ix = 0; ix < ixstart; ix++) {
-      labels->data[ii->data[ix] - 1] = (2.0 + (real_T)i) - 1.0;
+    ix = ii->size[0];
+    for (ixstop = 0; ixstop < ix; ixstop++) {
+      labels->data[ii->data[ixstop] - 1] = (2.0 + (real_T)i) - 1.0;
     }
 
     i++;
@@ -1344,17 +1350,15 @@ void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec)
   emxFree_boolean_T(&i_labels);
   emxFree_int32_T(&ii);
   emxFree_real_T(&labels_left);
-  ix = denoisedSpec->size[0] * denoisedSpec->size[1];
+  ixstop = denoisedSpec->size[0] * denoisedSpec->size[1];
   denoisedSpec->size[0] = labels->size[0];
   denoisedSpec->size[1] = labels->size[1];
-  emxEnsureCapacity((emxArray__common *)denoisedSpec, ix, (int32_T)sizeof(real_T));
-  ixstart = labels->size[1];
-  for (ix = 0; ix < ixstart; ix++) {
-    b_ix = labels->size[0];
-    for (iy = 0; iy < b_ix; iy++) {
-      denoisedSpec->data[iy + denoisedSpec->size[0] * ix] *= (real_T)
-        (labels->data[iy + labels->size[0] * ix] != 0.0);
-    }
+  emxEnsureCapacity((emxArray__common *)denoisedSpec, ixstop, (int32_T)sizeof
+                    (real_T));
+  ix = labels->size[0] * labels->size[1];
+  for (ixstop = 0; ixstop < ix; ixstop++) {
+    denoisedSpec->data[ixstop] = (real_T)(labels->data[ixstop] != 0.0) *
+      originalSpec->data[ixstop];
   }
 }
 

@@ -34,12 +34,11 @@ public:
 
 	void computeFeatures();
 	
-	void performCCDenoising();
+	void performCCDenoising(float *denoisedSpectrum);
 
+	
 private:
 	
-	
-
 	void extractConnectedComponents();
 
 	void relabelComponents();
@@ -56,11 +55,10 @@ private:
 	int numLabels;
 
 
-
 	//Eigen::MatrixXi labels;
 	//Eigen::MatrixXf pixelValues;
 	emxArray_real_T* labels;
-//	emxArray_real_T* originalSpec;
+	emxArray_real_T* originalSpec;
 	emxArray_real_T* denoisedSpec;
 	
 	ConnectedComponents cc;

@@ -3,7 +3,7 @@
  *
  * Code generation for function 'processLabelMatrix'
  *
- * C source code generated on: Sat Mar 29 23:42:07 2014
+ * C source code generated on: Sun Mar 30 00:15:01 2014
  *
  */
 
@@ -25,9 +25,7 @@
 //extern emxArray_real_T *emxCreateWrapper_real_T(real_T *data, int32_T rows, int32_T cols);
 //extern emxArray_real_T *emxCreate_real_T(int32_T rows, int32_T cols);
 //extern void emxDestroyArray_real_T(emxArray_real_T *emxArray);
-
-
-extern void processLabelMatrix(emxArray_real_T *labels, emxArray_real_T *denoisedSpec);
+extern void processLabelMatrix(emxArray_real_T *labels, const emxArray_real_T *originalSpec, emxArray_real_T *denoisedSpec);
 extern void processLabelMatrix_initialize(void);
 extern void processLabelMatrix_terminate(void);
 #endif

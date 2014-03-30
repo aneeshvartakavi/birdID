@@ -41,7 +41,7 @@ ComputeCCFeatures::ComputeCCFeatures(float* image,int numRows_, int numCols_):cc
 	labelImage = new int[numCols*numRows];
 	mask = new bool[numCols*numRows];
 	
-	//originalSpec = emxCreate_real_T(numRows,numCols);
+	originalSpec = emxCreate_real_T(numRows,numCols);
 	denoisedSpec = emxCreate_real_T(numRows,numCols);
 	labels = emxCreate_real_T(numRows,numCols);
 	//labels = Eigen::MatrixXi(numRows,numCols);
@@ -52,7 +52,7 @@ ComputeCCFeatures::ComputeCCFeatures(float* image,int numRows_, int numCols_):cc
 		for(int j=0;j<numRows;j++)
 		{
 			//denoisedSpectrogram[i*numRows+j] = static_cast<float>(denoisedSpec->data[i*numRows+j]);
-			denoisedSpec->data[i*numRows+j] = static_cast<real_T>(image[i*numRows+j]);
+			originalSpec->data[i*numRows+j] = static_cast<real_T>(image[i*numRows+j]);
 			mask[i*numRows+j] = (image[i*numRows+j]!=0);
 		}
 	}
@@ -69,7 +69,7 @@ void ComputeCCFeatures::extractConnectedComponents()
 	cc.connected(mask,labelImage,numCols,numRows,std::equal_to<bool>(),true);
 }
 
-void ComputeCCFeatures::performCCDenoising()
+void ComputeCCFeatures::performCCDenoising(float* denoisedSpectrum)
 {
 	
 	// Copy over the labelImage to emxarray
@@ -84,8 +84,23 @@ void ComputeCCFeatures::performCCDenoising()
 	
 	processLabelMatrix_initialize();
 
-	processLabelMatrix(labels,denoisedSpec);
+	processLabelMatrix(labels,originalSpec,denoisedSpec);
 	
+	// Copying the denoised spectrum
+	for(int i=0;i<numCols;i++)
+	{
+		for(int j=0;j<numRows;j++)
+		{
+			denoisedSpectrum[i*numRows+j] = static_cast<float>(denoisedSpec->data[i*numRows+j]);
+		}
+	}
+
+	// Adding clearing the old matrices
+	emxDestroyArray_real_T(originalSpec);
+	emxDestroyArray_real_T(labels);
+	emxDestroyArray_real_T(denoisedSpec);
+
+
 	// The library labels components of zero's as well.
 	// Removing the components with zeros
 	//relabelComponents();
