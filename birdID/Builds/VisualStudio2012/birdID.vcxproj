@@ -131,6 +131,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Export\inverseSTFT.c"/>
+    <ClCompile Include="..\..\Source\Export\bufferSTFT.c"/>
     <ClCompile Include="..\..\Source\Export\denoiseSpectrogram.c"/>
     <ClCompile Include="..\..\Source\Export\processLabelMatrix.c"/>
     <ClCompile Include="..\..\Source\Export\rt_nonfinite.c"/>
@@ -139,6 +141,7 @@
     <ClCompile Include="..\..\Source\PreProcessor.cpp"/>
     <ClCompile Include="..\..\Source\Yin\Yin.cpp"/>
     <ClCompile Include="..\..\Source\BirdID.cpp"/>
+    <ClCompile Include="..\..\Source\Features\ComputeMFCCFeatures.cpp"/>
     <ClCompile Include="..\..\Source\Features\ComputeCCFeatures.cpp"/>
     <ClCompile Include="..\..\Source\Features\ComputeOnsetFeatures.cpp"/>
     <ClCompile Include="..\..\Source\Features\ComputePitchFeatures.cpp"/>
@@ -1145,6 +1148,11 @@
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_gui_extra\juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Export\inverseSTFT.h"/>
+    <ClInclude Include="..\..\Source\Export\inverseSTFT_types.h"/>
+    <ClInclude Include="..\..\Source\Export\rt_defines.h"/>
+    <ClInclude Include="..\..\Source\Export\bufferSTFT.h"/>
+    <ClInclude Include="..\..\Source\Export\bufferSTFT_types.h"/>
     <ClInclude Include="..\..\Source\Export\denoiseSpectrogram.h"/>
     <ClInclude Include="..\..\Source\Export\denoiseSpectrogram_types.h"/>
     <ClInclude Include="..\..\Source\Export\processLabelMatrix.h"/>
@@ -1446,6 +1454,7 @@
     <ClInclude Include="..\..\Source\PreProcessor.h"/>
     <ClInclude Include="..\..\Source\Yin\Yin.h"/>
     <ClInclude Include="..\..\Source\BirdID.h"/>
+    <ClInclude Include="..\..\Source\Features\ComputeMFCCFeatures.h"/>
     <ClInclude Include="..\..\Source\Features\ComputeCCFeatures.h"/>
     <ClInclude Include="..\..\Source\Features\ComputeOnsetFeatures.h"/>
     <ClInclude Include="..\..\Source\Features\ComputePitchFeatures.h"/>

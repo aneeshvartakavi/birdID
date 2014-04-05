@@ -16,22 +16,19 @@
 #ifndef PREPROCESSOR_H_INCLUDED
 #define PREPROCESSOR_H_INCLUDED
 
-#include "JuceHeader.h"
-#include "Eigen\Dense.h"
+
 #include "Features\ComputeCCFeatures.h"
 
 extern "C"
 {
-#include "Export\denoiseSpectrogram.h"
-//#include "Export\denoiseSpectrogram_emxAPI.h"
-//#include "Export\denoiseSpectrogram_initialize.h"
+	#include "Export\denoiseSpectrogram.h"
 }
 
 
 class PreProcessor
 {
 public:
-	PreProcessor(Eigen::MatrixXf& stft);
+	PreProcessor(ScopedPointer<emxArray_real_T> magSpec,int numRows_,int numCols_);
 	~PreProcessor();
 	
 	void process();
@@ -39,23 +36,21 @@ public:
 	void DenoiseSpectrogram();
 	
 	void ccDenoising();
+
+	void returnDenoisedSpectrogram(float* denoisedSpectrogram_);
+	//void returnDenoisedSpectrogramEMX(ScopedPointer<emxArray_real_T> denoisedSpectrogram_);
 private:
 	
 	ScopedPointer<ComputeCCFeatures> ccFeatures;
 	//Functions to extract features
 	
-	
-
 	// Arrays for the interfacing
-	emxArray_real_T* originalSpec;
-	emxArray_real_T* denoisedSpec;
+	ScopedPointer<emxArray_real_T> originalSpec;
+	ScopedPointer<emxArray_real_T> denoisedSpec;
 	
 
 	float* denoisedSpectrogram;
-	//int* labelImage;
-	//bool* mask;
 
-	//Eigen::MatrixXi labels;
 
 	// Size variables
 	int numRows, numCols;

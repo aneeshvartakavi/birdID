@@ -1,9 +1,9 @@
 /*
  * rt_nonfinite.h
  *
- * Code generation for function 'denoiseSpectrogram'
+ * Code generation for function 'bufferSTFT'
  *
- * C source code generated on: Sat Mar 29 23:46:56 2014
+ * C source code generated on: Sat Apr 05 14:31:02 2014
  *
  */
 

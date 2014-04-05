@@ -3,7 +3,7 @@
  *
  * Code generation for function 'denoiseSpectrogram'
  *
- * C source code generated on: Sat Mar 29 23:46:56 2014
+ * C source code generated on: Fri Apr 04 18:26:22 2014
  *
  */
 
@@ -108,7 +108,6 @@ static void emxInit_int32_T(emxArray_int32_T **pEmxArray, int32_T numDimensions)
 static void emxInit_real_T(emxArray_real_T **pEmxArray, int32_T numDimensions);
 static void kMeans(const emxArray_real_T *X, emxArray_real_T *L);
 static void median(const emxArray_real_T *x, emxArray_real_T *y);
-static void power(const emxArray_real_T *a, emxArray_real_T *y);
 static void rdivide(const emxArray_real_T *x, real_T y, emxArray_real_T *z);
 static real_T rt_roundd_snf(real_T u);
 static void sum(const emxArray_real_T *x, emxArray_real_T *y);
@@ -213,10 +212,10 @@ static real_T b_rand(void)
 
 static void b_sqrt(emxArray_real_T *x)
 {
-  int32_T i4;
+  int32_T i3;
   int32_T k;
-  i4 = x->size[1];
-  for (k = 0; k < i4; k++) {
+  i3 = x->size[1];
+  for (k = 0; k < i3; k++) {
     x->data[k] = sqrt(x->data[k]);
   }
 }
@@ -1850,25 +1849,6 @@ static void median(const emxArray_real_T *x, emxArray_real_T *y)
   }
 }
 
-static void power(const emxArray_real_T *a, emxArray_real_T *y)
-{
-  uint32_T uv0[2];
-  int32_T i3;
-  int32_T k;
-  for (i3 = 0; i3 < 2; i3++) {
-    uv0[i3] = (uint32_T)a->size[i3];
-  }
-
-  i3 = y->size[0] * y->size[1];
-  y->size[0] = (int32_T)uv0[0];
-  y->size[1] = (int32_T)uv0[1];
-  emxEnsureCapacity((emxArray__common *)y, i3, (int32_T)sizeof(real_T));
-  i3 = (int32_T)uv0[0] * (int32_T)uv0[1];
-  for (k = 0; k < i3; k++) {
-    y->data[k] = a->data[k] * a->data[k];
-  }
-}
-
 static void rdivide(const emxArray_real_T *x, real_T y, emxArray_real_T *z)
 {
   int32_T i2;
@@ -1982,11 +1962,11 @@ void denoiseSpectrogram(emxArray_real_T *spec, emxArray_real_T *denoisedSpec)
   int32_T ftmp;
   int32_T k;
   emxArray_boolean_T *b_clusters;
-  emxArray_real_T *x;
+  emxArray_real_T *powSpec;
   emxArray_int32_T *indx;
   emxArray_real_T *b_noiseEst;
+  uint32_T outsz[2];
   emxArray_boolean_T *b_denoisedSpec;
-  int32_T outsz[2];
   int32_T ixstop;
   int32_T ix;
   boolean_T exitg4;
@@ -2078,26 +2058,26 @@ void denoiseSpectrogram(emxArray_real_T *spec, emxArray_real_T *denoisedSpec)
     b_clusters->data[ixstart] = (clusters->data[ixstart] == M);
   }
 
-  emxInit_real_T(&x, 2);
+  emxInit_real_T(&powSpec, 2);
   b_emxInit_int32_T(&indx, 2);
   b_eml_li_find(b_clusters, indx);
   iy = spec->size[0];
   ftmp = indx->size[1];
-  ixstart = x->size[0] * x->size[1];
-  x->size[0] = iy;
-  x->size[1] = ftmp;
-  emxEnsureCapacity((emxArray__common *)x, ixstart, (int32_T)sizeof(real_T));
+  ixstart = powSpec->size[0] * powSpec->size[1];
+  powSpec->size[0] = iy;
+  powSpec->size[1] = ftmp;
+  emxEnsureCapacity((emxArray__common *)powSpec, ixstart, (int32_T)sizeof(real_T));
   emxFree_boolean_T(&b_clusters);
   for (ixstart = 0; ixstart < ftmp; ixstart++) {
     for (k = 0; k < iy; k++) {
-      x->data[k + x->size[0] * ixstart] = spec->data[k + spec->size[0] *
-        (indx->data[ixstart] - 1)];
+      powSpec->data[k + powSpec->size[0] * ixstart] = spec->data[k + spec->size
+        [0] * (indx->data[ixstart] - 1)];
     }
   }
 
   emxFree_int32_T(&indx);
   b_emxInit_real_T(&b_noiseEst, 1);
-  sum(x, noiseEst);
+  sum(powSpec, noiseEst);
   ixstart = b_noiseEst->size[0];
   b_noiseEst->size[0] = noiseEst->size[0];
   emxEnsureCapacity((emxArray__common *)b_noiseEst, ixstart, (int32_T)sizeof
@@ -2107,25 +2087,36 @@ void denoiseSpectrogram(emxArray_real_T *spec, emxArray_real_T *denoisedSpec)
     b_noiseEst->data[ixstart] = noiseEst->data[ixstart];
   }
 
-  rdivide(b_noiseEst, x->size[1], noiseEst);
+  rdivide(b_noiseEst, powSpec->size[1], noiseEst);
 
   /*  Wiener filter with kMeans as noise estimate */
-  power(spec, x);
-  bsxfun(x, noiseEst, denoisedSpec);
-  power(spec, x);
+  emxFree_real_T(&b_noiseEst);
+  for (ixstart = 0; ixstart < 2; ixstart++) {
+    outsz[ixstart] = (uint32_T)spec->size[ixstart];
+  }
+
+  ixstart = powSpec->size[0] * powSpec->size[1];
+  powSpec->size[0] = (int32_T)outsz[0];
+  powSpec->size[1] = (int32_T)outsz[1];
+  emxEnsureCapacity((emxArray__common *)powSpec, ixstart, (int32_T)sizeof(real_T));
+  ixstart = (int32_T)outsz[0] * (int32_T)outsz[1];
+  for (k = 0; k < ixstart; k++) {
+    powSpec->data[k] = spec->data[k] * spec->data[k];
+  }
+
+  bsxfun(powSpec, noiseEst, denoisedSpec);
   ixstart = denoisedSpec->size[0] * denoisedSpec->size[1];
   emxEnsureCapacity((emxArray__common *)denoisedSpec, ixstart, (int32_T)sizeof
                     (real_T));
   iy = denoisedSpec->size[0];
   ftmp = denoisedSpec->size[1];
   iy *= ftmp;
-  emxFree_real_T(&b_noiseEst);
   emxFree_real_T(&noiseEst);
   for (ixstart = 0; ixstart < iy; ixstart++) {
-    denoisedSpec->data[ixstart] /= x->data[ixstart];
+    denoisedSpec->data[ixstart] /= powSpec->data[ixstart];
   }
 
-  emxFree_real_T(&x);
+  emxFree_real_T(&powSpec);
   emxInit_boolean_T(&b_denoisedSpec, 2);
   ixstart = b_denoisedSpec->size[0] * b_denoisedSpec->size[1];
   b_denoisedSpec->size[0] = denoisedSpec->size[0];
@@ -2144,6 +2135,7 @@ void denoiseSpectrogram(emxArray_real_T *spec, emxArray_real_T *denoisedSpec)
     denoisedSpec->data[r0->data[ixstart] - 1] = 0.0;
   }
 
+  /*  Masking */
   /*  Scaling */
   ixstart = denoisedSpec->size[0] * denoisedSpec->size[1];
   denoisedSpec->size[0] = spec->size[0];
@@ -2173,12 +2165,12 @@ void denoiseSpectrogram(emxArray_real_T *spec, emxArray_real_T *denoisedSpec)
 
   /*  Setting the max value to 0 db. */
   for (ixstart = 0; ixstart < 2; ixstart++) {
-    outsz[ixstart] = denoisedSpec->size[ixstart];
+    outsz[ixstart] = (uint32_T)denoisedSpec->size[ixstart];
   }
 
   ixstart = clusters->size[0] * clusters->size[1];
   clusters->size[0] = 1;
-  clusters->size[1] = outsz[1];
+  clusters->size[1] = (int32_T)outsz[1];
   emxEnsureCapacity((emxArray__common *)clusters, ixstart, (int32_T)sizeof
                     (real_T));
   ftmp = 0;
@@ -2286,12 +2278,12 @@ void denoiseSpectrogram(emxArray_real_T *spec, emxArray_real_T *denoisedSpec)
 
   /*  Normalizing 0-1. */
   for (ixstart = 0; ixstart < 2; ixstart++) {
-    outsz[ixstart] = denoisedSpec->size[ixstart];
+    outsz[ixstart] = (uint32_T)denoisedSpec->size[ixstart];
   }
 
   ixstart = clusters->size[0] * clusters->size[1];
   clusters->size[0] = 1;
-  clusters->size[1] = outsz[1];
+  clusters->size[1] = (int32_T)outsz[1];
   emxEnsureCapacity((emxArray__common *)clusters, ixstart, (int32_T)sizeof
                     (real_T));
   ftmp = 0;

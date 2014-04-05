@@ -9,41 +9,25 @@
 */
 
 #include "PreProcessor.h"
-PreProcessor::PreProcessor(Eigen::MatrixXf& stft)//:cc(150)
+PreProcessor::PreProcessor(ScopedPointer<emxArray_real_T> magSpec,int numRows_,int numCols_)//:cc(150)
 {
-	numRows  = stft.rows();
-	numCols = stft.cols();
 	
-	//numRows = 10;
-	//numCols = 4;
-	// Allocate memory
-	originalSpec = emxCreate_real_T(numRows,numCols);
+	numRows = numRows_;
+	numCols = numCols_;
 	denoisedSpec = emxCreate_real_T(numRows,numCols);
-
-
-	// Copy the array
-	for(int i=0;i<numCols;i++)
-	{
-		for(int j=0;j<numRows;j++)
-		{
-			//originalSpec->data[i*numRows+j] = static_cast<real_T>(j);
-			originalSpec->data[i*numRows+j] = static_cast<real_T>(stft(j,i));
-		}
-	}
-
-	// Specifying soft max number of labels.
-	//cc = ConnectedComponents(150);
-
+	
+	originalSpec = magSpec;
 }
 
 PreProcessor::~PreProcessor()
 {
-	
-	delete denoisedSpectrogram;
 	denoisedSpectrogram = nullptr;
-	// Cleanup
-	ccFeatures = nullptr;
 	
+	ccFeatures = nullptr;
+
+	// Delete the old output
+	emxDestroyArray_real_T(denoisedSpec);
+
 }
 
 void PreProcessor::process()
@@ -53,9 +37,6 @@ void PreProcessor::process()
 	// Call connected component denoising
 	ccDenoising();
 
-	//CCDenoising();
-	
-	//extractCCFeatures();
 }
 
 
@@ -69,19 +50,12 @@ void PreProcessor::DenoiseSpectrogram()
 	// Copy the output over
 	denoisedSpectrogram = new float[numCols*numRows];
 	
-	for(int i=0;i<numCols;i++)
+	for(int i=0; i<numCols*numRows;i++)
 	{
-		for(int j=0;j<numRows;j++)
-		{
-			//originalSpec->data[i*numRows+j] = static_cast<real_T>(j);
-			denoisedSpectrogram[i*numRows+j] = static_cast<float>(denoisedSpec->data[i*numRows+j]);
-			//mask[i*numRows+j] = (denoisedSpectrogram[i*numRows+j]!=0);
-		}
+		denoisedSpectrogram[i] = static_cast<float>(denoisedSpec->data[i]);
 	}
 
-	// Delete the old output
-	emxDestroyArray_real_T(denoisedSpec);
-	
+
 }
 
 void PreProcessor::ccDenoising()
@@ -90,3 +64,21 @@ void PreProcessor::ccDenoising()
 	// The denoised spectrogram is overwritten
 	ccFeatures->performCCDenoising(denoisedSpectrogram);
 }
+
+void PreProcessor::returnDenoisedSpectrogram(float* denoisedSpectrogram_)
+{
+	// Copy over
+	for(int i=0;i<numCols;i++)
+	{
+		for(int j=0;j<numRows;j++)
+		{
+			denoisedSpectrogram_[i*numRows+j] = denoisedSpectrogram[i*numRows+j];
+			
+		}
+	}
+}
+//
+//void PreProcessor::returnDenoisedSpectrogramEMX(ScopedPointer<emxArray_real_T>  denoisedSpectrogram_)
+//{
+//	denoisedSpectrogram_ = denoisedSpec;
+//}

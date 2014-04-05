@@ -5,6 +5,15 @@
               jucerVersion="3.1.0">
   <MAINGROUP id="kn7qzG" name="birdID">
     <GROUP id="{6FC844E7-B40C-8F4C-42F7-003ACB0CE33A}" name="Export">
+      <FILE id="HWmPLW" name="inverseSTFT.c" compile="1" resource="0" file="Source/Export/inverseSTFT.c"/>
+      <FILE id="kKvnY5" name="inverseSTFT.h" compile="0" resource="0" file="Source/Export/inverseSTFT.h"/>
+      <FILE id="mu6uP7" name="inverseSTFT_types.h" compile="0" resource="0"
+            file="Source/Export/inverseSTFT_types.h"/>
+      <FILE id="bI2RcZ" name="rt_defines.h" compile="0" resource="0" file="Source/Export/rt_defines.h"/>
+      <FILE id="dsm9uB" name="bufferSTFT.c" compile="1" resource="0" file="Source/Export/bufferSTFT.c"/>
+      <FILE id="geidu7" name="bufferSTFT.h" compile="0" resource="0" file="Source/Export/bufferSTFT.h"/>
+      <FILE id="mrEEsq" name="bufferSTFT_types.h" compile="0" resource="0"
+            file="Source/Export/bufferSTFT_types.h"/>
       <FILE id="VBbkxH" name="denoiseSpectrogram.c" compile="1" resource="0"
             file="Source/Export/denoiseSpectrogram.c"/>
       <FILE id="rGwRIk" name="denoiseSpectrogram.h" compile="0" resource="0"
@@ -561,6 +570,10 @@
       <FILE id="parTeY" name="BirdID.cpp" compile="1" resource="0" file="Source/BirdID.cpp"/>
       <FILE id="n8cVQo" name="BirdID.h" compile="0" resource="0" file="Source/BirdID.h"/>
       <GROUP id="{51850F17-C21B-F1C6-0656-6B777A2D608F}" name="Features">
+        <FILE id="TJ5Ws7" name="ComputeMFCCFeatures.cpp" compile="1" resource="0"
+              file="Source/Features/ComputeMFCCFeatures.cpp"/>
+        <FILE id="pTvaL4" name="ComputeMFCCFeatures.h" compile="0" resource="0"
+              file="Source/Features/ComputeMFCCFeatures.h"/>
         <FILE id="D5opHt" name="ComputeCCFeatures.cpp" compile="1" resource="0"
               file="Source/Features/ComputeCCFeatures.cpp"/>
         <FILE id="sy7rDS" name="ComputeCCFeatures.h" compile="0" resource="0"

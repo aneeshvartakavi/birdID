@@ -20,108 +20,169 @@ BirdID::BirdID(int blockSize_, int hopSize_): blockSize(blockSize_),hopSize(hopS
 	numFeatures = 10;
 
 	//featureExtractor = new FeatureExtractor();
-
-	//featureVector = Eigen::MatrixXf::Zero(numFeatures,1);
+	interpolator = new LagrangeInterpolator();
+	interpolator->reset();
 }
 
 BirdID::~BirdID()
 {
 	featureExtractor = nullptr;
+	interpolator = nullptr;
 	//delete featureVector;
-	featureVector = nullptr;
+	//featureVector = nullptr;
+	
 	preProcessor = nullptr;
+
+	//delete denoisedSpectrum;
+	denoisedSpectrum = nullptr;
+
+	emxDestroyArray_real_T(magSpec);
+
 }
 
 
-void BirdID::readAudioFile(const File &audioFile_)
+void BirdID::readAudioFileResampled(const File &audioFile_, float targetSampleRate)
 {
-	audioFile = audioFile_;
+	//Creating a reader for the file, depending on its format
+		ScopedPointer<AudioFormatReader> fileReader = formatManager.createReaderFor(audioFile_);
+		//int numChannels = fileReader->numChannels;
+		
+		int64 numSamples = fileReader->lengthInSamples;
+
+		ScopedPointer<AudioSampleBuffer> leftChannelBuffer = new AudioSampleBuffer(1,numSamples);
+		leftChannelBuffer->clear();
+		
+		float sampleRate = static_cast<float>(fileReader->sampleRate);
+		
+		float conversionFactor = sampleRate/targetSampleRate;
+
+		resampledAudioLength = static_cast<int>(floorf(numSamples/conversionFactor));
+		// Initialize destination buffer
+		resampledAudio = new float[resampledAudioLength];
+		
+			
+		//if(numChannels == 1)
+		//{
+			// Read audio
+			fileReader->read(leftChannelBuffer,0,static_cast<int>(numSamples),0,true,false);
+			// Resample
+			interpolator->process(conversionFactor,leftChannelBuffer->getReadPointer(0),resampledAudio,resampledAudioLength);
+
+		// Normalize resampledAudio
+		float max = resampledAudio[0];
+		
+		for(int i=1;i<resampledAudioLength;i++)
+		{
+			if(fabs(resampledAudio[i])>fabs(max))
+			{
+				max = resampledAudio[i];
+			}
+
+		}
+		max = fabs(max);
+
+		for(int i=0;i<resampledAudioLength;i++)
+		{
+			resampledAudio[i] /= max;
+		}
+
 }
 
-void BirdID::process()
+void BirdID::process(const File &audioFile_)
 {
 	// Order of operations
 
-	// 1. Downsample
+	// 1. Read audio and downsample
+	readAudioFileResampled(audioFile_,16000);
+
 	// 2. Compute Spectrum
-	computeMagnitudeSpectrum();
+	computeSpectrum();
+
 	// 3. Denoising
-	preProcessor = new PreProcessor(magSpec);
+	// Initialize memory
+	denoisedSpectrum = new float[blockSize*numCols];
+	preProcessor = new PreProcessor(magSpec,numRows,numCols);
 	preProcessor->process();
-	// 4. Extract features
-	featureExtractor = new FeatureExtractor(magSpec,audioFile);
+	preProcessor->returnDenoisedSpectrogram(denoisedSpectrum);
+	//preProcessor->returnDenoisedSpectrogramEMX(magSpec);
+
+	// Convert to audio
+	recoverAudio();
+	
+	
+	// Write denoisedSpectrum to file
+	/*File logFile("C:\\Users\\Aneesh\\Desktop\\test.txt");
+	if(logFile.existsAsFile())
+	{
+		logFile.deleteFile();
+		
+	}
+	logFile.create();
+
+	ScopedPointer<FileOutputStream> tempStream = logFile.createOutputStream();
+	
+	for(int i=0;i<numCols*numRows;i++)
+	{
+		tempStream->writeString(String(denoisedSpectrum[i]));
+		tempStream->writeString("\n");
+	}*/
+
+	//tempStream->flush();
+	
+	//// 4. Extract features
+	featureExtractor = new FeatureExtractor(denoisedSpectrum,numRows,numCols,audioFile);
 	featureExtractor->setSpectralFeatureExtractionProperties();
-	featureExtractor->extractFeatures(/*featureVector,numFeatures*/);
+	featureExtractor->extractFeatures();
 
 	// 5. Classify
 
 }
 
-void BirdID::computeMagnitudeSpectrum()
+void BirdID::computeSpectrum()
 {
-	// Creating a reader for the file, depending on its format
-		ScopedPointer<AudioFormatReader> fileReader = formatManager.createReaderFor(audioFile);
-		int numChannels = fileReader->numChannels;
-		
-		ScopedPointer<AudioSampleBuffer> sampleBuffer = new AudioSampleBuffer(1,blockSize);
-		sampleBuffer->clear();
-		
-		//int sampleRate = static_cast<int>(fileReader->sampleRate);
-		int64 numSamples = fileReader->lengthInSamples;
-		int64 numBlocks= numSamples%hopSize;
-		
-		// Accounting for non-integer multiples of blockSize
-		numBlocks = (numSamples+numBlocks)/hopSize;
-		numBlocks+=1;
+	
+	// Create a vector for resampled audio
+	resampledAudioEMX = emxCreate_real_T(resampledAudioLength,1);
+	
+	// Copy it
+	for(int i=0;i<resampledAudioLength;i++)
+	{
+		resampledAudioEMX->data[i] = static_cast<real_T>(resampledAudio[i]);
+	}
 
-		// Define a matrix to hold all the audio
-		Eigen::MatrixXf audioBuffer(blockSize,numBlocks);
+	// Create a matrix for spectrum
+	numCols = (resampledAudioLength-blockSize)/hopSize;
+	numCols++;
+	numRows = (blockSize/2)+1;
+	magSpec = emxCreate_real_T(numRows,numCols);
+	phaseSpec = emxCreate_real_T(numRows,numCols);
+	// Initialize
+	bufferSTFT_initialize();
 
-		// For FFT
-		for (int j=0;j<numBlocks;j++)
-		{
-			// Check if blockSize, hopSize implementation is correct
-			fileReader->read(sampleBuffer,0,blockSize,j*hopSize,true,false);
-
-			float* sampleData = sampleBuffer->getSampleData(0);
-			
-			if(numChannels==2)
-			{
-				float* rightData = sampleBuffer->getSampleData(1);
-				
-				// Convert from stereo to mono
-				for(int i=0; i<blockSize;i++)
-				{
-					audioBuffer(i,j) = (sampleData[i] + rightData[i])/2;
-				}
-
-				rightData = nullptr;
-			}
-			else
-			{
-				// If file is mono
-				for(int i=0;i<blockSize;i++)
-				{				// Copy the samples into the matrix
-					audioBuffer(i,j) = sampleData[i];
-				}
-			}
-
-			sampleData = nullptr;
-		}
-		// Compute FFT
-		Eigen::FFT<float> fft;
-		fft.SetFlag(fft.HalfSpectrum);
-		
-		// Compute the magnitude spectrum
-		Eigen::MatrixXcf stftc(halfBlockSize,numBlocks);
-		Eigen::MatrixXf stft(halfBlockSize,numBlocks);
-		for (int k=0;k<audioBuffer.cols();++k)
-		{
-			stftc.col(k) = fft.fwd(audioBuffer.col(k),blockSize);
-			stft.col(k) = stftc.col(k).real().cwiseAbs();
-		
-		}
-
-		magSpec = stft;
+	bufferSTFT(resampledAudioEMX,static_cast<real_T>(blockSize),static_cast<real_T>(hopSize),magSpec,phaseSpec);
+	
+	emxDestroyArray_real_T(resampledAudioEMX);
 }
 
+void BirdID::recoverAudio()
+{
+	// Fill magSpec with denoisedAudio
+	denoisedSpecEMX = emxCreate_real_T(numRows,numCols);
+	
+	for(int i=0;i<numCols;i++)
+	{
+		for(int j=0;j<numRows;j++)
+		{
+			denoisedSpecEMX->data[i*numRows+j] = static_cast<real_T>(denoisedSpectrum[i*numRows+j]);
+		}
+
+	}
+
+
+	denoisedAudioEMX = emxCreate_real_T(resampledAudioLength,1);
+
+	inverseSTFT_initialize();
+
+	inverseSTFT(denoisedSpecEMX,phaseSpec,blockSize,hopSize,denoisedAudioEMX);
+
+}

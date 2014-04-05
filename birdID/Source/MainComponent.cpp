@@ -107,8 +107,8 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_browseButton] -- add your button handler code here..
 		readDirectory();
-		birdID->readAudioFile(pathToFile);
-		birdID->process();
+		//birdID->readAudioFile(pathToFile);
+		birdID->process(pathToFile);
 		//		featureExtractor->computeFeatures(pathToFile);
         //[/UserButtonCode_browseButton]
     }

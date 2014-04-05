@@ -376,6 +376,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Export\inverseSTFT.c">
+      <Filter>birdID\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Export\bufferSTFT.c">
+      <Filter>birdID\Export</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Export\denoiseSpectrogram.c">
       <Filter>birdID\Export</Filter>
     </ClCompile>
@@ -399,6 +405,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\BirdID.cpp">
       <Filter>birdID\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Features\ComputeMFCCFeatures.cpp">
+      <Filter>birdID\Source\Features</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Features\ComputeCCFeatures.cpp">
       <Filter>birdID\Source\Features</Filter>
@@ -1506,6 +1515,21 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Export\inverseSTFT.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\inverseSTFT_types.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\rt_defines.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\bufferSTFT.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\bufferSTFT_types.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Export\denoiseSpectrogram.h">
       <Filter>birdID\Export</Filter>
     </ClInclude>
@@ -2408,6 +2432,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\BirdID.h">
       <Filter>birdID\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Features\ComputeMFCCFeatures.h">
+      <Filter>birdID\Source\Features</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Features\ComputeCCFeatures.h">
       <Filter>birdID\Source\Features</Filter>

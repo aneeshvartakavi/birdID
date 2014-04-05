@@ -17,9 +17,16 @@
 #include "FeatureExtractor.h"
 #include "PreProcessor.h"
 
+extern "C"
+{
+	#include "Export\denoiseSpectrogram.h"
+	#include "Export\bufferSTFT.h"
+	#include "Export\inverseSTFT.h"
+}
+
 #if JUCE_WINDOWS
-#include "Eigen\Dense.h"
-#include "Eigen\FFT.h"
+//#include "Eigen\Dense.h"
+//#include "Eigen\FFT.h"
 #endif
 
 class BirdID
@@ -28,34 +35,48 @@ public:
 	BirdID(int blockSize_,int hopSize_);
 	~BirdID();
 
-	void readAudioFile(const File &audioFile_);
+	
 	// Run all the operations
-	void process();
+	void process(const File &audioFile_);
 
 	
-
 private:
 	// Private functions
-	void computeMagnitudeSpectrum(); 
+	void computeSpectrum(); 
+	void recoverAudio();
 
+	void readAudioFileResampled(const File &audioFile_, float targetSampleRate);
+
+	float* denoisedSpectrum;
 	// Feature vector
 	float* featureVector;
 	//int numFeatures;
 	// To manage reading audio formats
 	AudioFormatManager formatManager;
+	
+	// Resampling stuff
+	ScopedPointer<LagrangeInterpolator> interpolator;
+	float* resampledAudio;
+	int resampledAudioLength;
 	// Current audio file
 	File audioFile;
 
 	ScopedPointer<FeatureExtractor> featureExtractor;
 	ScopedPointer<PreProcessor> preProcessor;
 
-	Eigen::MatrixXf magSpec;
+	ScopedPointer<emxArray_real_T> magSpec;
+	ScopedPointer<emxArray_real_T> denoisedSpecEMX;
+	ScopedPointer<emxArray_real_T> phaseSpec;
+	ScopedPointer<emxArray_real_T> resampledAudioEMX;
+	ScopedPointer<emxArray_real_T> denoisedAudioEMX;
+	int numRows,numCols;
 
 	// For the FFT
 	int blockSize;
 	int hopSize;
 	int numFeatures;
 	int halfBlockSize;
+
 	
 	
 };

@@ -12,7 +12,7 @@
 #define FEATUREEXTRACTOR_H_INCLUDED
 
 #include "JuceHeader.h"
-#include "Eigen\Dense.h"
+//#include "Eigen\Dense.h"
 
 #include "Features\ComputeSpectralFeatures.h"
 #include "Features\ComputePitchFeatures.h"
@@ -22,19 +22,25 @@ class FeatureExtractor
 
 public:
 		
-	FeatureExtractor(const Eigen::MatrixXf magnitudeSpectrum_, File& audioFile_)
+	FeatureExtractor(float* magnitudeSpectrum_, int numRows_,int numCols_, File& audioFile_)
 	{
 		
 		computeSpectralFeatures = new ComputeSpectralFeatures();
-		blockSize = 8192;
-		hopSize = 32;
+		blockSize = 1024;
+		hopSize = 512;
 		audioFile = audioFile_;
 
 		computePitchFeatures = new ComputePitchFeatures(blockSize,hopSize);
 
-		magSpec = magnitudeSpectrum_;
-		numRows = magSpec.rows();
-		numCols = magSpec.cols();
+		numRows = numRows_;
+		numCols = numCols_;
+		magSpec = new float[numRows*numCols];
+		// Deep copy spectrum
+		for(int i=0;i<numRows*numCols;i++)
+		{
+			magSpec[i] = magnitudeSpectrum_[i];
+		}
+
 
 	}
 
@@ -44,6 +50,8 @@ public:
 		computePitchFeatures = nullptr;
 	}
 
+
+	// Call to set the number of features and subfeatures to extract
 	void setSpectralFeatureExtractionProperties(int featuresToCompute = 1023,int subFeaturesToCompute = 15)
 	{
 		computeSpectralFeatures->setSpectralFeatureExtractionProps(numRows,featuresToCompute,subFeaturesToCompute);
@@ -53,34 +61,33 @@ public:
 	}
 
 
-	void extractFeatures(/*float* featureVec_, int &numFeatures_*/)
+	void extractFeatures()
 	{
-		//int featuresToCompute =  1023; //ComputeSpectralFeatures::spectralFeatures::spectralCentroid; // Set to 1023 for all
-		
-		computePitchFeatures->computeFeatures(audioFile);
-		
-		
-		featureVec = new float[numSpectralFeatures*numSpectralSubFeatures];
-		
 		float *tempData = new float[513];
 		
-		for(int y=0;y<513;y++)
+		featureVec = new float[numSpectralFeatures*numSpectralSubFeatures];
+
+		// Extract columns of magnitude spectrum
+		for(int i=0;i<numCols;i++)
 		{
-			tempData[y] = 1.0f;
+			for(int j=0;j<numRows;j++)
+			{
+				tempData[j] = magSpec[i*numRows+j];
+			}
+			// Compute features
+			computeSpectralFeatures->computeFeatures(tempData);
+
 		}
 
+		// Get resulting subfeatures - Move this to a return featureVector function
 
-		computeSpectralFeatures->computeFeatures(tempData);
-		float* resultVector = new float[numSpectralFeatures*numSpectralSubFeatures];
-		computeSpectralFeatures->getSubFeatureVector(resultVector,numSpectralFeatures*numSpectralSubFeatures);
+		//computeSpectralFeatures->getSubFeatureVector(featureVec,numSpectralFeatures*numSpectralSubFeatures);
 
-		for(int y=0;y<513;y++)
-		{
-			tempData[y] = 2.0f;
-		}
+		// Compute mfcc and derivative features
 
-		computeSpectralFeatures->computeFeatures(tempData);
-		computeSpectralFeatures->getSubFeatureVector(resultVector,numSpectralFeatures*numSpectralSubFeatures);
+
+
+		computePitchFeatures->computeFeatures(audioFile);
 
 		delete featureVec;
 		featureVec = nullptr;
@@ -89,6 +96,7 @@ public:
 		tempData=nullptr;
 	}
 
+	
 
 	private:
 		
@@ -103,9 +111,11 @@ public:
 
 		int numSpectralFeatures;
 		int numSpectralSubFeatures;
+		int numMFCCFeatures;
 		float* featureVec;
 
-		Eigen::MatrixXf magSpec;
+		//Eigen::MatrixXf magSpec;
+		float *magSpec;
 
 		File audioFile;
 };

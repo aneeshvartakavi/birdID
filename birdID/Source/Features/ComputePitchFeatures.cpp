@@ -44,7 +44,7 @@ void ComputePitchFeatures::computeFeatures(File& audioFile)
 	processPitch(100,8000);
 	// Compute the derivative
 	computeFirstDerivative();
-		
+	
 }
 
 void ComputePitchFeatures::computePitch(File& audioFile)
