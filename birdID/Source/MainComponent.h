@@ -29,45 +29,45 @@
 
 //==============================================================================
 /**
-																	//[Comments]
+                                                                    //[Comments]
 	An auto-generated component, created by the Introjucer.
 
 	Describe your class and how it works here!
-																	//[/Comments]
+                                                                    //[/Comments]
 */
 class MainContentComponent  : public Component,
-							  public ButtonListener
+                              public ButtonListener
 {
 public:
-	//==============================================================================
-	MainContentComponent ();
-	~MainContentComponent();
+    //==============================================================================
+    MainContentComponent ();
+    ~MainContentComponent();
 
-	//==============================================================================
-	//[UserMethods]     -- You can add your own custom methods in this section.
+    //==============================================================================
+    //[UserMethods]     -- You can add your own custom methods in this section.
 	void readDirectory();
-	//[/UserMethods]
+    //[/UserMethods]
 
-	void paint (Graphics& g);
-	void resized();
-	void buttonClicked (Button* buttonThatWasClicked);
+    void paint (Graphics& g);
+    void resized();
+    void buttonClicked (Button* buttonThatWasClicked);
 
 
 
 private:
-	//[UserVariables]   -- You can add your own custom variables in this section.
+    //[UserVariables]   -- You can add your own custom variables in this section.
 	File pathToFile;
 	ScopedPointer<BirdID> birdID;
-	//[/UserVariables]
+    //[/UserVariables]
 
-	//==============================================================================
-	ScopedPointer<Label> label1;
-	ScopedPointer<TextButton> browseButton;
-	ScopedPointer<Label> browseLabel;
+    //==============================================================================
+    ScopedPointer<Label> label1;
+    ScopedPointer<TextButton> browseButton;
+    ScopedPointer<Label> browseLabel;
 
 
-	//==============================================================================
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
+    //==============================================================================
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
 };
 
 //[EndFile] You can add extra defines here...

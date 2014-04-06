@@ -58,8 +58,12 @@ public:
 		numCSpectralFeatures = computeCSpecFeatures->getNumFeatures();
 		spectralFeatures = new float[numCSpectralFeatures];
 
-		featureVector = new float[numMFCCFeatures+numBWFeatures+numCSpectralFeatures];
+		numFeatures = numMFCCFeatures+numBWFeatures+numCSpectralFeatures;
+		featureVector = new float[numFeatures];
 
+		// For scaling
+		featureMin = new float[numFeatures];
+		featureRanges = new float[numFeatures];
 	}
 
 	~FeatureExtractor()
@@ -112,6 +116,8 @@ public:
 		{
 			featureVector[i+numBWFeatures+numCSpectralFeatures] = mfccFeatures[i];
 		}
+		// Scale after you have the full feature vector
+		scaleFeatureVector(featureVector);
 
 		//float *tempData = new float[513];
 		//float* featureVec = new float[numSpectralFeatures*numSpectralSubFeatures];
@@ -145,9 +151,50 @@ public:
 	void scaleFeatureVector(float* featureVector_)
 	{
 		// Uses the saved text files min and range to scale each of the features in the featureVector_
+		//File thiss = File::getCurrentWorkingDirectory();
+		File minFile("C:\\Users\\Aneesh\\Documents\\GitHub\\birdID\\birdID\\Source\\LibSVM\\min.txt");
+		File rangeFile("C:\\Users\\Aneesh\\Documents\\GitHub\\birdID\\birdID\\Source\\LibSVM\\range.txt");
+		StringArray minLines,rangeLines;
+		if(minFile.existsAsFile() && rangeFile.existsAsFile())
+		{
+			minFile.readLines(minLines);
+			rangeFile.readLines(rangeLines);
+			for(int i=0;i<numFeatures;i++)
+			{
+				featureMin[i] = minLines[i].getFloatValue();
+				featureRanges[i] = rangeLines[i].getFloatValue();
+
+			}
+
+		}
+		else
+		{
+			DBG("Min and Range files not present!");
+		}
+
+		// Perform the scaling
+		for(int i=0;i<numFeatures;i++)
+		{
+			featureVector_[i] = featureVector_[i] - featureMin[i];
+			featureVector_[i] = featureVector_[i]/featureRanges[i];
+		}
 
 	}
 
+	void returnFeatureVector(float* featureVector_)
+	{
+		// Deep copy pointers
+		for(int i=0;i<numFeatures;i++)
+		{
+			featureVector_[i] = featureVector[i];
+		}
+
+	}
+
+	int getNumFeatures()
+	{
+		return numFeatures;
+	}
 
 	private:
 		
@@ -161,6 +208,8 @@ public:
 		float* mfccFeatures;
 		float* bwFeatures;
 		float* spectralFeatures;
+		// To store final features
+		float* featureVector;
 
 		// Used for Pitch features
 		int blockSize;	
@@ -173,9 +222,11 @@ public:
 		int numCSpectralFeatures;
 		int numMFCCFeatures;
 		int numBWFeatures;
+		int numFeatures;
 		//int numMFCCFeatures;
 		
-		float* featureVector;
+		float* featureMin;
+		float* featureRanges;
 
 		float *magSpec;
 

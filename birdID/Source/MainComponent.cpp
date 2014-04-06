@@ -74,7 +74,7 @@ MainContentComponent::~MainContentComponent()
 
     //[Destructor]. You can add your own custom destruction code here..
 	birdID = nullptr;
-	//[/Destructor]
+    //[/Destructor]
 }
 
 //==============================================================================
@@ -92,7 +92,7 @@ void MainContentComponent::paint (Graphics& g)
 void MainContentComponent::resized()
 {
     label1->setBounds (120, 32, 168, 40);
-    browseButton->setBounds (112, 160, 150, 24);
+    browseButton->setBounds (112, 176, 150, 24);
     browseLabel->setBounds (120, 96, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
@@ -155,7 +155,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="22" bold="0" italic="0" justification="33"/>
   <TEXTBUTTON name="" id="380005bb9b91b092" memberName="browseButton" virtualName=""
-              explicitFocusOrder="0" pos="112 160 150 24" buttonText="Browse"
+              explicitFocusOrder="0" pos="112 176 150 24" buttonText="Browse"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <LABEL name="" id="d81d55e5c30d5bb1" memberName="browseLabel" virtualName=""
          explicitFocusOrder="0" pos="120 96 150 24" edTextCol="ff000000"

@@ -16,6 +16,7 @@
 #include "JuceHeader.h"
 #include "FeatureExtractor.h"
 #include "PreProcessor.h"
+#include "Classifier.h"
 
 extern "C"
 {
@@ -63,6 +64,7 @@ private:
 
 	ScopedPointer<FeatureExtractor> featureExtractor;
 	ScopedPointer<PreProcessor> preProcessor;
+	ScopedPointer<Classifier> classifier;
 
 	ScopedPointer<emxArray_real_T> magSpec;
 	ScopedPointer<emxArray_real_T> denoisedSpecEMX;
@@ -75,6 +77,7 @@ private:
 	int blockSize;
 	int hopSize;
 	int numFeatures;
+	int numClasses;
 	int halfBlockSize;
 
 	

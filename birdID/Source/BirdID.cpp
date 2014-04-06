@@ -17,8 +17,8 @@ BirdID::BirdID(int blockSize_, int hopSize_): blockSize(blockSize_),hopSize(hopS
 	// Register basic formats to read
 	formatManager.registerBasicFormats();
 
-	numFeatures = 10;
-
+	//numFeatures = 10;
+	numClasses = 30;
 	//featureExtractor = new FeatureExtractor();
 	interpolator = new LagrangeInterpolator();
 	interpolator->reset();
@@ -28,6 +28,7 @@ BirdID::~BirdID()
 {
 	featureExtractor = nullptr;
 	interpolator = nullptr;
+	classifier = nullptr;
 	//delete featureVector;
 	//featureVector = nullptr;
 	
@@ -133,8 +134,15 @@ void BirdID::process(const File &audioFile_)
 	featureExtractor = new FeatureExtractor(denoisedSpectrum,numRows,numCols,audioFile,denoisedAudioEMX);
 //	featureExtractor->setSpectralFeatureExtractionProperties();
 	featureExtractor->extractFeatures();
+	// Get features back
+	numFeatures = featureExtractor->getNumFeatures();
+	featureVector = new float[numFeatures];
+	featureExtractor->returnFeatureVector(featureVector);
 
 	// 5. Classify
+	classifier = new Classifier(numFeatures,numClasses);
+	
+	int predictedClass = classifier->classify(featureVector);
 
 }
 
