@@ -5,6 +5,9 @@
     <Filter Include="birdID">
       <UniqueIdentifier>{747174DD-6779-1CFE-D16F-15B6C8473F3C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="birdID\LibSVM">
+      <UniqueIdentifier>{B763A86C-07D9-4EE6-CA72-AD988A4D3A11}</UniqueIdentifier>
+    </Filter>
     <Filter Include="birdID\Export">
       <UniqueIdentifier>{97CAF9E9-A67B-CFD9-2413-0B6B570A7A48}</UniqueIdentifier>
     </Filter>
@@ -376,6 +379,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\LibSVM\svm.cpp">
+      <Filter>birdID\LibSVM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Export\computeSpectralFeatures.c">
+      <Filter>birdID\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Export\computeBWFeatures.c">
+      <Filter>birdID\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Export\featureMFCCAndDerivative.c">
+      <Filter>birdID\Export</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Export\inverseSTFT.c">
       <Filter>birdID\Export</Filter>
     </ClCompile>
@@ -405,6 +420,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\BirdID.cpp">
       <Filter>birdID\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Features\ComputeBWFeatures.cpp">
+      <Filter>birdID\Source\Features</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Features\ComputeMFCCFeatures.cpp">
       <Filter>birdID\Source\Features</Filter>
@@ -1515,6 +1533,27 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\LibSVM\svm.h">
+      <Filter>birdID\LibSVM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\computeSpectralFeatures.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\computeSpectralFeatures_types.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\computeBWFeatures.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\computeBWFeatures_types.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\featureMFCCAndDerivative.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\featureMFCCAndDerivative_types.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Export\inverseSTFT.h">
       <Filter>birdID\Export</Filter>
     </ClInclude>
@@ -2432,6 +2471,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\BirdID.h">
       <Filter>birdID\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Features\ComputeCSpecFeatures.h">
+      <Filter>birdID\Source\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Features\ComputeBWFeatures.h">
+      <Filter>birdID\Source\Features</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Features\ComputeMFCCFeatures.h">
       <Filter>birdID\Source\Features</Filter>
@@ -3617,6 +3662,15 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\LibSVM\min.txt">
+      <Filter>birdID\LibSVM</Filter>
+    </None>
+    <None Include="..\..\Source\LibSVM\range.txt">
+      <Filter>birdID\LibSVM</Filter>
+    </None>
+    <None Include="..\..\Source\LibSVM\svm.def">
+      <Filter>birdID\LibSVM</Filter>
+    </None>
     <None Include="..\..\Source\Eigen\CMakeLists.txt">
       <Filter>birdID\Eigen</Filter>
     </None>

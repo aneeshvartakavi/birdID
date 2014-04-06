@@ -131,6 +131,10 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\LibSVM\svm.cpp"/>
+    <ClCompile Include="..\..\Source\Export\computeSpectralFeatures.c"/>
+    <ClCompile Include="..\..\Source\Export\computeBWFeatures.c"/>
+    <ClCompile Include="..\..\Source\Export\featureMFCCAndDerivative.c"/>
     <ClCompile Include="..\..\Source\Export\inverseSTFT.c"/>
     <ClCompile Include="..\..\Source\Export\bufferSTFT.c"/>
     <ClCompile Include="..\..\Source\Export\denoiseSpectrogram.c"/>
@@ -141,6 +145,7 @@
     <ClCompile Include="..\..\Source\PreProcessor.cpp"/>
     <ClCompile Include="..\..\Source\Yin\Yin.cpp"/>
     <ClCompile Include="..\..\Source\BirdID.cpp"/>
+    <ClCompile Include="..\..\Source\Features\ComputeBWFeatures.cpp"/>
     <ClCompile Include="..\..\Source\Features\ComputeMFCCFeatures.cpp"/>
     <ClCompile Include="..\..\Source\Features\ComputeCCFeatures.cpp"/>
     <ClCompile Include="..\..\Source\Features\ComputeOnsetFeatures.cpp"/>
@@ -1148,6 +1153,13 @@
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_gui_extra\juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\LibSVM\svm.h"/>
+    <ClInclude Include="..\..\Source\Export\computeSpectralFeatures.h"/>
+    <ClInclude Include="..\..\Source\Export\computeSpectralFeatures_types.h"/>
+    <ClInclude Include="..\..\Source\Export\computeBWFeatures.h"/>
+    <ClInclude Include="..\..\Source\Export\computeBWFeatures_types.h"/>
+    <ClInclude Include="..\..\Source\Export\featureMFCCAndDerivative.h"/>
+    <ClInclude Include="..\..\Source\Export\featureMFCCAndDerivative_types.h"/>
     <ClInclude Include="..\..\Source\Export\inverseSTFT.h"/>
     <ClInclude Include="..\..\Source\Export\inverseSTFT_types.h"/>
     <ClInclude Include="..\..\Source\Export\rt_defines.h"/>
@@ -1454,6 +1466,8 @@
     <ClInclude Include="..\..\Source\PreProcessor.h"/>
     <ClInclude Include="..\..\Source\Yin\Yin.h"/>
     <ClInclude Include="..\..\Source\BirdID.h"/>
+    <ClInclude Include="..\..\Source\Features\ComputeCSpecFeatures.h"/>
+    <ClInclude Include="..\..\Source\Features\ComputeBWFeatures.h"/>
     <ClInclude Include="..\..\Source\Features\ComputeMFCCFeatures.h"/>
     <ClInclude Include="..\..\Source\Features\ComputeCCFeatures.h"/>
     <ClInclude Include="..\..\Source\Features\ComputeOnsetFeatures.h"/>
@@ -1850,6 +1864,9 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\LibSVM\min.txt"/>
+    <None Include="..\..\Source\LibSVM\range.txt"/>
+    <None Include="..\..\Source\LibSVM\svm.def"/>
     <None Include="..\..\Source\Eigen\CMakeLists.txt"/>
     <None Include="..\..\Source\Eigen\src\Cholesky\CMakeLists.txt"/>
     <None Include="..\..\Source\Eigen\src\CholmodSupport\CMakeLists.txt"/>

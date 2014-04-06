@@ -9,6 +9,15 @@
 
 namespace BinaryData
 {
+    extern const char*   min_txt;
+    const int            min_txtSize = 1175;
+
+    extern const char*   range_txt;
+    const int            range_txtSize = 1146;
+
+    extern const char*   svm_def;
+    const int            svm_defSize = 477;
+
     extern const char*   CMakeLists_txt;
     const int            CMakeLists_txtSize = 607;
 
@@ -130,7 +139,7 @@ namespace BinaryData
     extern const char* namedResourceList[];
 
     // Number of elements in the namedResourceList array.
-    const int namedResourceListSize = 39;
+    const int namedResourceListSize = 42;
 
     // If you provide the name of one of the binary resource variables above, this function will
     // return the corresponding data and its size (or a null pointer if the name isn't found).

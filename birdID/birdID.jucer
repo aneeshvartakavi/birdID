@@ -4,7 +4,32 @@
               bundleIdentifier="com.yourcompany.birdID" includeBinaryInAppConfig="1"
               jucerVersion="3.1.0">
   <MAINGROUP id="kn7qzG" name="birdID">
+    <GROUP id="{7D4CB7A8-D42F-124B-3FDA-F93FA1563A16}" name="LibSVM">
+      <FILE id="UCSMGA" name="min.txt" compile="0" resource="1" file="Source/LibSVM/min.txt"/>
+      <FILE id="GKNPMY" name="range.txt" compile="0" resource="1" file="Source/LibSVM/range.txt"/>
+      <FILE id="A0npkN" name="svm.cpp" compile="1" resource="0" file="Source/LibSVM/svm.cpp"/>
+      <FILE id="AHmvm2" name="svm.def" compile="0" resource="1" file="Source/LibSVM/svm.def"/>
+      <FILE id="xo6j6W" name="svm.h" compile="0" resource="0" file="Source/LibSVM/svm.h"/>
+    </GROUP>
     <GROUP id="{6FC844E7-B40C-8F4C-42F7-003ACB0CE33A}" name="Export">
+      <FILE id="D2ljzS" name="computeSpectralFeatures.c" compile="1" resource="0"
+            file="Source/Export/computeSpectralFeatures.c"/>
+      <FILE id="lCXEZj" name="computeSpectralFeatures.h" compile="0" resource="0"
+            file="Source/Export/computeSpectralFeatures.h"/>
+      <FILE id="Snrezw" name="computeSpectralFeatures_types.h" compile="0"
+            resource="0" file="Source/Export/computeSpectralFeatures_types.h"/>
+      <FILE id="bNcreG" name="computeBWFeatures.c" compile="1" resource="0"
+            file="Source/Export/computeBWFeatures.c"/>
+      <FILE id="dQ1iXo" name="computeBWFeatures.h" compile="0" resource="0"
+            file="Source/Export/computeBWFeatures.h"/>
+      <FILE id="om2KlR" name="computeBWFeatures_types.h" compile="0" resource="0"
+            file="Source/Export/computeBWFeatures_types.h"/>
+      <FILE id="BFpuQm" name="featureMFCCAndDerivative.c" compile="1" resource="0"
+            file="Source/Export/featureMFCCAndDerivative.c"/>
+      <FILE id="JKiw3v" name="featureMFCCAndDerivative.h" compile="0" resource="0"
+            file="Source/Export/featureMFCCAndDerivative.h"/>
+      <FILE id="heExES" name="featureMFCCAndDerivative_types.h" compile="0"
+            resource="0" file="Source/Export/featureMFCCAndDerivative_types.h"/>
       <FILE id="HWmPLW" name="inverseSTFT.c" compile="1" resource="0" file="Source/Export/inverseSTFT.c"/>
       <FILE id="kKvnY5" name="inverseSTFT.h" compile="0" resource="0" file="Source/Export/inverseSTFT.h"/>
       <FILE id="mu6uP7" name="inverseSTFT_types.h" compile="0" resource="0"
@@ -570,6 +595,12 @@
       <FILE id="parTeY" name="BirdID.cpp" compile="1" resource="0" file="Source/BirdID.cpp"/>
       <FILE id="n8cVQo" name="BirdID.h" compile="0" resource="0" file="Source/BirdID.h"/>
       <GROUP id="{51850F17-C21B-F1C6-0656-6B777A2D608F}" name="Features">
+        <FILE id="k9gc0O" name="ComputeCSpecFeatures.h" compile="0" resource="0"
+              file="Source/Features/ComputeCSpecFeatures.h"/>
+        <FILE id="DxQH8Z" name="ComputeBWFeatures.cpp" compile="1" resource="0"
+              file="Source/Features/ComputeBWFeatures.cpp"/>
+        <FILE id="Li3mlk" name="ComputeBWFeatures.h" compile="0" resource="0"
+              file="Source/Features/ComputeBWFeatures.h"/>
         <FILE id="TJ5Ws7" name="ComputeMFCCFeatures.cpp" compile="1" resource="0"
               file="Source/Features/ComputeMFCCFeatures.cpp"/>
         <FILE id="pTvaL4" name="ComputeMFCCFeatures.h" compile="0" resource="0"

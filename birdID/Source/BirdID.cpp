@@ -49,7 +49,7 @@ void BirdID::readAudioFileResampled(const File &audioFile_, float targetSampleRa
 		
 		int64 numSamples = fileReader->lengthInSamples;
 
-		ScopedPointer<AudioSampleBuffer> leftChannelBuffer = new AudioSampleBuffer(1,numSamples);
+		ScopedPointer<AudioSampleBuffer> leftChannelBuffer = new AudioSampleBuffer(1,static_cast<int>(numSamples));
 		leftChannelBuffer->clear();
 		
 		float sampleRate = static_cast<float>(fileReader->sampleRate);
@@ -130,8 +130,8 @@ void BirdID::process(const File &audioFile_)
 	//tempStream->flush();
 	
 	//// 4. Extract features
-	featureExtractor = new FeatureExtractor(denoisedSpectrum,numRows,numCols,audioFile);
-	featureExtractor->setSpectralFeatureExtractionProperties();
+	featureExtractor = new FeatureExtractor(denoisedSpectrum,numRows,numCols,audioFile,denoisedAudioEMX);
+//	featureExtractor->setSpectralFeatureExtractionProperties();
 	featureExtractor->extractFeatures();
 
 	// 5. Classify
