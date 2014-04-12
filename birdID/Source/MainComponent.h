@@ -23,6 +23,8 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
 #include "BirdID.h"
+#include "ThumbnailComponent.h"
+#include "AudioSetup.h"
 //[/Headers]
 
 
@@ -36,7 +38,9 @@
                                                                     //[/Comments]
 */
 class MainContentComponent  : public Component,
-                              public ButtonListener
+                              public ChangeListener,
+                              public ButtonListener,
+                              public SliderListener
 {
 public:
     //==============================================================================
@@ -46,11 +50,15 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
 	void readDirectory();
+	void showFile (const File& file);
+	void loadFileIntoTransport (const File& audioFile);
+	void changeListenerCallback (ChangeBroadcaster* source) override;
     //[/UserMethods]
 
     void paint (Graphics& g);
     void resized();
     void buttonClicked (Button* buttonThatWasClicked);
+    void sliderValueChanged (Slider* sliderThatWasMoved);
 
 
 
@@ -58,12 +66,26 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	File pathToFile;
 	ScopedPointer<BirdID> birdID;
+	ScopedPointer<AudioFormatReaderSource> currentAudioFileSource;
+	AudioSourcePlayer audioSourcePlayer;
+    AudioTransportSource transportSource;
+    AudioFormatManager formatManager;
+	AudioDeviceManager& deviceManager;
+	TimeSliceThread thread;
+
+	ScopedPointer<AudioSetup> audioSetup;
+
+	bool fileLoaded;
     //[/UserVariables]
 
     //==============================================================================
+    ScopedPointer<ThumbnailComponent> audioThumbnail;
     ScopedPointer<Label> label1;
-    ScopedPointer<TextButton> browseButton;
-    ScopedPointer<Label> browseLabel;
+    ScopedPointer<TextButton> startButton;
+    ScopedPointer<Slider> zoomSlider;
+    ScopedPointer<Label> zoomLabel;
+    ScopedPointer<TextButton> setupButton;
+    ScopedPointer<TextButton> processButton;
 
 
     //==============================================================================

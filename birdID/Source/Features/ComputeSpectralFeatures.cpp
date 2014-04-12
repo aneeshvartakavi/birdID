@@ -15,7 +15,7 @@
 
 ComputeSpectralFeatures::ComputeSpectralFeatures()
 {
-	/*numIterMean = 0;
+	/*
 	numIterStd = 0;
 	numIterdMean = 0;
 	numIterdStd = 0;*/

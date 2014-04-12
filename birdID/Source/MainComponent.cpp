@@ -28,52 +28,104 @@
 
 //==============================================================================
 MainContentComponent::MainContentComponent ()
+    : deviceManager(* new AudioDeviceManager()),thread ("Preview")
 {
+    addAndMakeVisible (audioThumbnail = new ThumbnailComponent (formatManager, transportSource, *zoomSlider));
+    audioThumbnail->setName ("new component");
+
     addAndMakeVisible (label1 = new Label (String::empty,
                                            TRANS("BirdID\n")));
-    label1->setFont (Font (22.00f, Font::plain));
-    label1->setJustificationType (Justification::centredLeft);
+    label1->setFont (Font ("Candara", 22.00f, Font::plain));
+    label1->setJustificationType (Justification::centred);
     label1->setEditable (false, false, false);
+    label1->setColour (Label::backgroundColourId, Colour (0x00a6a6a6));
     label1->setColour (TextEditor::textColourId, Colours::black);
     label1->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (browseButton = new TextButton (String::empty));
-    browseButton->setButtonText (TRANS("Browse"));
-    browseButton->addListener (this);
+    addAndMakeVisible (startButton = new TextButton (String::empty));
+    startButton->setButtonText (TRANS("Play/Stop"));
+    startButton->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
+    startButton->addListener (this);
+    startButton->setColour (TextButton::buttonColourId, Colours::black);
+    startButton->setColour (TextButton::textColourOnId, Colours::white);
+    startButton->setColour (TextButton::textColourOffId, Colour (0xffcdc9c9));
 
-    addAndMakeVisible (browseLabel = new Label (String::empty,
-                                                TRANS("Browse local hard drive for files")));
-    browseLabel->setFont (Font (15.00f, Font::plain));
-    browseLabel->setJustificationType (Justification::centredLeft);
-    browseLabel->setEditable (false, false, false);
-    browseLabel->setColour (TextEditor::textColourId, Colours::black);
-    browseLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    addAndMakeVisible (zoomSlider = new Slider ("new slider"));
+    zoomSlider->setRange (0, 10, 0);
+    zoomSlider->setSliderStyle (Slider::LinearHorizontal);
+    zoomSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    zoomSlider->setColour (Slider::thumbColourId, Colours::black);
+    zoomSlider->addListener (this);
+
+    addAndMakeVisible (zoomLabel = new Label ("new label",
+                                              TRANS("Zoom")));
+    zoomLabel->setFont (Font ("Candara", 20.50f, Font::plain));
+    zoomLabel->setJustificationType (Justification::centredLeft);
+    zoomLabel->setEditable (false, false, false);
+    zoomLabel->setColour (TextEditor::textColourId, Colours::black);
+    zoomLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (setupButton = new TextButton (String::empty));
+    setupButton->setButtonText (TRANS("Audio Setup"));
+    setupButton->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
+    setupButton->addListener (this);
+    setupButton->setColour (TextButton::buttonColourId, Colours::black);
+    setupButton->setColour (TextButton::textColourOnId, Colours::white);
+    setupButton->setColour (TextButton::textColourOffId, Colour (0xffcdc9c9));
+
+    addAndMakeVisible (processButton = new TextButton (String::empty));
+    processButton->setButtonText (TRANS("Identify"));
+    processButton->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
+    processButton->addListener (this);
+    processButton->setColour (TextButton::buttonColourId, Colours::black);
+    processButton->setColour (TextButton::textColourOnId, Colours::white);
+    processButton->setColour (TextButton::textColourOffId, Colour (0xffcdc9c9));
 
 
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (600, 400);
+    setSize (1024, 768);
 
 
     //[Constructor] You can add your own custom stuff here..
+	deviceManager.initialise(2,2,nullptr,true);
+	audioThumbnail->addChangeListener(this);
+	thread.startThread (3);
+
+	formatManager.registerBasicFormats();
+	deviceManager.addAudioCallback (&audioSourcePlayer);
+    audioSourcePlayer.setSource (&transportSource);
 	birdID = new BirdID(1024,512);
-	//featureExtractor = new FeatureExtractor();
+
+	fileLoaded = false;
     //[/Constructor]
 }
 
 MainContentComponent::~MainContentComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
+    transportSource.setSource (nullptr);
+    deviceManager.removeAudioCallback (&audioSourcePlayer);
+	audioSourcePlayer.setSource (nullptr);
+	audioThumbnail->removeChangeListener (this);
+	zoomSlider->removeListener (this);
+	audioSetup = nullptr;
+	currentAudioFileSource = nullptr;
     //[/Destructor_pre]
 
+    audioThumbnail = nullptr;
     label1 = nullptr;
-    browseButton = nullptr;
-    browseLabel = nullptr;
+    startButton = nullptr;
+    zoomSlider = nullptr;
+    zoomLabel = nullptr;
+    setupButton = nullptr;
+    processButton = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
 	birdID = nullptr;
+
     //[/Destructor]
 }
 
@@ -83,7 +135,7 @@ void MainContentComponent::paint (Graphics& g)
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
-    g.fillAll (Colours::white);
+    g.fillAll (Colour (0xff4a4a4a));
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
@@ -91,9 +143,13 @@ void MainContentComponent::paint (Graphics& g)
 
 void MainContentComponent::resized()
 {
-    label1->setBounds (120, 32, 168, 40);
-    browseButton->setBounds (112, 176, 150, 24);
-    browseLabel->setBounds (120, 96, 150, 24);
+    audioThumbnail->setBounds (48, 120, 920, 144);
+    label1->setBounds (432, 64, 168, 40);
+    startButton->setBounds (56, 280, 150, 24);
+    zoomSlider->setBounds (864, 280, 96, 24);
+    zoomLabel->setBounds (808, 280, 56, 24);
+    setupButton->setBounds (64, 696, 150, 24);
+    processButton->setBounds (432, 696, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -103,18 +159,64 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
     //[UserbuttonClicked_Pre]
     //[/UserbuttonClicked_Pre]
 
-    if (buttonThatWasClicked == browseButton)
+    if (buttonThatWasClicked == startButton)
     {
-        //[UserButtonCode_browseButton] -- add your button handler code here..
-		readDirectory();
-		//birdID->readAudioFile(pathToFile);
-		birdID->process(pathToFile);
-		//		featureExtractor->computeFeatures(pathToFile);
-        //[/UserButtonCode_browseButton]
+        //[UserButtonCode_startButton] -- add your button handler code here..
+         if (transportSource.isPlaying())
+            {
+                transportSource.stop();
+            }
+            else
+            {
+                transportSource.setPosition (0);
+                transportSource.start();
+            }
+        //[/UserButtonCode_startButton]
+    }
+    else if (buttonThatWasClicked == setupButton)
+    {
+        //[UserButtonCode_setupButton] -- add your button handler code here..
+		addAndMakeVisible(audioSetup = new AudioSetup(deviceManager));
+        //[/UserButtonCode_setupButton]
+    }
+    else if (buttonThatWasClicked == processButton)
+    {
+        //[UserButtonCode_processButton] -- add your button handler code here..
+        //[/UserButtonCode_processButton]
+		if(fileLoaded)
+		{
+			if(birdID->runThread())
+			{
+				// Thread ran normally
+			}
+			else
+			{
+				// User requested cancel
+			}
+
+
+		}
+		
     }
 
     //[UserbuttonClicked_Post]
     //[/UserbuttonClicked_Post]
+}
+
+void MainContentComponent::sliderValueChanged (Slider* sliderThatWasMoved)
+{
+    //[UsersliderValueChanged_Pre]
+    //[/UsersliderValueChanged_Pre]
+
+    if (sliderThatWasMoved == zoomSlider)
+    {
+        //[UserSliderCode_zoomSlider] -- add your slider handling code here..
+		audioThumbnail->setZoomFactor (zoomSlider->getValue());
+        //[/UserSliderCode_zoomSlider]
+    }
+
+    //[UsersliderValueChanged_Post]
+    //[/UsersliderValueChanged_Post]
 }
 
 
@@ -132,6 +234,48 @@ void MainContentComponent::readDirectory()
 			pathToFile = File();
 		}
 }
+
+
+void MainContentComponent::changeListenerCallback (ChangeBroadcaster* source)
+{
+    if (source == audioThumbnail)
+        showFile (audioThumbnail->getLastDroppedFile());
+}
+
+void MainContentComponent::showFile (const File& file)
+{
+    loadFileIntoTransport (file);
+
+    zoomSlider->setValue (0, dontSendNotification);
+	audioThumbnail->setFile (file);
+}
+
+void MainContentComponent::loadFileIntoTransport (const File& audioFile)
+{
+    // unload the previous file source and delete it..
+    transportSource.stop();
+    transportSource.setSource (nullptr);
+    currentAudioFileSource = nullptr;
+
+    AudioFormatReader* reader = formatManager.createReaderFor (audioFile);
+
+    if (reader != nullptr)
+    {
+        currentAudioFileSource = new AudioFormatReaderSource (reader, true);
+
+        // ..and plug it into our transport source
+        transportSource.setSource (currentAudioFileSource,
+                                    32768,                   // tells it to buffer this many samples ahead
+                                    &thread,                 // this is the background thread to use for reading-ahead
+                                    reader->sampleRate);     // allows for sample rate correction
+    
+	birdID->selectFile(audioFile);
+	fileLoaded = true;
+	}
+
+	
+}
+
 //[/MiscUserCode]
 
 
@@ -145,23 +289,40 @@ void MainContentComponent::readDirectory()
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="MainContentComponent" componentName=""
-                 parentClasses="public Component" constructorParams="" variableInitialisers=""
+                 parentClasses="public Component, public ChangeListener" constructorParams=""
+                 variableInitialisers="deviceManager(* new AudioDeviceManager()),thread (&quot;Preview&quot;)&#10;"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="600" initialHeight="400">
-  <BACKGROUND backgroundColour="ffffffff"/>
+                 fixedSize="0" initialWidth="1024" initialHeight="768">
+  <BACKGROUND backgroundColour="ff4a4a4a"/>
+  <GENERICCOMPONENT name="new component" id="7cb95d3164466318" memberName="audioThumbnail"
+                    virtualName="" explicitFocusOrder="0" pos="48 120 920 144" class="ThumbnailComponent"
+                    params="formatManager, transportSource, *zoomSlider"/>
   <LABEL name="" id="cd58986fe7eba495" memberName="label1" virtualName=""
-         explicitFocusOrder="0" pos="120 32 168 40" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="432 64 168 40" bkgCol="a6a6a6" edTextCol="ff000000"
          edBkgCol="0" labelText="BirdID&#10;" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="22" bold="0" italic="0" justification="33"/>
-  <TEXTBUTTON name="" id="380005bb9b91b092" memberName="browseButton" virtualName=""
-              explicitFocusOrder="0" pos="112 176 150 24" buttonText="Browse"
-              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
-  <LABEL name="" id="d81d55e5c30d5bb1" memberName="browseLabel" virtualName=""
-         explicitFocusOrder="0" pos="120 96 150 24" edTextCol="ff000000"
-         edBkgCol="0" labelText="Browse local hard drive for files" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="15" bold="0" italic="0" justification="33"/>
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Candara"
+         fontsize="22" bold="0" italic="0" justification="36"/>
+  <TEXTBUTTON name="" id="380005bb9b91b092" memberName="startButton" virtualName=""
+              explicitFocusOrder="0" pos="56 280 150 24" bgColOff="ff000000"
+              textCol="ffffffff" textColOn="ffcdc9c9" buttonText="Play/Stop"
+              connectedEdges="3" needsCallback="1" radioGroupId="0"/>
+  <SLIDER name="new slider" id="f61aebe640ae4d7a" memberName="zoomSlider"
+          virtualName="" explicitFocusOrder="0" pos="864 280 96 24" thumbcol="ff000000"
+          min="0" max="10" int="0" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <LABEL name="new label" id="8eaa9a342604a1de" memberName="zoomLabel"
+         virtualName="" explicitFocusOrder="0" pos="808 280 56 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="Zoom" editableSingleClick="0" editableDoubleClick="0"
+         focusDiscardsChanges="0" fontname="Candara" fontsize="20.5" bold="0"
+         italic="0" justification="33"/>
+  <TEXTBUTTON name="" id="ebe0a02516466f36" memberName="setupButton" virtualName=""
+              explicitFocusOrder="0" pos="64 696 150 24" bgColOff="ff000000"
+              textCol="ffffffff" textColOn="ffcdc9c9" buttonText="Audio Setup"
+              connectedEdges="3" needsCallback="1" radioGroupId="0"/>
+  <TEXTBUTTON name="" id="a5f342338127b12a" memberName="processButton" virtualName=""
+              explicitFocusOrder="0" pos="432 696 150 24" bgColOff="ff000000"
+              textCol="ffffffff" textColOn="ffcdc9c9" buttonText="Identify"
+              connectedEdges="3" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

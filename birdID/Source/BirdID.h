@@ -30,7 +30,7 @@ extern "C"
 //#include "Eigen\FFT.h"
 #endif
 
-class BirdID
+class BirdID : public ThreadWithProgressWindow
 {
 public:
 	BirdID(int blockSize_,int hopSize_);
@@ -38,7 +38,16 @@ public:
 
 	
 	// Run all the operations
-	void process(const File &audioFile_);
+	void selectFile(const File &audioFile_)
+	{
+		audioFile = audioFile_;
+	}
+
+	void run();
+	
+	// Made public
+	//AudioFormatManager formatManager;
+	//AudioTransportSource transportSource;
 
 	
 private:
@@ -54,7 +63,8 @@ private:
 	//int numFeatures;
 	// To manage reading audio formats
 	AudioFormatManager formatManager;
-	
+	AudioTransportSource transportSource;
+
 	// Resampling stuff
 	ScopedPointer<LagrangeInterpolator> interpolator;
 	float* resampledAudio;

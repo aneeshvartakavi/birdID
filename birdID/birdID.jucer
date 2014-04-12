@@ -63,10 +63,15 @@
       <FILE id="VKyVCF" name="rtwtypes.h" compile="0" resource="0" file="Source/Export/rtwtypes.h"/>
     </GROUP>
     <GROUP id="{F7A16C6D-EFA5-8D82-2830-A70D3C0C94A8}" name="Source">
-      <FILE id="y1dJr5" name="ResultComponent.cpp" compile="1" resource="0"
-            file="Source/ResultComponent.cpp"/>
-      <FILE id="f2ttj5" name="ResultComponent.h" compile="0" resource="0"
-            file="Source/ResultComponent.h"/>
+      <GROUP id="{370F53A3-863B-3ED5-8DE8-813B7ACFDA66}" name="GUI Components">
+        <FILE id="Z4zcVd" name="AudioSetup.cpp" compile="1" resource="0" file="Source/AudioSetup.cpp"/>
+        <FILE id="kak0en" name="AudioSetup.h" compile="0" resource="0" file="Source/AudioSetup.h"/>
+        <FILE id="WYP9Ja" name="ThumbnailComponent.h" compile="0" resource="0"
+              file="Source/ThumbnailComponent.h"/>
+        <FILE id="nB2V6l" name="MainComponent.cpp" compile="1" resource="0"
+              file="Source/MainComponent.cpp"/>
+        <FILE id="EvymOb" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      </GROUP>
       <FILE id="bhj1aZ" name="Classifier.cpp" compile="1" resource="0" file="Source/Classifier.cpp"/>
       <FILE id="t7q9JP" name="Classifier.h" compile="0" resource="0" file="Source/Classifier.h"/>
       <FILE id="MU6Nh6" name="ConnectedComponents.h" compile="0" resource="0"
@@ -112,9 +117,6 @@
             file="Source/FeatureExtractor.cpp"/>
       <FILE id="sATaIG" name="FeatureExtractor.h" compile="0" resource="0"
             file="Source/FeatureExtractor.h"/>
-      <FILE id="nB2V6l" name="MainComponent.cpp" compile="1" resource="0"
-            file="Source/MainComponent.cpp"/>
-      <FILE id="EvymOb" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="wM8bXn" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
   </MAINGROUP>
@@ -136,6 +138,8 @@
         <MODULEPATH id="juce_audio_formats" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_devices" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../JUCE/modules"/>
       </MODULEPATHS>
     </VS2012>
   </EXPORTFORMATS>
@@ -143,6 +147,8 @@
     <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
     <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
     <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_utils" showAllCode="1" useLocalCopy="1"/>
     <MODULES id="juce_core" showAllCode="1" useLocalCopy="1"/>
     <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
     <MODULES id="juce_events" showAllCode="1" useLocalCopy="1"/>

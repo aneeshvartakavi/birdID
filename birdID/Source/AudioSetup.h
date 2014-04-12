@@ -17,8 +17,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCE_HEADER_8872748CEA16EF57__
-#define __JUCE_HEADER_8872748CEA16EF57__
+#ifndef __JUCE_HEADER_6160AAC046B72536__
+#define __JUCE_HEADER_6160AAC046B72536__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
@@ -29,18 +29,19 @@
 //==============================================================================
 /**
                                                                     //[Comments]
-    An auto-generated component, created by the Introjucer.
+   Controls the Audio Device Setup, a window where the user can
+   select the input and output audio devices.
 
-    Describe your class and how it works here!
+   Authors:  Aneesh Vartakavi
                                                                     //[/Comments]
 */
-class NewComponent  : public Component,
-                      public ButtonListener
+class AudioSetup  : public Component,
+                    public ButtonListener
 {
 public:
     //==============================================================================
-    NewComponent ();
-    ~NewComponent();
+    AudioSetup (AudioDeviceManager& deviceManager_);
+    ~AudioSetup();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
@@ -54,19 +55,19 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+    AudioDeviceManager& deviceManager;
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<TextButton> quitButton;
-    ScopedPointer<Label> infoLabel;
-    ScopedPointer<Label> classLabel;
+    ScopedPointer<AudioDeviceSelectorComponent> deviceSelector;
+    ScopedPointer<TextButton> backButton;
 
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioSetup)
 };
 
 //[EndFile] You can add extra defines here...
 //[/EndFile]
 
-#endif   // __JUCE_HEADER_8872748CEA16EF57__
+#endif   // __JUCE_HEADER_6160AAC046B72536__

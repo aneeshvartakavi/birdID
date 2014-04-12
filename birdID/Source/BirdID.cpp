@@ -10,7 +10,7 @@
 
 #include "BirdID.h"
 
-BirdID::BirdID(int blockSize_, int hopSize_): blockSize(blockSize_),hopSize(hopSize_)
+BirdID::BirdID(int blockSize_, int hopSize_): blockSize(blockSize_),hopSize(hopSize_),ThreadWithProgressWindow("Working...",true,false)
 {
 	halfBlockSize = (blockSize/2)+1;
 	
@@ -89,13 +89,13 @@ void BirdID::readAudioFileResampled(const File &audioFile_, float targetSampleRa
 
 }
 
-void BirdID::process(const File &audioFile_)
+void BirdID::run()
 {
 	// Order of operations
-
+	setProgress(0.0);
 	// 1. Read audio and downsample
-	readAudioFileResampled(audioFile_,16000);
-
+	readAudioFileResampled(audioFile,16000);
+	setProgress(0.25);
 	// 2. Compute Spectrum
 	computeSpectrum();
 
@@ -110,7 +110,7 @@ void BirdID::process(const File &audioFile_)
 	// Convert to audio
 	recoverAudio();
 	
-	
+	setProgress(0.50);
 	// Write denoisedSpectrum to file
 	/*File logFile("C:\\Users\\Aneesh\\Desktop\\test.txt");
 	if(logFile.existsAsFile())
@@ -138,12 +138,13 @@ void BirdID::process(const File &audioFile_)
 	numFeatures = featureExtractor->getNumFeatures();
 	featureVector = new float[numFeatures];
 	featureExtractor->returnFeatureVector(featureVector);
-
+	setProgress(0.75);
 	// 5. Classify
 	classifier = new Classifier(numFeatures,numClasses);
 	
 	int predictedClass = classifier->classify(featureVector);
 
+	setProgress(0.99);
 }
 
 void BirdID::computeSpectrum()
