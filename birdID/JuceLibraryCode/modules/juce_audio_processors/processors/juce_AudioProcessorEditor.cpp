@@ -22,64 +22,16 @@
   ==============================================================================
 */
 
-StringArray MidiOutput::getDevices()
+AudioProcessorEditor::AudioProcessorEditor (AudioProcessor* const p)
+    : owner (p)
 {
-    StringArray devices;
-
-    return devices;
+    // the filter must be valid..
+    jassert (owner != nullptr);
 }
 
-int MidiOutput::getDefaultDeviceIndex()
+AudioProcessorEditor::~AudioProcessorEditor()
 {
-    return 0;
-}
-
-MidiOutput* MidiOutput::openDevice (int index)
-{
-    return nullptr;
-}
-
-MidiOutput::~MidiOutput()
-{
-    stopBackgroundThread();
-}
-
-void MidiOutput::sendMessageNow (const MidiMessage&)
-{
-}
-
-//==============================================================================
-MidiInput::MidiInput (const String& name_)
-    : name (name_),
-      internal (0)
-{
-}
-
-MidiInput::~MidiInput()
-{
-}
-
-void MidiInput::start()
-{
-}
-
-void MidiInput::stop()
-{
-}
-
-int MidiInput::getDefaultDeviceIndex()
-{
-    return 0;
-}
-
-StringArray MidiInput::getDevices()
-{
-    StringArray devs;
-
-    return devs;
-}
-
-MidiInput* MidiInput::openDevice (int index, MidiInputCallback* callback)
-{
-    return nullptr;
+    // if this fails, then the wrapper hasn't called editorBeingDeleted() on the
+    // filter for some reason..
+    jassert (owner->getActiveEditor() != this);
 }

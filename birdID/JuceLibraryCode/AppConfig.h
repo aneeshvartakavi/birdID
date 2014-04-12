@@ -22,15 +22,17 @@
 // [END_USER_CODE_SECTION]
 
 //==============================================================================
-#define JUCE_MODULE_AVAILABLE_juce_audio_basics         1
-#define JUCE_MODULE_AVAILABLE_juce_audio_devices        1
-#define JUCE_MODULE_AVAILABLE_juce_audio_formats        1
-#define JUCE_MODULE_AVAILABLE_juce_core                 1
-#define JUCE_MODULE_AVAILABLE_juce_data_structures      1
-#define JUCE_MODULE_AVAILABLE_juce_events               1
-#define JUCE_MODULE_AVAILABLE_juce_graphics             1
-#define JUCE_MODULE_AVAILABLE_juce_gui_basics           1
-#define JUCE_MODULE_AVAILABLE_juce_gui_extra            1
+#define JUCE_MODULE_AVAILABLE_juce_audio_basics          1
+#define JUCE_MODULE_AVAILABLE_juce_audio_devices         1
+#define JUCE_MODULE_AVAILABLE_juce_audio_formats         1
+#define JUCE_MODULE_AVAILABLE_juce_audio_processors      1
+#define JUCE_MODULE_AVAILABLE_juce_audio_utils           1
+#define JUCE_MODULE_AVAILABLE_juce_core                  1
+#define JUCE_MODULE_AVAILABLE_juce_data_structures       1
+#define JUCE_MODULE_AVAILABLE_juce_events                1
+#define JUCE_MODULE_AVAILABLE_juce_graphics              1
+#define JUCE_MODULE_AVAILABLE_juce_gui_basics            1
+#define JUCE_MODULE_AVAILABLE_juce_gui_extra             1
 
 //==============================================================================
 // juce_audio_devices flags:
@@ -88,6 +90,21 @@
 
 #ifndef    JUCE_USE_WINDOWS_MEDIA_FORMAT
  //#define JUCE_USE_WINDOWS_MEDIA_FORMAT
+#endif
+
+//==============================================================================
+// juce_audio_processors flags:
+
+#ifndef    JUCE_PLUGINHOST_VST
+ //#define JUCE_PLUGINHOST_VST
+#endif
+
+#ifndef    JUCE_PLUGINHOST_VST3
+ //#define JUCE_PLUGINHOST_VST3
+#endif
+
+#ifndef    JUCE_PLUGINHOST_AU
+ //#define JUCE_PLUGINHOST_AU
 #endif
 
 //==============================================================================

@@ -22,64 +22,25 @@
   ==============================================================================
 */
 
-StringArray MidiOutput::getDevices()
-{
-    StringArray devices;
+#ifndef JUCE_AUDIO_UTILS_H_INCLUDED
+#define JUCE_AUDIO_UTILS_H_INCLUDED
 
-    return devices;
+#include "../juce_gui_basics/juce_gui_basics.h"
+#include "../juce_audio_devices/juce_audio_devices.h"
+#include "../juce_audio_formats/juce_audio_formats.h"
+#include "../juce_audio_processors/juce_audio_processors.h"
+
+//=============================================================================
+namespace juce
+{
+
+#include "gui/juce_AudioDeviceSelectorComponent.h"
+#include "gui/juce_AudioThumbnailBase.h"
+#include "gui/juce_AudioThumbnail.h"
+#include "gui/juce_AudioThumbnailCache.h"
+#include "gui/juce_MidiKeyboardComponent.h"
+#include "players/juce_AudioProcessorPlayer.h"
+
 }
 
-int MidiOutput::getDefaultDeviceIndex()
-{
-    return 0;
-}
-
-MidiOutput* MidiOutput::openDevice (int index)
-{
-    return nullptr;
-}
-
-MidiOutput::~MidiOutput()
-{
-    stopBackgroundThread();
-}
-
-void MidiOutput::sendMessageNow (const MidiMessage&)
-{
-}
-
-//==============================================================================
-MidiInput::MidiInput (const String& name_)
-    : name (name_),
-      internal (0)
-{
-}
-
-MidiInput::~MidiInput()
-{
-}
-
-void MidiInput::start()
-{
-}
-
-void MidiInput::stop()
-{
-}
-
-int MidiInput::getDefaultDeviceIndex()
-{
-    return 0;
-}
-
-StringArray MidiInput::getDevices()
-{
-    StringArray devs;
-
-    return devs;
-}
-
-MidiInput* MidiInput::openDevice (int index, MidiInputCallback* callback)
-{
-    return nullptr;
-}
+#endif   // JUCE_AUDIO_UTILS_H_INCLUDED
