@@ -34,11 +34,16 @@ BirdID::~BirdID()
 	
 	preProcessor = nullptr;
 
-	//delete denoisedSpectrum;
+	delete denoisedSpectrum;
 	denoisedSpectrum = nullptr;
 
-	emxDestroyArray_real_T(magSpec);
+	delete featureVector;
+	featureVector = nullptr;
 
+	emxDestroyArray_real_T(magSpecEMX);
+	emxDestroyArray_real_T(denoisedSpecEMX);
+	emxDestroyArray_real_T(denoisedAudioEMX);
+	emxDestroyArray_real_T(phaseSpecEMX);
 }
 
 
@@ -102,10 +107,10 @@ void BirdID::run()
 	// 3. Denoising
 	// Initialize memory
 	denoisedSpectrum = new float[blockSize*numCols];
-	preProcessor = new PreProcessor(magSpec,numRows,numCols);
+	preProcessor = new PreProcessor(magSpecEMX,numRows,numCols);
 	preProcessor->process();
 	preProcessor->returnDenoisedSpectrogram(denoisedSpectrum);
-	//preProcessor->returnDenoisedSpectrogramEMX(magSpec);
+	//preProcessor->returnDenoisedSpectrogramEMX(magSpecEMX);
 
 	// Convert to audio
 	recoverAudio();
@@ -163,19 +168,19 @@ void BirdID::computeSpectrum()
 	numCols = (resampledAudioLength-blockSize)/hopSize;
 	numCols++;
 	numRows = (blockSize/2)+1;
-	magSpec = emxCreate_real_T(numRows,numCols);
-	phaseSpec = emxCreate_real_T(numRows,numCols);
+	magSpecEMX = emxCreate_real_T(numRows,numCols);
+	phaseSpecEMX = emxCreate_real_T(numRows,numCols);
 	// Initialize
 	bufferSTFT_initialize();
 
-	bufferSTFT(resampledAudioEMX,static_cast<real_T>(blockSize),static_cast<real_T>(hopSize),magSpec,phaseSpec);
+	bufferSTFT(resampledAudioEMX,static_cast<real_T>(blockSize),static_cast<real_T>(hopSize),magSpecEMX,phaseSpecEMX);
 	
 	emxDestroyArray_real_T(resampledAudioEMX);
 }
 
 void BirdID::recoverAudio()
 {
-	// Fill magSpec with denoisedAudio
+	// Fill magSpecEMX with denoisedAudio
 	denoisedSpecEMX = emxCreate_real_T(numRows,numCols);
 	
 	for(int i=0;i<numCols;i++)
@@ -192,6 +197,6 @@ void BirdID::recoverAudio()
 
 	inverseSTFT_initialize();
 
-	inverseSTFT(denoisedSpecEMX,phaseSpec,blockSize,hopSize,denoisedAudioEMX);
+	inverseSTFT(denoisedSpecEMX,phaseSpecEMX,blockSize,hopSize,denoisedAudioEMX);
 
 }

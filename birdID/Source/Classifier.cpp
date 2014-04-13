@@ -27,6 +27,10 @@ Classifier::Classifier( int numFeatures_, int numClasses_)
 Classifier::~Classifier()
 {
 	svmTrain = nullptr;
+	delete featureVector;
+	featureVector = nullptr;
+	delete classProb;
+	classProb = nullptr;
 }
 
 int Classifier::classify(float* featureVector_)

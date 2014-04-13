@@ -76,9 +76,9 @@ private:
 	ScopedPointer<PreProcessor> preProcessor;
 	ScopedPointer<Classifier> classifier;
 
-	ScopedPointer<emxArray_real_T> magSpec;
+	ScopedPointer<emxArray_real_T> magSpecEMX;
 	ScopedPointer<emxArray_real_T> denoisedSpecEMX;
-	ScopedPointer<emxArray_real_T> phaseSpec;
+	ScopedPointer<emxArray_real_T> phaseSpecEMX;
 	ScopedPointer<emxArray_real_T> resampledAudioEMX;
 	ScopedPointer<emxArray_real_T> denoisedAudioEMX;
 	int numRows,numCols;

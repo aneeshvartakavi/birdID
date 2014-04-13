@@ -68,14 +68,31 @@ public:
 
 	~FeatureExtractor()
 	{
-		//computeSpectralFeatures = nullptr;
 		computeCSpecFeatures = nullptr;
 		computeBWFeatures = nullptr;
 		computePitchFeatures = nullptr;
+		computeMFCCFeatures = nullptr;
+		// Deleting scaling stuff
+		deleteIfAllocated(featureMin);
+		deleteIfAllocated(featureRanges);
 
-		// TODO - Delete all feature vectors
+		deleteIfAllocated(mfccFeatures);
+		deleteIfAllocated(bwFeatures);
+		deleteIfAllocated(spectralFeatures);
+		
+		deleteIfAllocated(featureVector);
+		deleteIfAllocated(magSpec);
+		
 	}
 
+	void deleteIfAllocated(float* pointerToBeDeleted)
+	{
+		if(pointerToBeDeleted!=NULL)
+		{
+			delete pointerToBeDeleted;
+			pointerToBeDeleted = NULL;
+		}
+	}
 
 	// Call to set the number of features and subfeatures to extract
 	//void setSpectralFeatureExtractionProperties(int featuresToCompute = 1023,int subFeaturesToCompute = 15)

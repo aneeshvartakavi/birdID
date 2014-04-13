@@ -21,6 +21,7 @@ PreProcessor::PreProcessor(ScopedPointer<emxArray_real_T> magSpec,int numRows_,i
 
 PreProcessor::~PreProcessor()
 {
+	delete denoisedSpectrogram;
 	denoisedSpectrogram = nullptr;
 	
 	ccFeatures = nullptr;

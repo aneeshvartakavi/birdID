@@ -85,7 +85,8 @@ private:
     }
     int new_label() 
 	{
-		if(highest_label+1 > labels.size())
+		 int sizeLabels = labels.size();
+		 if(highest_label+1 > sizeLabels)
 		    labels.reserve(highest_label*2);
 		labels.resize(highest_label+1);
 		labels[highest_label] = Similarity(highest_label);
@@ -184,7 +185,8 @@ int
 ConnectedComponents::relabel_image(Tlabel *labelimg, int width, int height)
 {
     int newtag = 0;
-    for(int id=0; id<labels.size(); ++id)
+	int sizeLabels = labels.size();
+	for(int id=0; id<sizeLabels; ++id)
 	if(is_root_label(id))
 	    labels[id].tag = newtag++;
 
