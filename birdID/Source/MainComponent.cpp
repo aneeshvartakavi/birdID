@@ -28,7 +28,7 @@
 
 //==============================================================================
 MainContentComponent::MainContentComponent ()
-    : deviceManager(* new AudioDeviceManager()),thread ("Preview")
+    :thread ("Preview")
 {
     addAndMakeVisible (audioThumbnail = new ThumbnailComponent (formatManager, transportSource, *zoomSlider));
     audioThumbnail->setName ("new component");
@@ -89,12 +89,13 @@ MainContentComponent::MainContentComponent ()
 
 
     //[Constructor] You can add your own custom stuff here..
-	deviceManager.initialise(2,2,nullptr,true);
+	deviceManager = new AudioDeviceManager();
+	deviceManager->initialise(2,2,nullptr,true);
 	audioThumbnail->addChangeListener(this);
 	thread.startThread (3);
 
 	formatManager.registerBasicFormats();
-	deviceManager.addAudioCallback (&audioSourcePlayer);
+	deviceManager->addAudioCallback (&audioSourcePlayer);
     audioSourcePlayer.setSource (&transportSource);
 	birdID = new BirdID(1024,512);
 
@@ -106,8 +107,10 @@ MainContentComponent::~MainContentComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     transportSource.setSource (nullptr);
-    deviceManager.removeAudioCallback (&audioSourcePlayer);
-	audioSourcePlayer.setSource (nullptr);
+    deviceManager->removeAudioCallback (&audioSourcePlayer);
+	
+	currentAudioFileSource = nullptr;
+	audioSourcePlayer.setSource(nullptr);
 	audioThumbnail->removeChangeListener (this);
 	zoomSlider->removeListener (this);
 	audioSetup = nullptr;
@@ -176,7 +179,7 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == setupButton)
     {
         //[UserButtonCode_setupButton] -- add your button handler code here..
-		addAndMakeVisible(audioSetup = new AudioSetup(deviceManager));
+		addAndMakeVisible(audioSetup = new AudioSetup(*deviceManager));
         //[/UserButtonCode_setupButton]
     }
     else if (buttonThatWasClicked == processButton)
@@ -187,7 +190,7 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
 		{
 			if(birdID->runThread())
 			{
-				// Thread ran normally
+				// Thread running normally
 			}
 			else
 			{

@@ -70,7 +70,7 @@ private:
 	AudioSourcePlayer audioSourcePlayer;
     AudioTransportSource transportSource;
     AudioFormatManager formatManager;
-	AudioDeviceManager& deviceManager;
+	ScopedPointer<AudioDeviceManager> deviceManager;
 	TimeSliceThread thread;
 
 	ScopedPointer<AudioSetup> audioSetup;
