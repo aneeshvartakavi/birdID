@@ -10,7 +10,7 @@
 
 #include "BirdID.h"
 
-BirdID::BirdID(int blockSize_, int hopSize_): blockSize(blockSize_),hopSize(hopSize_),ThreadWithProgressWindow("Working...",true,false)
+BirdID::BirdID(int blockSize_, int hopSize_): blockSize(blockSize_),hopSize(hopSize_),ThreadWithProgressWindow("Identifying...",true,false)
 {
 	halfBlockSize = (blockSize/2)+1;
 	
@@ -22,6 +22,10 @@ BirdID::BirdID(int blockSize_, int hopSize_): blockSize(blockSize_),hopSize(hopS
 	//featureExtractor = new FeatureExtractor();
 	interpolator = new LagrangeInterpolator();
 	interpolator->reset();
+
+	// Initializing pointers
+	denoisedSpectrum = NULL;
+	featureVector = NULL;
 }
 
 BirdID::~BirdID()
@@ -34,17 +38,23 @@ BirdID::~BirdID()
 	
 	preProcessor = nullptr;
 
-	delete denoisedSpectrum;
-	denoisedSpectrum = nullptr;
-
-	delete featureVector;
-	featureVector = nullptr;
-
+	deleteIfAllocated(denoisedSpectrum);
+	deleteIfAllocated(featureVector);
+	
 	emxDestroyArray_real_T(magSpecEMX);
 	emxDestroyArray_real_T(denoisedSpecEMX);
 	emxDestroyArray_real_T(denoisedAudioEMX);
 	emxDestroyArray_real_T(phaseSpecEMX);
 }
+
+void BirdID::deleteIfAllocated(float* pointerToBeDeleted)
+	{
+		if(pointerToBeDeleted!=NULL)
+		{
+			delete pointerToBeDeleted;
+			pointerToBeDeleted = NULL;
+		}
+	}
 
 
 void BirdID::readAudioFileResampled(const File &audioFile_, float targetSampleRate)

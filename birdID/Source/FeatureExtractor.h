@@ -70,8 +70,9 @@ public:
 	{
 		computeCSpecFeatures = nullptr;
 		computeBWFeatures = nullptr;
-		computePitchFeatures = nullptr;
 		computeMFCCFeatures = nullptr;
+		computePitchFeatures = nullptr;
+		
 		// Deleting scaling stuff
 		deleteIfAllocated(featureMin);
 		deleteIfAllocated(featureRanges);

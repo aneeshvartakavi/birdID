@@ -57,9 +57,10 @@ private:
 
 	//Eigen::MatrixXi labels;
 	//Eigen::MatrixXf pixelValues;
-	emxArray_real_T* labels;
-	emxArray_real_T* originalSpec;
-	emxArray_real_T* denoisedSpec;
+	
+	ScopedPointer<emxArray_real_T> labels;
+	ScopedPointer<emxArray_real_T> originalSpec;
+	ScopedPointer<emxArray_real_T> denoisedSpec;
 	
 	ConnectedComponents cc;
 

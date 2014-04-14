@@ -90,8 +90,8 @@ private:
 	int numClasses;
 	int halfBlockSize;
 
-	
-	
+	// Utility Functions
+void deleteIfAllocated(float* pointerToBeDeleted);
 };
 
 

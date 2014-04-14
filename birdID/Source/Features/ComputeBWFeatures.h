@@ -41,7 +41,8 @@ public:
 
 	~ComputeBWFeatures()
 	{
-		emxDestroyArray_real_T(denoisedSpec);
+		denoisedSpec = nullptr;
+		delete features;
 	}
 
 	void extractFeatures()

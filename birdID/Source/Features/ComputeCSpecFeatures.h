@@ -42,7 +42,9 @@ public:
 
 	~ComputeCSpecFeatures()
 	{
-		emxDestroyArray_real_T(denoisedSpec);
+		//emxDestroyArray_real_T(denoisedSpec);
+		denoisedSpec = nullptr;
+		delete features;
 	}
 
 	void extractFeatures()

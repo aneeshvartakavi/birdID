@@ -29,6 +29,10 @@ ComputeCCFeatures::~ComputeCCFeatures()
 	}
 
 	delete featureVector;
+
+	labels = nullptr;
+	originalSpec = nullptr;
+	denoisedSpec = nullptr;
 }
 
 

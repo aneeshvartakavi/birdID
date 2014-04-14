@@ -28,7 +28,7 @@
 
 //==============================================================================
 MainContentComponent::MainContentComponent ()
-    :thread ("Preview")
+    : thread ("Preview")
 {
     addAndMakeVisible (audioThumbnail = new ThumbnailComponent (formatManager, transportSource, *zoomSlider));
     audioThumbnail->setName ("new component");
@@ -108,7 +108,7 @@ MainContentComponent::~MainContentComponent()
     //[Destructor_pre]. You can add your own custom destruction code here..
     transportSource.setSource (nullptr);
     deviceManager->removeAudioCallback (&audioSourcePlayer);
-	
+
 	currentAudioFileSource = nullptr;
 	audioSourcePlayer.setSource(nullptr);
 	audioThumbnail->removeChangeListener (this);
@@ -185,21 +185,10 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == processButton)
     {
         //[UserButtonCode_processButton] -- add your button handler code here..
-        //[/UserButtonCode_processButton]
 		if(fileLoaded)
-		{
-			if(birdID->runThread())
-			{
-				// Thread running normally
-			}
-			else
-			{
-				// User requested cancel
-			}
-
-
-		}
+			birdID->runThread();
 		
+        //[/UserButtonCode_processButton]
     }
 
     //[UserbuttonClicked_Post]
@@ -271,12 +260,12 @@ void MainContentComponent::loadFileIntoTransport (const File& audioFile)
                                     32768,                   // tells it to buffer this many samples ahead
                                     &thread,                 // this is the background thread to use for reading-ahead
                                     reader->sampleRate);     // allows for sample rate correction
-    
+
 	birdID->selectFile(audioFile);
 	fileLoaded = true;
 	}
 
-	
+
 }
 
 //[/MiscUserCode]
@@ -293,9 +282,9 @@ BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="MainContentComponent" componentName=""
                  parentClasses="public Component, public ChangeListener" constructorParams=""
-                 variableInitialisers="deviceManager(* new AudioDeviceManager()),thread (&quot;Preview&quot;)&#10;"
-                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="1024" initialHeight="768">
+                 variableInitialisers="thread (&quot;Preview&quot;)&#10;" snapPixels="8"
+                 snapActive="1" snapShown="1" overlayOpacity="0.330" fixedSize="0"
+                 initialWidth="1024" initialHeight="768">
   <BACKGROUND backgroundColour="ff4a4a4a"/>
   <GENERICCOMPONENT name="new component" id="7cb95d3164466318" memberName="audioThumbnail"
                     virtualName="" explicitFocusOrder="0" pos="48 120 920 144" class="ThumbnailComponent"

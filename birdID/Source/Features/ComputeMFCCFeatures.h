@@ -36,7 +36,8 @@ public:
 	{
 		//emxDestroyArray_real_T(mfccFeatures);
 		// Is this safe?
-		emxDestroyArray_real_T(denoisedAudio);
+		denoisedAudio = nullptr;
+		delete mfccFeatures;
 	}
 
 	void extractMFCCFeatures()
