@@ -53,7 +53,11 @@ public:
 	void showFile (const File& file);
 	void loadFileIntoTransport (const File& audioFile);
 	void changeListenerCallback (ChangeBroadcaster* source) override;
-    //[/UserMethods]
+    
+	// Returns the shared audio device manager
+	
+	static AudioDeviceManager& getSharedAudioDeviceManager();
+	//[/UserMethods]
 
     void paint (Graphics& g);
     void resized();
@@ -70,7 +74,7 @@ private:
 	AudioSourcePlayer audioSourcePlayer;
     AudioTransportSource transportSource;
     AudioFormatManager formatManager;
-	ScopedPointer<AudioDeviceManager> deviceManager;
+	
 	TimeSliceThread thread;
 
 	ScopedPointer<AudioSetup> audioSetup;
@@ -93,6 +97,8 @@ private:
 };
 
 //[EndFile] You can add extra defines here...
+static ScopedPointer<AudioDeviceManager> sharedAudioDeviceManager;
+
 //[/EndFile]
 
 #endif   // __JUCE_HEADER_CB87035FA43504BB__

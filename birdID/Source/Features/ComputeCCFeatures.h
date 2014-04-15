@@ -67,7 +67,7 @@ private:
 	int numRows,numCols;
 
 	// The features themselves
-	float** featureVector;
+	//float** featureVector;
 	int numFeatures;
 
 };

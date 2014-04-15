@@ -18,22 +18,23 @@ ComputePitchFeatures::ComputePitchFeatures(int blockSize_,int hopSize_)
 	// Call initialize when file is read
 	// Basic file formats
 	formatManager.registerBasicFormats();
+	rightData = NULL;
 }
 
 ComputePitchFeatures::~ComputePitchFeatures()
 {
 	yin = nullptr;
-	if(rightData!=nullptr)
+	if(rightData!=NULL)
 	{
 		delete rightData;
 	}
-	rightData = nullptr;
+	rightData = NULL;
 
-	delete leftData;
-	leftData=nullptr;
+	//delete leftData;
+	leftData=NULL;
 
 	delete pitch;
-	pitch = nullptr;
+	pitch = NULL;
 }
 
 void ComputePitchFeatures::computeFeatures(File& audioFile)

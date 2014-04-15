@@ -16,6 +16,7 @@ class Yin{
 public: 
 	// Default constructor
 	Yin();	
+	~Yin();
 	// This internally calls initialize
 	Yin(float sampleRate,int bufferSize);
 	// Pretty obvious what this does

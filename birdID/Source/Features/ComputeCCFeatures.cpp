@@ -23,12 +23,12 @@ ComputeCCFeatures::~ComputeCCFeatures()
 	delete mask;
 	mask = nullptr;
 
-	for(int i=0;i<numFeatures;i++)
+	/*for(int i=0;i<numFeatures;i++)
 	{
 		delete [] featureVector[i];
-	}
+	}*/
 
-	delete featureVector;
+	//delete featureVector;
 
 	labels = nullptr;
 	originalSpec = nullptr;
@@ -100,9 +100,9 @@ void ComputeCCFeatures::performCCDenoising(float* denoisedSpectrum)
 	}
 
 	// Adding clearing the old matrices
-	emxDestroyArray_real_T(originalSpec);
-	emxDestroyArray_real_T(labels);
-	emxDestroyArray_real_T(denoisedSpec);
+	//emxDestroyArray_real_T(originalSpec);
+	//emxDestroyArray_real_T(labels);
+	//emxDestroyArray_real_T(denoisedSpec);
 
 
 	// The library labels components of zero's as well.

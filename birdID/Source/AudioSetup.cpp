@@ -18,6 +18,7 @@
 */
 
 //[Headers] You can add your own extra header files here...
+#include "MainComponent.h"
 //[/Headers]
 
 #include "AudioSetup.h"
@@ -27,8 +28,7 @@
 //[/MiscUserDefs]
 
 //==============================================================================
-AudioSetup::AudioSetup (AudioDeviceManager& deviceManager_)
-    : deviceManager (deviceManager_)
+AudioSetup::AudioSetup ():deviceManager(MainContentComponent::getSharedAudioDeviceManager())
 {
     addAndMakeVisible (deviceSelector = new AudioDeviceSelectorComponent (deviceManager, 0, 2, 0, 2, true, true, true, false));
 

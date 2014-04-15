@@ -89,15 +89,15 @@ MainContentComponent::MainContentComponent ()
 
 
     //[Constructor] You can add your own custom stuff here..
-	deviceManager = new AudioDeviceManager();
-	deviceManager->initialise(2,2,nullptr,true);
+	sharedAudioDeviceManager = new AudioDeviceManager();
+	sharedAudioDeviceManager->initialise(2,2,nullptr,true);
 	audioThumbnail->addChangeListener(this);
 	thread.startThread (3);
 
 	formatManager.registerBasicFormats();
-	deviceManager->addAudioCallback (&audioSourcePlayer);
+	sharedAudioDeviceManager->addAudioCallback (&audioSourcePlayer);
     audioSourcePlayer.setSource (&transportSource);
-	birdID = new BirdID(1024,512);
+	
 
 	fileLoaded = false;
     //[/Constructor]
@@ -107,7 +107,7 @@ MainContentComponent::~MainContentComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
     transportSource.setSource (nullptr);
-    deviceManager->removeAudioCallback (&audioSourcePlayer);
+	sharedAudioDeviceManager->removeAudioCallback (&audioSourcePlayer);
 
 	currentAudioFileSource = nullptr;
 	audioSourcePlayer.setSource(nullptr);
@@ -128,7 +128,9 @@ MainContentComponent::~MainContentComponent()
 
     //[Destructor]. You can add your own custom destruction code here..
 	birdID = nullptr;
-
+	currentAudioFileSource = nullptr;
+	audioSetup = nullptr;
+	sharedAudioDeviceManager = nullptr;
     //[/Destructor]
 }
 
@@ -179,14 +181,18 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == setupButton)
     {
         //[UserButtonCode_setupButton] -- add your button handler code here..
-		addAndMakeVisible(audioSetup = new AudioSetup(*deviceManager));
+		addAndMakeVisible(audioSetup = new AudioSetup());
         //[/UserButtonCode_setupButton]
     }
     else if (buttonThatWasClicked == processButton)
     {
         //[UserButtonCode_processButton] -- add your button handler code here..
 		if(fileLoaded)
+		{
 			birdID->runThread();
+		}
+
+			
 		
         //[/UserButtonCode_processButton]
     }
@@ -261,11 +267,24 @@ void MainContentComponent::loadFileIntoTransport (const File& audioFile)
                                     &thread,                 // this is the background thread to use for reading-ahead
                                     reader->sampleRate);     // allows for sample rate correction
 
-	birdID->selectFile(audioFile);
-	fileLoaded = true;
+		
+		birdID = new BirdID(1024,512);
+		birdID->selectFile(audioFile);
+		fileLoaded = true;
 	}
 
 
+}
+
+AudioDeviceManager& MainContentComponent::getSharedAudioDeviceManager()
+{
+    if (sharedAudioDeviceManager == nullptr)
+    {
+        sharedAudioDeviceManager = new AudioDeviceManager();
+        sharedAudioDeviceManager->initialise (2, 2, 0, true, String::empty, 0);
+    }
+
+    return *sharedAudioDeviceManager;
 }
 
 //[/MiscUserCode]

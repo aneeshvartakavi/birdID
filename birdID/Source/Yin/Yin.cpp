@@ -30,6 +30,11 @@ Yin::Yin()
 
 }
 
+Yin::~Yin()
+{
+	delete yinBuffer;
+}
+
 Yin::Yin(float yinSampleRate,int yinBufferSize)
 {
 	initialize(yinSampleRate,yinBufferSize);

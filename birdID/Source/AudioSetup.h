@@ -40,7 +40,7 @@ class AudioSetup  : public Component,
 {
 public:
     //==============================================================================
-    AudioSetup (AudioDeviceManager& deviceManager_);
+    AudioSetup ();
     ~AudioSetup();
 
     //==============================================================================

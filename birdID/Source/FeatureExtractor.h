@@ -44,7 +44,7 @@ public:
 		hopSize = 512;
 		audioFile = audioFile_;
 
-		computePitchFeatures = new ComputePitchFeatures(blockSize,hopSize);
+		//computePitchFeatures = new ComputePitchFeatures(blockSize,hopSize);
 
 		computeMFCCFeatures = new ComputeMFCCFeatures(denoisedAudio,16000);
 		numMFCCFeatures = computeMFCCFeatures->getNumFeatures();
@@ -71,7 +71,7 @@ public:
 		computeCSpecFeatures = nullptr;
 		computeBWFeatures = nullptr;
 		computeMFCCFeatures = nullptr;
-		computePitchFeatures = nullptr;
+//		computePitchFeatures = nullptr;
 		
 		// Deleting scaling stuff
 		deleteIfAllocated(featureMin);
@@ -214,41 +214,41 @@ public:
 		return numFeatures;
 	}
 
-	private:
+private:
 		
-		//ScopedPointer<ComputeSpectralFeatures> computeSpectralFeatures;
-		ScopedPointer<ComputeCSpecFeatures> computeCSpecFeatures;
-		ScopedPointer<ComputePitchFeatures> computePitchFeatures;
-		ScopedPointer<ComputeMFCCFeatures> computeMFCCFeatures;
-		ScopedPointer<ComputeBWFeatures> computeBWFeatures;
+	//ScopedPointer<ComputeSpectralFeatures> computeSpectralFeatures;
+	ScopedPointer<ComputeCSpecFeatures> computeCSpecFeatures;
+//		ScopedPointer<ComputePitchFeatures> computePitchFeatures;
+	ScopedPointer<ComputeMFCCFeatures> computeMFCCFeatures;
+	ScopedPointer<ComputeBWFeatures> computeBWFeatures;
 		
-		// Used for features
-		float* mfccFeatures;
-		float* bwFeatures;
-		float* spectralFeatures;
-		// To store final features
-		float* featureVector;
+	// Used for features
+	float* mfccFeatures;
+	float* bwFeatures;
+	float* spectralFeatures;
+	// To store final features
+	float* featureVector;
 
-		// Used for Pitch features
-		int blockSize;	
-		int hopSize;
+	// Used for Pitch features
+	int blockSize;	
+	int hopSize;
 
-		int numRows, numCols;
+	int numRows, numCols;
 
-		//int numSpectralFeatures;
-		//int numSpectralSubFeatures;
-		int numCSpectralFeatures;
-		int numMFCCFeatures;
-		int numBWFeatures;
-		int numFeatures;
-		//int numMFCCFeatures;
+	//int numSpectralFeatures;
+	//int numSpectralSubFeatures;
+	int numCSpectralFeatures;
+	int numMFCCFeatures;
+	int numBWFeatures;
+	int numFeatures;
+	//int numMFCCFeatures;
 		
-		float* featureMin;
-		float* featureRanges;
+	float* featureMin;
+	float* featureRanges;
 
-		float *magSpec;
+	float *magSpec;
 
-		File audioFile;
+	File audioFile;
 };
 
 

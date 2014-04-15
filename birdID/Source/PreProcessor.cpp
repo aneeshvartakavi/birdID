@@ -27,7 +27,9 @@ PreProcessor::~PreProcessor()
 	ccFeatures = nullptr;
 
 	// Delete the old output
-	emxDestroyArray_real_T(denoisedSpec);
+	originalSpec = nullptr;
+	denoisedSpec = nullptr;
+	//emxDestroyArray_real_T(denoisedSpec);
 
 }
 
@@ -47,7 +49,7 @@ void PreProcessor::DenoiseSpectrogram()
 	// Call the exported function
 	denoiseSpectrogram(originalSpec,denoisedSpec);
 	// Destroy the first one
-	emxDestroyArray_real_T(originalSpec);
+	//emxDestroyArray_real_T(originalSpec);
 	// Copy the output over
 	denoisedSpectrogram = new float[numCols*numRows];
 	

@@ -41,10 +41,11 @@ BirdID::~BirdID()
 	deleteIfAllocated(denoisedSpectrum);
 	deleteIfAllocated(featureVector);
 	
-	emxDestroyArray_real_T(magSpecEMX);
-	emxDestroyArray_real_T(denoisedSpecEMX);
-	emxDestroyArray_real_T(denoisedAudioEMX);
-	emxDestroyArray_real_T(phaseSpecEMX);
+	magSpecEMX = nullptr;
+	denoisedSpecEMX = nullptr;
+	denoisedAudioEMX = nullptr;
+	phaseSpecEMX = nullptr;
+	resampledAudio = nullptr;
 }
 
 void BirdID::deleteIfAllocated(float* pointerToBeDeleted)
@@ -185,7 +186,7 @@ void BirdID::computeSpectrum()
 
 	bufferSTFT(resampledAudioEMX,static_cast<real_T>(blockSize),static_cast<real_T>(hopSize),magSpecEMX,phaseSpecEMX);
 	
-	emxDestroyArray_real_T(resampledAudioEMX);
+	//emxDestroyArray_real_T(resampledAudioEMX);
 }
 
 void BirdID::recoverAudio()
