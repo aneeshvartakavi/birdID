@@ -15,7 +15,7 @@
 
 extern "C"
 {
-#include "../Export/computeSpectralFeatures.h"
+#include "../Export/computeSpectralFeatures_export.h"
 	#include "../Export/denoiseSpectrogram.h"
 }
 

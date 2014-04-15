@@ -9,7 +9,7 @@
 
 /* Include files */
 #include "rt_nonfinite.h"
-#include "computeBWFeatures.h"
+#include "computeBWFeatures_export.h"
 
 /* Type Definitions */
 #ifndef struct_emxArray__common

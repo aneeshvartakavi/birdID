@@ -15,16 +15,20 @@
       <FILE id="xo6j6W" name="svm.h" compile="0" resource="0" file="Source/LibSVM/svm.h"/>
     </GROUP>
     <GROUP id="{6FC844E7-B40C-8F4C-42F7-003ACB0CE33A}" name="Export">
-      <FILE id="D2ljzS" name="computeSpectralFeatures.c" compile="1" resource="0"
-            file="Source/Export/computeSpectralFeatures.c"/>
-      <FILE id="lCXEZj" name="computeSpectralFeatures.h" compile="0" resource="0"
-            file="Source/Export/computeSpectralFeatures.h"/>
+      <FILE id="NizC8e" name="ExportDefinitions.cpp" compile="1" resource="0"
+            file="Source/Export/ExportDefinitions.cpp"/>
+      <FILE id="niXKlY" name="ExportDefinitions.h" compile="0" resource="0"
+            file="Source/Export/ExportDefinitions.h"/>
+      <FILE id="D2ljzS" name="computeSpectralFeatures_export.c" compile="1"
+            resource="0" file="Source/Export/computeSpectralFeatures_export.c"/>
+      <FILE id="lCXEZj" name="computeSpectralFeatures_export.h" compile="0"
+            resource="0" file="Source/Export/computeSpectralFeatures_export.h"/>
       <FILE id="Snrezw" name="computeSpectralFeatures_types.h" compile="0"
             resource="0" file="Source/Export/computeSpectralFeatures_types.h"/>
-      <FILE id="bNcreG" name="computeBWFeatures.c" compile="1" resource="0"
-            file="Source/Export/computeBWFeatures.c"/>
-      <FILE id="dQ1iXo" name="computeBWFeatures.h" compile="0" resource="0"
-            file="Source/Export/computeBWFeatures.h"/>
+      <FILE id="bNcreG" name="computeBWFeatures_export.c" compile="1" resource="0"
+            file="Source/Export/computeBWFeatures_export.c"/>
+      <FILE id="dQ1iXo" name="computeBWFeatures_export.h" compile="0" resource="0"
+            file="Source/Export/computeBWFeatures_export.h"/>
       <FILE id="om2KlR" name="computeBWFeatures_types.h" compile="0" resource="0"
             file="Source/Export/computeBWFeatures_types.h"/>
       <FILE id="BFpuQm" name="featureMFCCAndDerivative.c" compile="1" resource="0"

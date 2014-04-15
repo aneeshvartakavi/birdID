@@ -15,7 +15,7 @@
 
 extern "C"
 {
-#include "../Export/computeBWFeatures.h"
+#include "../Export/computeBWFeatures_export.h"
 	#include "../Export/denoiseSpectrogram.h"
 }
 
