@@ -26,10 +26,12 @@ class FeatureExtractor
 public:
 		
 	FeatureExtractor(float* magnitudeSpectrum_, int numRows_,int numCols_, File& audioFile_,ScopedPointer<emxArray_real_T> denoisedAudio)
+	//FeatureExtractor(ScopedPointer<emxArray_real_T> denoisedSpec, File& audioFile_,ScopedPointer<emxArray_real_T> denoisedAudio)
 	{
 		
 		numRows = numRows_;
 		numCols = numCols_;
+		
 		magSpec = new float[numRows*numCols];
 		// Deep copy spectrum
 		for(int i=0;i<numRows*numCols;i++)
@@ -44,6 +46,8 @@ public:
 		hopSize = 512;
 		audioFile = audioFile_;
 
+		//denoisedSpecEMX = denoisedSpec;
+
 		//computePitchFeatures = new ComputePitchFeatures(blockSize,hopSize);
 
 		computeMFCCFeatures = new ComputeMFCCFeatures(denoisedAudio,16000);
@@ -51,10 +55,13 @@ public:
 		mfccFeatures = new float[numMFCCFeatures];
 
 		computeBWFeatures = new ComputeBWFeatures(magSpec,numRows,numCols);
+		//computeBWFeatures = new ComputeBWFeatures(denoisedSpec);
 		numBWFeatures = computeBWFeatures->getNumFeatures();
 		bwFeatures = new float[numBWFeatures];
 		
 		computeCSpecFeatures = new ComputeCSpecFeatures(magSpec,numRows,numCols);
+		//computeCSpecFeatures = new ComputeCSpecFeatures(denoisedSpec);
+
 		numCSpectralFeatures = computeCSpecFeatures->getNumFeatures();
 		spectralFeatures = new float[numCSpectralFeatures];
 
@@ -73,6 +80,8 @@ public:
 		computeMFCCFeatures = nullptr;
 //		computePitchFeatures = nullptr;
 		
+		//denoisedSpecEMX = nullptr;
+
 		// Deleting scaling stuff
 		deleteIfAllocated(featureMin);
 		deleteIfAllocated(featureRanges);
@@ -216,6 +225,8 @@ public:
 
 private:
 		
+	//ScopedPointer<emxArray_real_T> denoisedSpecEMX;
+
 	//ScopedPointer<ComputeSpectralFeatures> computeSpectralFeatures;
 	ScopedPointer<ComputeCSpecFeatures> computeCSpecFeatures;
 //		ScopedPointer<ComputePitchFeatures> computePitchFeatures;

@@ -3,7 +3,7 @@
  *
  * Code generation for function 'bufferSTFT'
  *
- * C source code generated on: Sat Apr 05 14:31:02 2014
+ * C source code generated on: Mon Apr 14 22:51:01 2014
  *
  */
 
@@ -22,7 +22,7 @@
 #include "bufferSTFT_types.h"
 
 /* Function Declarations */
-extern void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize, emxArray_real_T *magSTFT, emxArray_real_T *phaseSTFT);
+extern void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize, emxArray_real_T *magSTFT, emxArray_real_T *phaseSTFT, emxArray_real_T *T);
 extern void bufferSTFT_initialize(void);
 extern void bufferSTFT_terminate(void);
 //extern emxArray_real_T *emxCreateND_real_T(int32_T numDimensions, int32_T *size);

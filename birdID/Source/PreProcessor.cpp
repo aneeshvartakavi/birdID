@@ -80,6 +80,13 @@ void PreProcessor::returnDenoisedSpectrogram(float* denoisedSpectrogram_)
 		}
 	}
 }
+
+void PreProcessor::returnDenoisedSpectrogramEMX(emxArray_real_T* denoisedSpectrogram)
+{
+	denoisedSpectrogram = denoisedSpec;
+}
+
+
 //
 //void PreProcessor::returnDenoisedSpectrogramEMX(ScopedPointer<emxArray_real_T>  denoisedSpectrogram_)
 //{

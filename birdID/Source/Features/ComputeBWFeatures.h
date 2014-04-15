@@ -39,6 +39,14 @@ public:
 		features = new real_T[8];
 	}
 
+	ComputeBWFeatures(emxArray_real_T* magSpec)
+	{
+		denoisedSpec = magSpec;
+
+		features = new real_T[8];
+	}
+
+
 	~ComputeBWFeatures()
 	{
 		denoisedSpec = nullptr;

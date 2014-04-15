@@ -38,6 +38,7 @@ public:
 	void ccDenoising();
 
 	void returnDenoisedSpectrogram(float* denoisedSpectrogram_);
+	void returnDenoisedSpectrogramEMX(emxArray_real_T* denoisedSpectrogram);
 	//void returnDenoisedSpectrogramEMX(ScopedPointer<emxArray_real_T> denoisedSpectrogram_);
 private:
 	

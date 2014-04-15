@@ -81,6 +81,8 @@ private:
 	ScopedPointer<emxArray_real_T> phaseSpecEMX;
 	ScopedPointer<emxArray_real_T> resampledAudioEMX;
 	ScopedPointer<emxArray_real_T> denoisedAudioEMX;
+	ScopedPointer<emxArray_real_T> T;
+
 	int numRows,numCols;
 
 	// For the FFT

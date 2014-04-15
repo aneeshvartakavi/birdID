@@ -40,6 +40,14 @@ public:
 
 	}
 
+	ComputeCSpecFeatures(emxArray_real_T* magSpec)
+	{
+		denoisedSpec = magSpec;
+
+		features = new real_T[40];
+	}
+
+
 	~ComputeCSpecFeatures()
 	{
 		//emxDestroyArray_real_T(denoisedSpec);

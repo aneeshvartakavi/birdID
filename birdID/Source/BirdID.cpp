@@ -46,6 +46,7 @@ BirdID::~BirdID()
 	denoisedAudioEMX = nullptr;
 	phaseSpecEMX = nullptr;
 	resampledAudio = nullptr;
+	T = nullptr;
 }
 
 void BirdID::deleteIfAllocated(float* pointerToBeDeleted)
@@ -121,7 +122,7 @@ void BirdID::run()
 	preProcessor = new PreProcessor(magSpecEMX,numRows,numCols);
 	preProcessor->process();
 	preProcessor->returnDenoisedSpectrogram(denoisedSpectrum);
-	//preProcessor->returnDenoisedSpectrogramEMX(magSpecEMX);
+//	preProcessor->returnDenoisedSpectrogramEMX(denoisedSpecEMX);
 
 	// Convert to audio
 	recoverAudio();
@@ -148,6 +149,7 @@ void BirdID::run()
 	
 	//// 4. Extract features
 	featureExtractor = new FeatureExtractor(denoisedSpectrum,numRows,numCols,audioFile,denoisedAudioEMX);
+	//featureExtractor = new FeatureExtractor(denoisedSpecEMX,audioFile,denoisedAudioEMX);
 //	featureExtractor->setSpectralFeatureExtractionProperties();
 	featureExtractor->extractFeatures();
 	// Get features back
@@ -181,10 +183,11 @@ void BirdID::computeSpectrum()
 	numRows = (blockSize/2)+1;
 	magSpecEMX = emxCreate_real_T(numRows,numCols);
 	phaseSpecEMX = emxCreate_real_T(numRows,numCols);
+	T = emxCreate_real_T(numRows,1);
 	// Initialize
 	bufferSTFT_initialize();
 
-	bufferSTFT(resampledAudioEMX,static_cast<real_T>(blockSize),static_cast<real_T>(hopSize),magSpecEMX,phaseSpecEMX);
+	bufferSTFT(resampledAudioEMX,static_cast<real_T>(blockSize),static_cast<real_T>(hopSize),magSpecEMX,phaseSpecEMX,T);
 	
 	//emxDestroyArray_real_T(resampledAudioEMX);
 }

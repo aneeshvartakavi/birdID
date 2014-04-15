@@ -3,7 +3,7 @@
  *
  * Code generation for function 'bufferSTFT'
  *
- * C source code generated on: Sat Apr 05 14:31:02 2014
+ * C source code generated on: Mon Apr 14 22:51:01 2014
  *
  */
 
@@ -928,14 +928,15 @@ static real_T rt_roundd_snf(real_T u)
 }
 
 void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize,
-                emxArray_real_T *magSTFT, emxArray_real_T *phaseSTFT)
+                emxArray_real_T *magSTFT, emxArray_real_T *phaseSTFT,
+                emxArray_real_T *T)
 {
   emxArray_real_T *b_samples;
-  int32_T n;
+  int32_T cdiff;
   real_T anew;
   real_T apnd;
   real_T ndbl;
-  real_T cdiff;
+  real_T b_cdiff;
   emxArray_real_T *t1;
   int32_T i0;
   int32_T nm1d2;
@@ -948,6 +949,7 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   emxArray_creal_T *stft;
   emxArray_creal_T *r0;
   emxArray_real_T *c_samples;
+  int32_T b_apnd;
   uint32_T uv0[2];
   emxArray_real_T *b_blockSize;
   emxArray_real_T *r1;
@@ -962,54 +964,54 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   /*  Normalizing samples */
   /* samples = samples/max(abs(samples)); */
   if (rtIsNaN(blockSize - 1.0)) {
-    n = 0;
+    cdiff = 0;
     anew = rtNaN;
     apnd = blockSize - 1.0;
   } else if (blockSize - 1.0 < 0.0) {
-    n = -1;
+    cdiff = -1;
     anew = 0.0;
     apnd = blockSize - 1.0;
   } else if (rtIsInf(blockSize - 1.0)) {
-    n = 0;
+    cdiff = 0;
     anew = rtNaN;
     apnd = blockSize - 1.0;
   } else {
     anew = 0.0;
     ndbl = floor((blockSize - 1.0) + 0.5);
     apnd = ndbl;
-    cdiff = ndbl - (blockSize - 1.0);
-    if (fabs(cdiff) < 4.4408920985006262E-16 * fabs(blockSize - 1.0)) {
+    b_cdiff = ndbl - (blockSize - 1.0);
+    if (fabs(b_cdiff) < 4.4408920985006262E-16 * fabs(blockSize - 1.0)) {
       ndbl++;
       apnd = blockSize - 1.0;
-    } else if (cdiff > 0.0) {
+    } else if (b_cdiff > 0.0) {
       apnd = ndbl - 1.0;
     } else {
       ndbl++;
     }
 
     if (ndbl >= 0.0) {
-      n = (int32_T)ndbl - 1;
+      cdiff = (int32_T)ndbl - 1;
     } else {
-      n = -1;
+      cdiff = -1;
     }
   }
 
   emxInit_real_T(&t1, 2);
   i0 = t1->size[0] * t1->size[1];
   t1->size[0] = 1;
-  t1->size[1] = n + 1;
+  t1->size[1] = cdiff + 1;
   emxEnsureCapacity((emxArray__common *)t1, i0, (int32_T)sizeof(real_T));
-  if (n + 1 > 0) {
+  if (cdiff + 1 > 0) {
     t1->data[0] = anew;
-    if (n + 1 > 1) {
-      t1->data[n] = apnd;
-      nm1d2 = n / 2;
+    if (cdiff + 1 > 1) {
+      t1->data[cdiff] = apnd;
+      nm1d2 = cdiff / 2;
       for (k = 1; k < nm1d2; k++) {
         t1->data[k] = anew + (real_T)k;
-        t1->data[n - k] = apnd - (real_T)k;
+        t1->data[cdiff - k] = apnd - (real_T)k;
       }
 
-      if (nm1d2 << 1 == n) {
+      if (nm1d2 << 1 == cdiff) {
         t1->data[nm1d2] = (anew + apnd) / 2.0;
       } else {
         t1->data[nm1d2] = anew + (real_T)nm1d2;
@@ -1023,9 +1025,9 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   t1->size[0] = 1;
   emxEnsureCapacity((emxArray__common *)t1, i0, (int32_T)sizeof(real_T));
   nm1d2 = t1->size[0];
-  n = t1->size[1];
-  nm1d2 *= n;
-  for (i0 = 0; i0 < nm1d2; i0++) {
+  cdiff = t1->size[1];
+  cdiff *= nm1d2;
+  for (i0 = 0; i0 < cdiff; i0++) {
     t1->data[i0] *= apnd;
   }
 
@@ -1034,8 +1036,8 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   W->size[0] = 1;
   W->size[1] = t1->size[1];
   emxEnsureCapacity((emxArray__common *)W, i0, (int32_T)sizeof(real_T));
-  nm1d2 = t1->size[0] * t1->size[1];
-  for (i0 = 0; i0 < nm1d2; i0++) {
+  cdiff = t1->size[0] * t1->size[1];
+  for (i0 = 0; i0 < cdiff; i0++) {
     W->data[i0] = t1->data[i0];
   }
 
@@ -1047,42 +1049,42 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   i0 = b_W->size[0];
   b_W->size[0] = W->size[1];
   emxEnsureCapacity((emxArray__common *)b_W, i0, (int32_T)sizeof(real_T));
-  nm1d2 = W->size[1];
-  for (i0 = 0; i0 < nm1d2; i0++) {
+  cdiff = W->size[1];
+  for (i0 = 0; i0 < cdiff; i0++) {
     b_W->data[i0] = W->data[i0];
   }
 
   emxFree_real_T(&W);
   if ((0 == b_samples->size[0]) || (0 == b_samples->size[1])) {
-    n = 0;
+    cdiff = 0;
   } else if (b_samples->size[0] > b_samples->size[1]) {
-    n = b_samples->size[0];
+    cdiff = b_samples->size[0];
   } else {
-    n = b_samples->size[1];
+    cdiff = b_samples->size[1];
   }
 
-  b = (real_T)n - blockSize;
+  b = (real_T)cdiff - blockSize;
   if (rtIsNaN(hopSize) || rtIsNaN(b)) {
-    n = 0;
+    cdiff = 0;
     anew = rtNaN;
   } else if ((hopSize == 0.0) || ((1.0 < b) && (hopSize < 0.0)) || ((b < 1.0) &&
               (hopSize > 0.0))) {
-    n = -1;
+    cdiff = -1;
     anew = 1.0;
   } else if (rtIsInf(b)) {
-    n = 0;
+    cdiff = 0;
     anew = rtNaN;
   } else if (rtIsInf(hopSize)) {
-    n = 0;
+    cdiff = 0;
     anew = 1.0;
   } else {
     anew = 1.0;
     ndbl = floor((b - 1.0) / hopSize + 0.5);
     apnd = ndbl * hopSize;
     if (hopSize > 0.0) {
-      cdiff = (1.0 + apnd) - b;
+      b_cdiff = (1.0 + apnd) - b;
     } else {
-      cdiff = b - (1.0 + apnd);
+      b_cdiff = b - (1.0 + apnd);
     }
 
     absb = fabs(b);
@@ -1092,9 +1094,9 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
       d0 = absb;
     }
 
-    if (fabs(cdiff) < 4.4408920985006262E-16 * d0) {
+    if (fabs(b_cdiff) < 4.4408920985006262E-16 * d0) {
       ndbl++;
-    } else if (cdiff > 0.0) {
+    } else if (b_cdiff > 0.0) {
       b = 1.0 + (ndbl - 1.0) * hopSize;
     } else {
       ndbl++;
@@ -1102,28 +1104,28 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
     }
 
     if (ndbl >= 0.0) {
-      n = (int32_T)ndbl - 1;
+      cdiff = (int32_T)ndbl - 1;
     } else {
-      n = -1;
+      cdiff = -1;
     }
   }
 
   i0 = t1->size[0] * t1->size[1];
   t1->size[0] = 1;
-  t1->size[1] = n + 1;
+  t1->size[1] = cdiff + 1;
   emxEnsureCapacity((emxArray__common *)t1, i0, (int32_T)sizeof(real_T));
-  if (n + 1 > 0) {
+  if (cdiff + 1 > 0) {
     t1->data[0] = anew;
-    if (n + 1 > 1) {
-      t1->data[n] = b;
-      nm1d2 = n / 2;
+    if (cdiff + 1 > 1) {
+      t1->data[cdiff] = b;
+      nm1d2 = cdiff / 2;
       for (k = 1; k < nm1d2; k++) {
         apnd = (real_T)k * hopSize;
         t1->data[k] = anew + apnd;
-        t1->data[n - k] = b - apnd;
+        t1->data[cdiff - k] = b - apnd;
       }
 
-      if (nm1d2 << 1 == n) {
+      if (nm1d2 << 1 == cdiff) {
         t1->data[nm1d2] = (anew + b) / 2.0;
       } else {
         apnd = (real_T)nm1d2 * hopSize;
@@ -1141,43 +1143,43 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   i0 = stft->size[0] * stft->size[1];
   stft->size[1] = nm1d2;
   emxEnsureCapacity((emxArray__common *)stft, i0, (int32_T)sizeof(creal_T));
-  nm1d2 = (int32_T)blockSize * t1->size[1];
-  for (i0 = 0; i0 < nm1d2; i0++) {
+  cdiff = (int32_T)blockSize * t1->size[1];
+  for (i0 = 0; i0 < cdiff; i0++) {
     stft->data[i0].re = 0.0;
     stft->data[i0].im = 0.0;
   }
 
-  n = 0;
+  nm1d2 = 0;
   b_emxInit_creal_T(&r0, 1);
   b_emxInit_real_T(&c_samples, 1);
-  while (n <= t1->size[1] - 1) {
-    apnd = (t1->data[n] + blockSize) - 1.0;
-    if (t1->data[n] > apnd) {
+  while (nm1d2 <= t1->size[1] - 1) {
+    apnd = (t1->data[nm1d2] + blockSize) - 1.0;
+    if (t1->data[nm1d2] > apnd) {
       i0 = 0;
       k = 0;
     } else {
-      i0 = (int32_T)t1->data[n] - 1;
+      i0 = (int32_T)t1->data[nm1d2] - 1;
       k = (int32_T)apnd;
     }
 
     /*  Multiplying by window */
     /*  Taking the fft and storing */
-    nm1d2 = c_samples->size[0];
+    cdiff = c_samples->size[0];
     c_samples->size[0] = k - i0;
-    emxEnsureCapacity((emxArray__common *)c_samples, nm1d2, (int32_T)sizeof
+    emxEnsureCapacity((emxArray__common *)c_samples, cdiff, (int32_T)sizeof
                       (real_T));
-    nm1d2 = k - i0;
-    for (k = 0; k < nm1d2; k++) {
+    cdiff = k - i0;
+    for (k = 0; k < cdiff; k++) {
       c_samples->data[k] = b_samples->data[i0 + k] * b_W->data[k];
     }
 
     fft(c_samples, blockSize, r0);
-    nm1d2 = r0->size[0];
-    for (i0 = 0; i0 < nm1d2; i0++) {
-      stft->data[i0 + stft->size[0] * n] = r0->data[i0];
+    cdiff = r0->size[0];
+    for (i0 = 0; i0 < cdiff; i0++) {
+      stft->data[i0 + stft->size[0] * nm1d2] = r0->data[i0];
     }
 
-    n++;
+    nm1d2++;
   }
 
   emxFree_real_T(&c_samples);
@@ -1185,6 +1187,63 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   emxFree_real_T(&b_W);
   emxFree_real_T(&b_samples);
   emxFree_real_T(&t1);
+  if (stft->size[1] - 1 < 0) {
+    cdiff = -1;
+    b_apnd = stft->size[1] - 1;
+  } else {
+    nm1d2 = (int32_T)floor(((real_T)stft->size[1] - 1.0) + 0.5);
+    b_apnd = nm1d2;
+    cdiff = (nm1d2 - stft->size[1]) + 1;
+    if (fabs(cdiff) < 4.4408920985006262E-16 * fabs((real_T)stft->size[1] - 1.0))
+    {
+      nm1d2++;
+      b_apnd = stft->size[1] - 1;
+    } else if (cdiff > 0) {
+      b_apnd = nm1d2 - 1;
+    } else {
+      nm1d2++;
+    }
+
+    if (nm1d2 >= 0) {
+      cdiff = nm1d2 - 1;
+    } else {
+      cdiff = -1;
+    }
+  }
+
+  i0 = T->size[0] * T->size[1];
+  T->size[0] = 1;
+  T->size[1] = cdiff + 1;
+  emxEnsureCapacity((emxArray__common *)T, i0, (int32_T)sizeof(real_T));
+  if (cdiff + 1 > 0) {
+    T->data[0] = 0.0;
+    if (cdiff + 1 > 1) {
+      T->data[cdiff] = b_apnd;
+      nm1d2 = cdiff / 2;
+      for (k = 1; k < nm1d2; k++) {
+        T->data[k] = k;
+        T->data[cdiff - k] = b_apnd - k;
+      }
+
+      if (nm1d2 << 1 == cdiff) {
+        T->data[nm1d2] = (real_T)b_apnd / 2.0;
+      } else {
+        T->data[nm1d2] = nm1d2;
+        T->data[nm1d2 + 1] = b_apnd - nm1d2;
+      }
+    }
+  }
+
+  apnd = blockSize / 2.0;
+  i0 = T->size[0] * T->size[1];
+  T->size[0] = 1;
+  emxEnsureCapacity((emxArray__common *)T, i0, (int32_T)sizeof(real_T));
+  nm1d2 = T->size[0];
+  cdiff = T->size[1];
+  cdiff *= nm1d2;
+  for (i0 = 0; i0 < cdiff; i0++) {
+    T->data[i0] = (T->data[i0] * hopSize + apnd) / 16000.0;
+  }
 
   /*  Discarding redundant data due to symmetry */
   for (i0 = 0; i0 < 2; i0++) {
@@ -1209,8 +1268,8 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   k = r1->size[0];
   r1->size[0] = (int32_T)floor((real_T)i0 - apnd) + 1;
   emxEnsureCapacity((emxArray__common *)r1, k, (int32_T)sizeof(real_T));
-  nm1d2 = (int32_T)floor((real_T)i0 - apnd);
-  for (i0 = 0; i0 <= nm1d2; i0++) {
+  cdiff = (int32_T)floor((real_T)i0 - apnd);
+  for (i0 = 0; i0 <= cdiff; i0++) {
     r1->data[i0] = apnd + (real_T)i0;
   }
 
@@ -1221,8 +1280,8 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   i0 = b_blockSize->size[0] * b_blockSize->size[1];
   b_blockSize->size[1] = nm1d2;
   emxEnsureCapacity((emxArray__common *)b_blockSize, i0, (int32_T)sizeof(real_T));
-  nm1d2 = r1->size[0];
-  for (i0 = 0; i0 < nm1d2; i0++) {
+  cdiff = r1->size[0];
+  for (i0 = 0; i0 < cdiff; i0++) {
     b_blockSize->data[i0] = r1->data[i0];
   }
 
@@ -1239,8 +1298,8 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   i0 = phaseSTFT->size[0] * phaseSTFT->size[1];
   phaseSTFT->size[1] = (int32_T)uv0[1];
   emxEnsureCapacity((emxArray__common *)phaseSTFT, i0, (int32_T)sizeof(real_T));
-  nm1d2 = (int32_T)uv0[0] * (int32_T)uv0[1];
-  for (i0 = 0; i0 < nm1d2; i0++) {
+  cdiff = (int32_T)uv0[0] * (int32_T)uv0[1];
+  for (i0 = 0; i0 < cdiff; i0++) {
     phaseSTFT->data[i0] = 0.0;
   }
 
@@ -1259,8 +1318,8 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   k = r2->size[0];
   r2->size[0] = (int32_T)floor((real_T)i0 - apnd) + 1;
   emxEnsureCapacity((emxArray__common *)r2, k, (int32_T)sizeof(real_T));
-  nm1d2 = (int32_T)floor((real_T)i0 - apnd);
-  for (i0 = 0; i0 <= nm1d2; i0++) {
+  cdiff = (int32_T)floor((real_T)i0 - apnd);
+  for (i0 = 0; i0 <= cdiff; i0++) {
     r2->data[i0] = apnd + (real_T)i0;
   }
 
@@ -1271,8 +1330,8 @@ void bufferSTFT(const emxArray_real_T *samples, real_T blockSize, real_T hopSize
   i0 = c_blockSize->size[0] * c_blockSize->size[1];
   c_blockSize->size[1] = nm1d2;
   emxEnsureCapacity((emxArray__common *)c_blockSize, i0, (int32_T)sizeof(real_T));
-  nm1d2 = r2->size[0];
-  for (i0 = 0; i0 < nm1d2; i0++) {
+  cdiff = r2->size[0];
+  for (i0 = 0; i0 < cdiff; i0++) {
     c_blockSize->data[i0] = r2->data[i0];
   }
 
