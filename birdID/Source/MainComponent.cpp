@@ -220,18 +220,7 @@ void MainContentComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-void MainContentComponent::readDirectory()
-{
-	FileChooser fileChooser ("Select File to load...", File::getSpecialLocation (File::userHomeDirectory));
-	if(fileChooser.browseForFileToOpen())
-		{
-			pathToFile = fileChooser.getResult();
-		}
-		else
-		{
-			pathToFile = File();
-		}
-}
+
 
 
 void MainContentComponent::changeListenerCallback (ChangeBroadcaster* source)

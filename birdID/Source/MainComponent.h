@@ -49,7 +49,7 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-	void readDirectory();
+	//void readDirectory();
 	void showFile (const File& file);
 	void loadFileIntoTransport (const File& audioFile);
 	void changeListenerCallback (ChangeBroadcaster* source) override;

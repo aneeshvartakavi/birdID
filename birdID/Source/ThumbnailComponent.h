@@ -40,6 +40,8 @@ public:
 
         currentPositionMarker.setFill (Colours::white.withAlpha (0.85f));
         addAndMakeVisible (currentPositionMarker);
+
+		fileDropped = false;
     }
 
     ~ThumbnailComponent()
@@ -101,7 +103,7 @@ public:
         else
         {
             g.setFont (14.0f);
-            g.drawFittedText ("Drop an audio file to begin...", getLocalBounds(), Justification::centred, 2);
+            g.drawFittedText ("Drop an audio file, or click to begin...", getLocalBounds(), Justification::centred, 2);
         }
     }
 
@@ -123,7 +125,8 @@ public:
 
     void filesDropped (const StringArray& files, int /*x*/, int /*y*/) override
     {
-        lastFileDropped = File (files[0]);
+		fileDropped = true;
+		lastFileDropped = File (files[0]);
         sendChangeMessage();
     }
 
@@ -140,7 +143,16 @@ public:
 
     void mouseUp (const MouseEvent&) override
     {
-        transportSource.start();
+		if(fileDropped)
+		{
+			transportSource.start();
+		}
+		else
+		{
+			readDirectory();
+		}
+
+		
     }
 
     void mouseWheelMove (const MouseEvent&, const MouseWheelDetails& wheel) override
@@ -160,6 +172,19 @@ public:
         }
     }
 
+void ThumbnailComponent::readDirectory()
+{
+	FileChooser fileChooser ("Select File to load...", File::getSpecialLocation (File::userHomeDirectory));
+	if(fileChooser.browseForFileToOpen())
+		{
+			lastFileDropped = fileChooser.getResult();
+			 sendChangeMessage();
+		}
+		else
+		{
+			lastFileDropped = File();
+		}
+}
 
 private:
     AudioTransportSource& transportSource;
@@ -171,6 +196,8 @@ private:
     Range<double> visibleRange;
     bool isFollowingTransport;
     File lastFileDropped;
+
+	bool fileDropped;
 
     DrawableRectangle currentPositionMarker;
 
