@@ -29,10 +29,10 @@ ComputeCCFeatures::~ComputeCCFeatures()
 	}*/
 
 	//delete featureVector;
+	emxDestroyArray_real_T(labels);
+	emxDestroyArray_real_T(originalSpec);
+	emxDestroyArray_real_T(denoisedSpec);
 
-	labels = nullptr;
-	originalSpec = nullptr;
-	denoisedSpec = nullptr;
 }
 
 

@@ -96,7 +96,7 @@ public:
     int getNumSvElements( std::string strSvString );
     
     Error_t saveModelToDisk(std::string modelFilePath);
-    Error_t loadModelFromDisk(std::string modelFilePath);
+    Error_t loadModelFromDisk(const std::string modelFilePath);
     
     
     Error_t crossValidationOnTrainingDataset(int numFolds, double& accuracy);

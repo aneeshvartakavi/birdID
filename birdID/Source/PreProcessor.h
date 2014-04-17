@@ -28,7 +28,7 @@ extern "C"
 class PreProcessor
 {
 public:
-	PreProcessor(ScopedPointer<emxArray_real_T> magSpec,int numRows_,int numCols_);
+	PreProcessor(emxArray_real_T* magSpec,int numRows_,int numCols_);
 	~PreProcessor();
 	
 	void process();
@@ -46,8 +46,8 @@ private:
 	//Functions to extract features
 	
 	// Arrays for the interfacing
-	ScopedPointer<emxArray_real_T> originalSpec;
-	ScopedPointer<emxArray_real_T> denoisedSpec;
+	emxArray_real_T* originalSpec;
+	emxArray_real_T* denoisedSpec;
 	
 
 	float* denoisedSpectrogram;

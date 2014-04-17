@@ -12,20 +12,25 @@
 
 BirdID::BirdID(int blockSize_, int hopSize_): blockSize(blockSize_),hopSize(hopSize_),ThreadWithProgressWindow("Identifying...",true,false)
 {
-	halfBlockSize = (blockSize/2)+1;
-	
+
 	// Register basic formats to read
 	formatManager.registerBasicFormats();
 
-	//numFeatures = 10;
 	numClasses = 30;
-	//featureExtractor = new FeatureExtractor();
 	interpolator = new LagrangeInterpolator();
 	interpolator->reset();
 
 	// Initializing pointers
 	denoisedSpectrum = NULL;
 	featureVector = NULL;
+	resampledAudio = NULL;
+
+	resampledAudioEMX = NULL;
+	denoisedSpecEMX = NULL;
+	denoisedAudioEMX = NULL;
+	T = NULL;
+	phaseSpecEMX = NULL;
+	magSpecEMX = NULL;
 }
 
 BirdID::~BirdID()
@@ -33,20 +38,21 @@ BirdID::~BirdID()
 	featureExtractor = nullptr;
 	interpolator = nullptr;
 	classifier = nullptr;
-	//delete featureVector;
-	//featureVector = nullptr;
-	
+
 	preProcessor = nullptr;
 
 	deleteIfAllocated(denoisedSpectrum);
 	deleteIfAllocated(featureVector);
+	deleteIfAllocated(resampledAudio);
+
+	deleteEMX(resampledAudioEMX);
+	deleteEMX(denoisedSpecEMX);
+	deleteEMX(denoisedAudioEMX);
+	deleteEMX(T);
+	deleteEMX(phaseSpecEMX);
+	deleteEMX(magSpecEMX);
 	
-	magSpecEMX = nullptr;
-	denoisedSpecEMX = nullptr;
-	denoisedAudioEMX = nullptr;
-	phaseSpecEMX = nullptr;
-	resampledAudio = nullptr;
-	T = nullptr;
+
 }
 
 void BirdID::deleteIfAllocated(float* pointerToBeDeleted)
@@ -57,6 +63,16 @@ void BirdID::deleteIfAllocated(float* pointerToBeDeleted)
 			pointerToBeDeleted = NULL;
 		}
 	}
+
+void BirdID::deleteEMX(emxArray_real_T* emxArray)
+{
+	if(emxArray!=NULL)
+	{
+		emxDestroyArray_real_T(emxArray);
+		emxArray = nullptr;
+	}
+
+}
 
 
 void BirdID::readAudioFileResampled(const File &audioFile_, float targetSampleRate)
@@ -123,32 +139,14 @@ void BirdID::run()
 	preProcessor->process();
 	preProcessor->returnDenoisedSpectrogram(denoisedSpectrum);
 //	preProcessor->returnDenoisedSpectrogramEMX(denoisedSpecEMX);
-
-	// Convert to audio
+//
+//	// Convert to audio
 	recoverAudio();
-	
-	setProgress(0.50);
-	// Write denoisedSpectrum to file
-	/*File logFile("C:\\Users\\Aneesh\\Desktop\\test.txt");
-	if(logFile.existsAsFile())
-	{
-		logFile.deleteFile();
-		
-	}
-	logFile.create();
-
-	ScopedPointer<FileOutputStream> tempStream = logFile.createOutputStream();
-	
-	for(int i=0;i<numCols*numRows;i++)
-	{
-		tempStream->writeString(String(denoisedSpectrum[i]));
-		tempStream->writeString("\n");
-	}*/
-
-	//tempStream->flush();
-	
-	//// 4. Extract features
-	featureExtractor = new FeatureExtractor(denoisedSpectrum,numRows,numCols,audioFile,denoisedAudioEMX);
+//	
+//	setProgress(0.50);
+//	
+//	//// 4. Extract features
+	featureExtractor = new FeatureExtractor(denoisedSpectrum,numRows,numCols,audioFile,denoisedAudioEMX,resampledAudioLength);
 	//featureExtractor = new FeatureExtractor(denoisedSpecEMX,audioFile,denoisedAudioEMX);
 //	featureExtractor->setSpectralFeatureExtractionProperties();
 	featureExtractor->extractFeatures();
@@ -157,17 +155,16 @@ void BirdID::run()
 	featureVector = new float[numFeatures];
 	featureExtractor->returnFeatureVector(featureVector);
 	setProgress(0.75);
-	// 5. Classify
+//	// 5. Classify
 	classifier = new Classifier(numFeatures,numClasses);
-	
+//	
 	int predictedClass = classifier->classify(featureVector);
-
+//
 	setProgress(0.99);
 }
 
 void BirdID::computeSpectrum()
 {
-	
 	// Create a vector for resampled audio
 	resampledAudioEMX = emxCreate_real_T(resampledAudioLength,1);
 	
@@ -181,15 +178,17 @@ void BirdID::computeSpectrum()
 	numCols = (resampledAudioLength-blockSize)/hopSize;
 	numCols++;
 	numRows = (blockSize/2)+1;
+
 	magSpecEMX = emxCreate_real_T(numRows,numCols);
 	phaseSpecEMX = emxCreate_real_T(numRows,numCols);
 	T = emxCreate_real_T(numRows,1);
+
 	// Initialize
 	bufferSTFT_initialize();
 
 	bufferSTFT(resampledAudioEMX,static_cast<real_T>(blockSize),static_cast<real_T>(hopSize),magSpecEMX,phaseSpecEMX,T);
 	
-	//emxDestroyArray_real_T(resampledAudioEMX);
+	
 }
 
 void BirdID::recoverAudio()

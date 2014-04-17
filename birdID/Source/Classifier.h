@@ -23,7 +23,7 @@ public:
 	~Classifier();
 	
 	
-	int classify(float* featureVector_);
+	int classify(const float* featureVector_);
 private:
 
 	// Path to model file for libSVM

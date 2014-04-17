@@ -12,7 +12,6 @@
 #define COMPUTECCFEATURES_H_INCLUDED
 
 #include "JuceHeader.h"
-#include "../Eigen/Dense.h"
 #include "../ConnectedComponents.h"
 
 extern "C"
@@ -58,9 +57,9 @@ private:
 	//Eigen::MatrixXi labels;
 	//Eigen::MatrixXf pixelValues;
 	
-	ScopedPointer<emxArray_real_T> labels;
-	ScopedPointer<emxArray_real_T> originalSpec;
-	ScopedPointer<emxArray_real_T> denoisedSpec;
+	emxArray_real_T* labels;
+	emxArray_real_T* originalSpec;
+	emxArray_real_T* denoisedSpec;
 	
 	ConnectedComponents cc;
 

@@ -9,14 +9,23 @@
 */
 
 #include "PreProcessor.h"
-PreProcessor::PreProcessor(ScopedPointer<emxArray_real_T> magSpec,int numRows_,int numCols_)//:cc(150)
+PreProcessor::PreProcessor(emxArray_real_T* magSpec,int numRows_,int numCols_)//:cc(150)
 {
 	
 	numRows = numRows_;
 	numCols = numCols_;
 	denoisedSpec = emxCreate_real_T(numRows,numCols);
+	originalSpec = emxCreate_real_T(numRows,numCols);
 	
-	originalSpec = magSpec;
+	for(int i=0;i<numCols;i++)
+	{
+		for(int j=0;j<numRows;j++)
+		{
+			originalSpec->data[i*numRows+j] = magSpec->data[i*numRows+j];
+			
+		}
+	}
+
 }
 
 PreProcessor::~PreProcessor()
@@ -27,9 +36,8 @@ PreProcessor::~PreProcessor()
 	ccFeatures = nullptr;
 
 	// Delete the old output
-	originalSpec = nullptr;
-	denoisedSpec = nullptr;
-	//emxDestroyArray_real_T(denoisedSpec);
+	emxDestroyArray_real_T(denoisedSpec);
+	emxDestroyArray_real_T(originalSpec);
 
 }
 

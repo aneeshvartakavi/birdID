@@ -27,16 +27,19 @@ Classifier::Classifier( int numFeatures_, int numClasses_)
 Classifier::~Classifier()
 {
 	svmTrain = nullptr;
+	
 	delete featureVector;
 	featureVector = nullptr;
+	
 	delete classProb;
 	classProb = nullptr;
 }
 
-int Classifier::classify(float* featureVector_)
+int Classifier::classify(const float* featureVector_)
 {
 	//First load the model
 	svmTrain->loadModelFromDisk( modelFile.getFullPathName().toStdString());
+	
 	// Then copy feature vector
 
 	for(int i=0;i<numFeatures;i++)

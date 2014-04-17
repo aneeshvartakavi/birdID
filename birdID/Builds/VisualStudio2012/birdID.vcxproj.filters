@@ -11,125 +11,11 @@
     <Filter Include="birdID\Export">
       <UniqueIdentifier>{97CAF9E9-A67B-CFD9-2413-0B6B570A7A48}</UniqueIdentifier>
     </Filter>
-    <Filter Include="birdID\Eigen">
-      <UniqueIdentifier>{E21F305F-363C-C4C6-9E73-11313C7B49F6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src">
-      <UniqueIdentifier>{D1C972AE-AE14-D843-5F53-48B4629C1C77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Cholesky">
-      <UniqueIdentifier>{85AA5A7E-CB5F-EA51-B640-C381032C2E1C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\CholmodSupport">
-      <UniqueIdentifier>{6EAFA663-5129-FEE6-E9CF-BFBD170F7A78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Core">
-      <UniqueIdentifier>{87F892BA-C6A7-55C4-11C4-C756EE653357}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Core\arch">
-      <UniqueIdentifier>{4AD83D38-F3B5-17E8-3AEC-D8F2CD8554EF}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Core\arch\AltiVec">
-      <UniqueIdentifier>{39060C70-6FA1-4D61-1B72-CD93AD34752D}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Core\arch\Default">
-      <UniqueIdentifier>{C3098BDF-25AB-3F6E-D15B-4D95C3DDDE71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Core\arch\NEON">
-      <UniqueIdentifier>{EB981F34-37D7-C07F-AC8D-1BCD1D9E7208}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Core\arch\SSE">
-      <UniqueIdentifier>{FCA7104A-B97E-F3AE-9D8D-4EF41AF762B4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Core\products">
-      <UniqueIdentifier>{F2D9D0A4-F7FB-2C3A-7068-5B9B489D2C02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Core\util">
-      <UniqueIdentifier>{29D77F78-19B6-24BC-6B97-32FB62973DC0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Eigen2Support">
-      <UniqueIdentifier>{5E8B3A08-67D4-F6D8-7AC6-2272B4A1DB3A}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Eigen2Support\Geometry">
-      <UniqueIdentifier>{43900FDB-5F2B-D8BF-D9EC-2A0C072D364D}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Eigenvalues">
-      <UniqueIdentifier>{6CD9C234-7B56-BAEE-BB67-8A487047C922}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\FFT">
-      <UniqueIdentifier>{50700396-BE80-B5A2-313B-0FEB96CDD5A9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Geometry">
-      <UniqueIdentifier>{84D41C26-B954-583E-844F-C52E0127859A}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Geometry\arch">
-      <UniqueIdentifier>{2C8CB954-6471-0528-83C5-E8D45EFEED51}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Householder">
-      <UniqueIdentifier>{A123628E-0A2E-3A53-4816-B8C2F4473BDE}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\IterativeLinearSolvers">
-      <UniqueIdentifier>{BE1CD428-D8C8-BE05-ED58-29E09796AB5C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\Jacobi">
-      <UniqueIdentifier>{51FF2F53-35CB-804D-9F2B-EB21AD944BAE}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\LU">
-      <UniqueIdentifier>{27AFCC9E-3C1D-81A2-8E2B-55DDA85D2F33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\LU\arch">
-      <UniqueIdentifier>{E9C18E30-CE16-0DC2-861C-181D160E36B4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\MetisSupport">
-      <UniqueIdentifier>{4DD7A42A-A198-93A3-F3D9-62944750A3DB}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\misc">
-      <UniqueIdentifier>{FF63F36E-9BC3-FE72-FF97-EE83C968B015}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\OrderingMethods">
-      <UniqueIdentifier>{62E0F20D-FDC8-F7C8-9B4E-9B4BA8F2A324}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\PardisoSupport">
-      <UniqueIdentifier>{37D9B6C1-7EA0-8910-4891-42A13E7C7B63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\PaStiXSupport">
-      <UniqueIdentifier>{7EAB0FA1-BEF0-2893-0C2C-CFC31A84CF33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\plugins">
-      <UniqueIdentifier>{01D0F991-75F9-53A6-E6AD-0E0FCDD163F9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\QR">
-      <UniqueIdentifier>{A91B49C3-11F2-2FA2-2819-72485FF53ECB}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\SparseCholesky">
-      <UniqueIdentifier>{60CB967D-21C5-42A9-CC42-BAE95D4DCB2A}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\SparseCore">
-      <UniqueIdentifier>{EC3EFBE9-FE74-D32F-CA25-7E6F568AB87C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\SparseLU">
-      <UniqueIdentifier>{07A372E1-B4F0-E095-509D-446FE0FBDCDD}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\SparseQR">
-      <UniqueIdentifier>{75DF8021-66F3-75A4-8659-698FDD0AF75D}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\SPQRSupport">
-      <UniqueIdentifier>{1728804E-0159-683C-E8F3-5FF69FD3E3B3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\StlSupport">
-      <UniqueIdentifier>{165ADB68-D72A-B2B0-42CF-71207012A1BB}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\SuperLUSupport">
-      <UniqueIdentifier>{28D2DA0B-CBB2-2474-908C-F91CA0362DF0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\SVD">
-      <UniqueIdentifier>{C11B9A5E-C00A-9790-CB4A-9A2665764481}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="birdID\Eigen\src\UmfPackSupport">
-      <UniqueIdentifier>{A917190A-1F5E-349D-2529-9CCB59E97BFD}</UniqueIdentifier>
-    </Filter>
     <Filter Include="birdID\Source">
       <UniqueIdentifier>{B5C121F2-6AEB-14AC-B4FE-800D7200963B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="birdID\Source\GUI Components">
+      <UniqueIdentifier>{45FF77B2-CCB2-2780-769A-FE54B2ADCD8C}</UniqueIdentifier>
     </Filter>
     <Filter Include="birdID\Source\Yin">
       <UniqueIdentifier>{5C0A5686-B61C-1B0D-F46B-10E493446C06}</UniqueIdentifier>
@@ -187,6 +73,30 @@
     </Filter>
     <Filter Include="Juce Modules\juce_audio_formats\sampler">
       <UniqueIdentifier>{40C5CA7C-AEBB-05B1-11CE-AE41D87B5CCB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_processors">
+      <UniqueIdentifier>{0B0E7392-324B-088C-FBEB-5FE999D61782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_processors\processors">
+      <UniqueIdentifier>{77E2C34E-A4D6-EDB5-A107-7CB3CEF0E8EF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_processors\format">
+      <UniqueIdentifier>{20254EFE-6CBD-31A7-2119-92B1E0E0E311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_processors\format_types">
+      <UniqueIdentifier>{70796D73-6D30-8A1B-4732-7C021E47C05A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_processors\scanning">
+      <UniqueIdentifier>{EB8DD942-E2CB-869F-D381-E02A65BA790B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_utils">
+      <UniqueIdentifier>{B63F69FD-8A40-8E1E-E7ED-419B8DC1C12B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_utils\gui">
+      <UniqueIdentifier>{8167E753-09C7-5D1C-EF2B-32D297557443}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_utils\players">
+      <UniqueIdentifier>{AEDCB7F7-7A36-5392-8E9A-715F5BDE35CB}</UniqueIdentifier>
     </Filter>
     <Filter Include="Juce Modules\juce_core">
       <UniqueIdentifier>{95CA1506-2B94-0DEE-0C8D-85EDEBBC4E88}</UniqueIdentifier>
@@ -379,13 +289,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\LibSVM\SVMTrain.cpp">
+      <Filter>birdID\LibSVM</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\LibSVM\svm.cpp">
       <Filter>birdID\LibSVM</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Export\computeSpectralFeatures.c">
+    <ClCompile Include="..\..\Source\Export\computeOnsetFeatures_export.c">
       <Filter>birdID\Export</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Export\computeBWFeatures.c">
+    <ClCompile Include="..\..\Source\Export\computeSpectralFeatures_export.c">
+      <Filter>birdID\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Export\computeBWFeatures_export.c">
       <Filter>birdID\Export</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Export\featureMFCCAndDerivative.c">
@@ -411,6 +327,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Export\rtGetNaN.c">
       <Filter>birdID\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AudioSetup.cpp">
+      <Filter>birdID\Source\GUI Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MainComponent.cpp">
+      <Filter>birdID\Source\GUI Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Classifier.cpp">
+      <Filter>birdID\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\PreProcessor.cpp">
       <Filter>birdID\Source</Filter>
@@ -440,9 +365,6 @@
       <Filter>birdID\Source\Features</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\FeatureExtractor.cpp">
-      <Filter>birdID\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\MainComponent.cpp">
       <Filter>birdID\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
@@ -630,6 +552,63 @@
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_formats\sampler\juce_Sampler.cpp">
       <Filter>Juce Modules\juce_audio_formats\sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_AudioProcessor.cpp">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_AudioProcessorEditor.cpp">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_AudioProcessorGraph.cpp">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_GenericAudioProcessorEditor.cpp">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_PluginDescription.cpp">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format\juce_AudioPluginFormat.cpp">
+      <Filter>Juce Modules\juce_audio_processors\format</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format\juce_AudioPluginFormatManager.cpp">
+      <Filter>Juce Modules\juce_audio_processors\format</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format_types\juce_AudioUnitPluginFormat.mm">
+      <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format_types\juce_LADSPAPluginFormat.cpp">
+      <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format_types\juce_VST3PluginFormat.cpp">
+      <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format_types\juce_VSTPluginFormat.cpp">
+      <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\scanning\juce_KnownPluginList.cpp">
+      <Filter>Juce Modules\juce_audio_processors\scanning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\scanning\juce_PluginDirectoryScanner.cpp">
+      <Filter>Juce Modules\juce_audio_processors\scanning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\scanning\juce_PluginListComponent.cpp">
+      <Filter>Juce Modules\juce_audio_processors\scanning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_utils\gui\juce_AudioDeviceSelectorComponent.cpp">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_utils\gui\juce_AudioThumbnail.cpp">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_utils\gui\juce_AudioThumbnailCache.cpp">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_utils\gui\juce_MidiKeyboardComponent.cpp">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_utils\players\juce_AudioProcessorPlayer.cpp">
+      <Filter>Juce Modules\juce_audio_utils\players</Filter>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_core\text\juce_CharacterFunctions.cpp">
       <Filter>Juce Modules\juce_core\text</Filter>
@@ -1513,6 +1492,12 @@
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_formats\juce_audio_formats.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_processors\juce_audio_processors.cpp">
+      <Filter>Juce Library Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_utils\juce_audio_utils.cpp">
+      <Filter>Juce Library Code</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_core\juce_core.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
@@ -1533,16 +1518,25 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\LibSVM\SVMTrain.h">
+      <Filter>birdID\LibSVM</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\LibSVM\svm.h">
       <Filter>birdID\LibSVM</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Export\computeSpectralFeatures.h">
+    <ClInclude Include="..\..\Source\Export\computeOnsetFeatures_export.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\computeOnsetFeatures_types.h">
+      <Filter>birdID\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Export\computeSpectralFeatures_export.h">
       <Filter>birdID\Export</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Export\computeSpectralFeatures_types.h">
       <Filter>birdID\Export</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Export\computeBWFeatures.h">
+    <ClInclude Include="..\..\Source\Export\computeBWFeatures_export.h">
       <Filter>birdID\Export</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Export\computeBWFeatures_types.h">
@@ -1593,872 +1587,17 @@
     <ClInclude Include="..\..\Source\Export\rtwtypes.h">
       <Filter>birdID\Export</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\Array.h">
-      <Filter>birdID\Eigen</Filter>
+    <ClInclude Include="..\..\Source\AudioSetup.h">
+      <Filter>birdID\Source\GUI Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\Cholesky.h">
-      <Filter>birdID\Eigen</Filter>
+    <ClInclude Include="..\..\Source\ThumbnailComponent.h">
+      <Filter>birdID\Source\GUI Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\CholmodSupport.h">
-      <Filter>birdID\Eigen</Filter>
+    <ClInclude Include="..\..\Source\MainComponent.h">
+      <Filter>birdID\Source\GUI Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\Core.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\Dense.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\Eigen.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\Eigen2Support.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\Eigenvalues.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\FFT.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\Geometry.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\Householder.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\IterativeLinearSolvers.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\Jacobi.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\LeastSquares.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\LU.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\MetisSupport.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\OrderingMethods.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\PardisoSupport.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\PaStiXSupport.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\QR.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\QtAlignedMalloc.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\Sparse.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\SparseCholesky.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\SparseCore.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\SparseLU.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\SparseQR.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\SPQRSupport.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Cholesky\LDLT.h">
-      <Filter>birdID\Eigen\src\Cholesky</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Cholesky\LLT.h">
-      <Filter>birdID\Eigen\src\Cholesky</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Cholesky\LLT_MKL.h">
-      <Filter>birdID\Eigen\src\Cholesky</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\CholmodSupport\CholmodSupport.h">
-      <Filter>birdID\Eigen\src\CholmodSupport</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\arch\AltiVec\Complex.h">
-      <Filter>birdID\Eigen\src\Core\arch\AltiVec</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\arch\AltiVec\PacketMath.h">
-      <Filter>birdID\Eigen\src\Core\arch\AltiVec</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\arch\Default\Settings.h">
-      <Filter>birdID\Eigen\src\Core\arch\Default</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\arch\NEON\Complex.h">
-      <Filter>birdID\Eigen\src\Core\arch\NEON</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\arch\NEON\PacketMath.h">
-      <Filter>birdID\Eigen\src\Core\arch\NEON</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\arch\SSE\Complex.h">
-      <Filter>birdID\Eigen\src\Core\arch\SSE</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\arch\SSE\MathFunctions.h">
-      <Filter>birdID\Eigen\src\Core\arch\SSE</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\arch\SSE\PacketMath.h">
-      <Filter>birdID\Eigen\src\Core\arch\SSE</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Array.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\ArrayBase.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\ArrayWrapper.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Assign.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Assign_MKL.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\BandMatrix.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Block.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\BooleanRedux.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\CommaInitializer.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\CoreIterators.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\CwiseBinaryOp.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\CwiseNullaryOp.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\CwiseUnaryOp.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\CwiseUnaryView.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\DenseBase.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\DenseCoeffsBase.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\DenseStorage.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Diagonal.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\DiagonalMatrix.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\DiagonalProduct.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Dot.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\EigenBase.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Flagged.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\ForceAlignedAccess.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Functors.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Fuzzy.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\GeneralProduct.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\GenericPacketMath.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\GlobalFunctions.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\IO.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Map.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\MapBase.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\MathFunctions.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Matrix.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\MatrixBase.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\NestByValue.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\NoAlias.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\NumTraits.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\PermutationMatrix.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\PlainObjectBase.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\ProductBase.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\CoeffBasedProduct.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\GeneralBlockPanelKernel.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\GeneralMatrixMatrix.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\GeneralMatrixMatrix_MKL.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\GeneralMatrixMatrixTriangular.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\GeneralMatrixMatrixTriangular_MKL.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\GeneralMatrixVector.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\GeneralMatrixVector_MKL.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\Parallelizer.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\SelfadjointMatrixMatrix.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\SelfadjointMatrixMatrix_MKL.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\SelfadjointMatrixVector.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\SelfadjointMatrixVector_MKL.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\SelfadjointProduct.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\SelfadjointRank2Update.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\TriangularMatrixMatrix.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\TriangularMatrixMatrix_MKL.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\TriangularMatrixVector.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\TriangularMatrixVector_MKL.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\TriangularSolverMatrix.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\TriangularSolverMatrix_MKL.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\products\TriangularSolverVector.h">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Random.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Redux.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Ref.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Replicate.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\ReturnByValue.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Reverse.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Select.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\SelfAdjointView.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\SelfCwiseBinaryOp.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\SolveTriangular.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\StableNorm.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Stride.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Swap.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Transpose.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Transpositions.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\TriangularMatrix.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\BlasUtil.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\Constants.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\DisableStupidWarnings.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\ForwardDeclarations.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\Macros.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\Memory.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\Meta.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\MKL_support.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\NonMPL2.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\ReenableStupidWarnings.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\StaticAssert.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\util\XprHelper.h">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\VectorBlock.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\VectorwiseOp.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Core\Visitor.h">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Block.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Cwise.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\CwiseOperators.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\AlignedBox.h">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\All.h">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\AngleAxis.h">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\Hyperplane.h">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\ParametrizedLine.h">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\Quaternion.h">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\Rotation2D.h">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\RotationBase.h">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\Scaling.h">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\Transform.h">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\Translation.h">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Lazy.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\LeastSquares.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\LU.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Macros.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\MathFunctions.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Memory.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Meta.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\Minor.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\QR.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\SVD.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\TriangularSolver.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigen2Support\VectorBlock.h">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\ComplexEigenSolver.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\ComplexSchur.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\ComplexSchur_MKL.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\EigenSolver.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\GeneralizedEigenSolver.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\GeneralizedSelfAdjointEigenSolver.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\HessenbergDecomposition.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\MatrixBaseEigenvalues.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\RealQZ.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\RealSchur.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\RealSchur_MKL.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\SelfAdjointEigenSolver.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\SelfAdjointEigenSolver_MKL.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Eigenvalues\Tridiagonalization.h">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\FFT\ei_fftw_impl.h">
-      <Filter>birdID\Eigen\src\FFT</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\FFT\ei_kissfft_impl.h">
-      <Filter>birdID\Eigen\src\FFT</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\AlignedBox.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\AngleAxis.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\arch\Geometry_SSE.h">
-      <Filter>birdID\Eigen\src\Geometry\arch</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\EulerAngles.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\Homogeneous.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\Hyperplane.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\OrthoMethods.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\ParametrizedLine.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\Quaternion.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\Rotation2D.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\RotationBase.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\Scaling.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\Transform.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\Translation.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Geometry\Umeyama.h">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Householder\BlockHouseholder.h">
-      <Filter>birdID\Eigen\src\Householder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Householder\Householder.h">
-      <Filter>birdID\Eigen\src\Householder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Householder\HouseholderSequence.h">
-      <Filter>birdID\Eigen\src\Householder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\IterativeLinearSolvers\BasicPreconditioners.h">
-      <Filter>birdID\Eigen\src\IterativeLinearSolvers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\IterativeLinearSolvers\BiCGSTAB.h">
-      <Filter>birdID\Eigen\src\IterativeLinearSolvers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\IterativeLinearSolvers\ConjugateGradient.h">
-      <Filter>birdID\Eigen\src\IterativeLinearSolvers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\IterativeLinearSolvers\IncompleteLUT.h">
-      <Filter>birdID\Eigen\src\IterativeLinearSolvers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\IterativeLinearSolvers\IterativeSolverBase.h">
-      <Filter>birdID\Eigen\src\IterativeLinearSolvers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\Jacobi\Jacobi.h">
-      <Filter>birdID\Eigen\src\Jacobi</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\LU\arch\Inverse_SSE.h">
-      <Filter>birdID\Eigen\src\LU\arch</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\LU\Determinant.h">
-      <Filter>birdID\Eigen\src\LU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\LU\FullPivLU.h">
-      <Filter>birdID\Eigen\src\LU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\LU\Inverse.h">
-      <Filter>birdID\Eigen\src\LU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\LU\PartialPivLU.h">
-      <Filter>birdID\Eigen\src\LU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\LU\PartialPivLU_MKL.h">
-      <Filter>birdID\Eigen\src\LU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\MetisSupport\MetisSupport.h">
-      <Filter>birdID\Eigen\src\MetisSupport</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\misc\blas.h">
-      <Filter>birdID\Eigen\src\misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\misc\Image.h">
-      <Filter>birdID\Eigen\src\misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\misc\Kernel.h">
-      <Filter>birdID\Eigen\src\misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\misc\Solve.h">
-      <Filter>birdID\Eigen\src\misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\misc\SparseSolve.h">
-      <Filter>birdID\Eigen\src\misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\OrderingMethods\Amd.h">
-      <Filter>birdID\Eigen\src\OrderingMethods</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\OrderingMethods\Eigen_Colamd.h">
-      <Filter>birdID\Eigen\src\OrderingMethods</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\OrderingMethods\Ordering.h">
-      <Filter>birdID\Eigen\src\OrderingMethods</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\PardisoSupport\PardisoSupport.h">
-      <Filter>birdID\Eigen\src\PardisoSupport</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\PaStiXSupport\PaStiXSupport.h">
-      <Filter>birdID\Eigen\src\PaStiXSupport</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\plugins\ArrayCwiseBinaryOps.h">
-      <Filter>birdID\Eigen\src\plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\plugins\ArrayCwiseUnaryOps.h">
-      <Filter>birdID\Eigen\src\plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\plugins\BlockMethods.h">
-      <Filter>birdID\Eigen\src\plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\plugins\CommonCwiseBinaryOps.h">
-      <Filter>birdID\Eigen\src\plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\plugins\CommonCwiseUnaryOps.h">
-      <Filter>birdID\Eigen\src\plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\plugins\MatrixCwiseBinaryOps.h">
-      <Filter>birdID\Eigen\src\plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\plugins\MatrixCwiseUnaryOps.h">
-      <Filter>birdID\Eigen\src\plugins</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\QR\ColPivHouseholderQR.h">
-      <Filter>birdID\Eigen\src\QR</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\QR\ColPivHouseholderQR_MKL.h">
-      <Filter>birdID\Eigen\src\QR</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\QR\FullPivHouseholderQR.h">
-      <Filter>birdID\Eigen\src\QR</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\QR\HouseholderQR.h">
-      <Filter>birdID\Eigen\src\QR</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\QR\HouseholderQR_MKL.h">
-      <Filter>birdID\Eigen\src\QR</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCholesky\SimplicialCholesky.h">
-      <Filter>birdID\Eigen\src\SparseCholesky</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCholesky\SimplicialCholesky_impl.h">
-      <Filter>birdID\Eigen\src\SparseCholesky</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\AmbiVector.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\CompressedStorage.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\ConservativeSparseSparseProduct.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\MappedSparseMatrix.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseBlock.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseColEtree.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseCwiseBinaryOp.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseCwiseUnaryOp.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseDenseProduct.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseDiagonalProduct.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseDot.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseFuzzy.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseMatrix.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseMatrixBase.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparsePermutation.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseProduct.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseRedux.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseSelfAdjointView.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseSparseProductWithPruning.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseTranspose.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseTriangularView.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseUtil.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseVector.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\SparseView.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseCore\TriangularSolver.h">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_column_bmod.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_column_dfs.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_copy_to_ucol.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_gemm_kernel.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_heap_relax_snode.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_kernel_bmod.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_Memory.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_panel_bmod.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_panel_dfs.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_pivotL.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_pruneL.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_relax_snode.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_Structs.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_SupernodalMatrix.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLU_Utils.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseLU\SparseLUImpl.h">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SparseQR\SparseQR.h">
-      <Filter>birdID\Eigen\src\SparseQR</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SPQRSupport\SuiteSparseQRSupport.h">
-      <Filter>birdID\Eigen\src\SPQRSupport</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\StlSupport\details.h">
-      <Filter>birdID\Eigen\src\StlSupport</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\StlSupport\StdDeque.h">
-      <Filter>birdID\Eigen\src\StlSupport</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\StlSupport\StdList.h">
-      <Filter>birdID\Eigen\src\StlSupport</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\StlSupport\StdVector.h">
-      <Filter>birdID\Eigen\src\StlSupport</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SuperLUSupport\SuperLUSupport.h">
-      <Filter>birdID\Eigen\src\SuperLUSupport</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SVD\JacobiSVD.h">
-      <Filter>birdID\Eigen\src\SVD</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SVD\JacobiSVD_MKL.h">
-      <Filter>birdID\Eigen\src\SVD</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\SVD\UpperBidiagonalization.h">
-      <Filter>birdID\Eigen\src\SVD</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\src\UmfPackSupport\UmfPackSupport.h">
-      <Filter>birdID\Eigen\src\UmfPackSupport</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\StdDeque.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\StdList.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\StdVector.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\SuperLUSupport.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\SVD.h">
-      <Filter>birdID\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Eigen\UmfPackSupport.h">
-      <Filter>birdID\Eigen</Filter>
+    <ClInclude Include="..\..\Source\Classifier.h">
+      <Filter>birdID\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ConnectedComponents.h">
       <Filter>birdID\Source</Filter>
@@ -2494,9 +1633,6 @@
       <Filter>birdID\Source\Features</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\FeatureExtractor.h">
-      <Filter>birdID\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\MainComponent.h">
       <Filter>birdID\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">
@@ -2663,6 +1799,90 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\JUCE\modules\juce_audio_formats\juce_audio_formats.h">
       <Filter>Juce Modules\juce_audio_formats</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_AudioPlayHead.h">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_AudioPluginInstance.h">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_AudioProcessor.h">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_AudioProcessorEditor.h">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_AudioProcessorGraph.h">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_AudioProcessorListener.h">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_GenericAudioProcessorEditor.h">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\processors\juce_PluginDescription.h">
+      <Filter>Juce Modules\juce_audio_processors\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format\juce_AudioPluginFormat.h">
+      <Filter>Juce Modules\juce_audio_processors\format</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format\juce_AudioPluginFormatManager.h">
+      <Filter>Juce Modules\juce_audio_processors\format</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format_types\juce_AudioUnitPluginFormat.h">
+      <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format_types\juce_LADSPAPluginFormat.h">
+      <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format_types\juce_VST3Common.h">
+      <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format_types\juce_VST3Headers.h">
+      <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format_types\juce_VST3PluginFormat.h">
+      <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format_types\juce_VSTMidiEventList.h">
+      <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\format_types\juce_VSTPluginFormat.h">
+      <Filter>Juce Modules\juce_audio_processors\format_types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\scanning\juce_KnownPluginList.h">
+      <Filter>Juce Modules\juce_audio_processors\scanning</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\scanning\juce_PluginDirectoryScanner.h">
+      <Filter>Juce Modules\juce_audio_processors\scanning</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_processors\scanning\juce_PluginListComponent.h">
+      <Filter>Juce Modules\juce_audio_processors\scanning</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\JUCE\modules\juce_audio_processors\juce_audio_processors.h">
+      <Filter>Juce Modules\juce_audio_processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_utils\gui\juce_AudioDeviceSelectorComponent.h">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_utils\gui\juce_AudioThumbnail.h">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_utils\gui\juce_AudioThumbnailBase.h">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_utils\gui\juce_AudioThumbnailCache.h">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_utils\gui\juce_MidiKeyboardComponent.h">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_utils\players\juce_AudioProcessorPlayer.h">
+      <Filter>Juce Modules\juce_audio_utils\players</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\JUCE\modules\juce_audio_utils\juce_audio_utils.h">
+      <Filter>Juce Modules\juce_audio_utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_core\text\juce_CharacterFunctions.h">
       <Filter>Juce Modules\juce_core\text</Filter>
@@ -3662,6 +2882,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\LibSVM\svmTrain.model">
+      <Filter>birdID\LibSVM</Filter>
+    </None>
     <None Include="..\..\Source\LibSVM\min.txt">
       <Filter>birdID\LibSVM</Filter>
     </None>
@@ -3671,123 +2894,6 @@
     <None Include="..\..\Source\LibSVM\svm.def">
       <Filter>birdID\LibSVM</Filter>
     </None>
-    <None Include="..\..\Source\Eigen\CMakeLists.txt">
-      <Filter>birdID\Eigen</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Cholesky\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Cholesky</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\CholmodSupport\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\CholmodSupport</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\CMakeLists.txt">
-      <Filter>birdID\Eigen\src</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Core\arch\AltiVec\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Core\arch\AltiVec</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Core\arch\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Core\arch</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Core\arch\Default\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Core\arch\Default</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Core\arch\NEON\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Core\arch\NEON</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Core\arch\SSE\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Core\arch\SSE</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Core\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Core</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Core\products\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Core\products</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Core\util\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Core\util</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Eigen2Support\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Eigen2Support</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Eigen2Support\Geometry\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Eigen2Support\Geometry</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Eigenvalues\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Eigenvalues</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\FFT\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\FFT</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Geometry\arch\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Geometry\arch</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Geometry\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Geometry</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Householder\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Householder</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\IterativeLinearSolvers\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\IterativeLinearSolvers</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\Jacobi\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\Jacobi</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\LU\arch\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\LU\arch</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\LU\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\LU</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\MetisSupport\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\MetisSupport</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\misc\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\misc</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\OrderingMethods\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\OrderingMethods</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\PardisoSupport\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\PardisoSupport</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\PaStiXSupport\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\PaStiXSupport</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\plugins\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\plugins</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\QR\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\QR</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\SparseCholesky\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\SparseCholesky</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\SparseCore\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\SparseCore</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\SparseLU\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\SparseLU</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\SparseQR\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\SparseQR</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\SPQRSupport\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\SPQRSupport</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\StlSupport\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\StlSupport</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\SuperLUSupport\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\SuperLUSupport</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\SVD\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\SVD</Filter>
-    </None>
-    <None Include="..\..\Source\Eigen\src\UmfPackSupport\CMakeLists.txt">
-      <Filter>birdID\Eigen\src\UmfPackSupport</Filter>
-    </None>
     <None Include="..\..\..\..\..\JUCE\modules\juce_audio_basics\juce_module_info">
       <Filter>Juce Modules\juce_audio_basics</Filter>
     </None>
@@ -3796,6 +2902,12 @@
     </None>
     <None Include="..\..\..\..\..\JUCE\modules\juce_audio_formats\juce_module_info">
       <Filter>Juce Modules\juce_audio_formats</Filter>
+    </None>
+    <None Include="..\..\..\..\..\JUCE\modules\juce_audio_processors\juce_module_info">
+      <Filter>Juce Modules\juce_audio_processors</Filter>
+    </None>
+    <None Include="..\..\..\..\..\JUCE\modules\juce_audio_utils\juce_module_info">
+      <Filter>Juce Modules\juce_audio_utils</Filter>
     </None>
     <None Include="..\..\..\..\..\JUCE\modules\juce_core\juce_module_info">
       <Filter>Juce Modules\juce_core</Filter>

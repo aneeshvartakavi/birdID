@@ -55,12 +55,13 @@ SVMTrain::~SVMTrain()
 {
     
     if (m_pdProbability != NULL) {
-        delete [] m_pdProbability;
+        delete m_pdProbability;
     }
-    m_pdProbability     = NULL;
+	//delete m_pdProbability;
+	m_pdProbability     = NULL;
     
     if (m_pSvmFeatures != NULL) {
-        delete [] m_pSvmFeatures;
+        delete m_pSvmFeatures;
     }
     m_pSvmFeatures = NULL;
     
@@ -83,7 +84,9 @@ SVMTrain::~SVMTrain()
     }
     
     m_pSVMProblem = NULL;
-    
+
+	delete m_pSVMParameters;
+	m_pSVMParameters;
 }
 
 
@@ -315,9 +318,9 @@ int SVMTrain::getNumSvElements(std::string strSvString )
 
 
 
-SVMTrain::Error_t SVMTrain::loadModelFromDisk(std::string modelFilePath)
+SVMTrain::Error_t SVMTrain::loadModelFromDisk(const std::string modelFilePath)
 {
-    
+    // MEMORY LEAK HERE!!!
     if((m_pSVMModel = svm_load_model((char*)modelFilePath.c_str())) == 0) {
         std::cout << "@SVMClassify: Error: Cannot Load SVM model" << std::endl;
         return kUnknownError;

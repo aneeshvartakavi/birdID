@@ -25,7 +25,7 @@ class FeatureExtractor
 
 public:
 		
-	FeatureExtractor(float* magnitudeSpectrum_, int numRows_,int numCols_, File& audioFile_,ScopedPointer<emxArray_real_T> denoisedAudio)
+	FeatureExtractor(float* magnitudeSpectrum_, int numRows_,int numCols_, File& audioFile_,emxArray_real_T* denoisedAudio, int denoisedAudioLength)
 	//FeatureExtractor(ScopedPointer<emxArray_real_T> denoisedSpec, File& audioFile_,ScopedPointer<emxArray_real_T> denoisedAudio)
 	{
 		
@@ -50,7 +50,7 @@ public:
 
 		//computePitchFeatures = new ComputePitchFeatures(blockSize,hopSize);
 
-		computeMFCCFeatures = new ComputeMFCCFeatures(denoisedAudio,16000);
+		computeMFCCFeatures = new ComputeMFCCFeatures(denoisedAudio,16000, denoisedAudioLength);
 		numMFCCFeatures = computeMFCCFeatures->getNumFeatures();
 		mfccFeatures = new float[numMFCCFeatures];
 
@@ -85,11 +85,9 @@ public:
 		// Deleting scaling stuff
 		deleteIfAllocated(featureMin);
 		deleteIfAllocated(featureRanges);
-
 		deleteIfAllocated(mfccFeatures);
 		deleteIfAllocated(bwFeatures);
 		deleteIfAllocated(spectralFeatures);
-		
 		deleteIfAllocated(featureVector);
 		deleteIfAllocated(magSpec);
 		
@@ -237,8 +235,10 @@ private:
 	float* mfccFeatures;
 	float* bwFeatures;
 	float* spectralFeatures;
-	// To store final features
 	float* featureVector;
+	float* featureMin;
+	float* featureRanges;
+	float *magSpec;
 
 	// Used for Pitch features
 	int blockSize;	
@@ -254,10 +254,7 @@ private:
 	int numFeatures;
 	//int numMFCCFeatures;
 		
-	float* featureMin;
-	float* featureRanges;
 
-	float *magSpec;
 
 	File audioFile;
 };

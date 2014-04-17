@@ -50,8 +50,7 @@ public:
 
 	~ComputeCSpecFeatures()
 	{
-		//emxDestroyArray_real_T(denoisedSpec);
-		denoisedSpec = nullptr;
+		emxDestroyArray_real_T(denoisedSpec);
 		delete features;
 	}
 
@@ -81,7 +80,7 @@ public:
 
 
 private:
-	ScopedPointer<emxArray_real_T> denoisedSpec;
+	emxArray_real_T* denoisedSpec;
 	real_T* features;
 	int numRows,numCols;
 };

@@ -24,20 +24,29 @@ class ComputeMFCCFeatures
 {
 
 public:
-	ComputeMFCCFeatures(ScopedPointer<emxArray_real_T> denoisedAudio_,int sampleRate_)
+	ComputeMFCCFeatures(const emxArray_real_T* denoisedAudio_,int sampleRate_, int denoisedAudioLength)
 	{
-		denoisedAudio = denoisedAudio_;
+		denoisedAudio =emxCreate_real_T(denoisedAudioLength,1);
+
+		numFeatures = 64;
+
+		// Copy
+		for(int i=0;i<denoisedAudioLength;i++)
+		{
+			denoisedAudio->data[i] = denoisedAudio_->data[i];
+		}
+
 		// Create feature vector
 		sampleRate = static_cast<real_T>(sampleRate_);
-		mfccFeatures = new real_T[64];
+		mfccFeatures = new real_T[numFeatures];
 	}
 
 	~ComputeMFCCFeatures()
 	{
-		//emxDestroyArray_real_T(mfccFeatures);
-		// Is this safe?
-		denoisedAudio = nullptr;
+		emxDestroyArray_real_T(denoisedAudio);
+		
 		delete mfccFeatures;
+		
 	}
 
 	void extractMFCCFeatures()
@@ -50,7 +59,7 @@ public:
 
 	void returnMFCCFeatures(float* mfccFeatures_)
 	{
-		for(int i=0;i<64;i++)
+		for(int i=0;i<numFeatures;i++)
 		{
 			mfccFeatures_[i] = static_cast<float>(mfccFeatures[i]);
 		}
@@ -60,14 +69,16 @@ public:
 
 	int getNumFeatures()
 	{
-		return 64;
+		return numFeatures;
 	}
 
 
 private:
 
 	real_T* mfccFeatures;
-	ScopedPointer<emxArray_real_T> denoisedAudio;
+	int numFeatures;
+
+	emxArray_real_T* denoisedAudio;
 	real_T sampleRate;
 
 };
