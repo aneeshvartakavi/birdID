@@ -20,9 +20,9 @@
 
 extern "C"
 {
-	#include "Export\denoiseSpectrogram.h"
-	#include "Export\bufferSTFT.h"
-	#include "Export\inverseSTFT.h"
+	#include "../Export/denoiseSpectrogram.h"
+	#include "../Export/bufferSTFT.h"
+	#include "../Export/inverseSTFT.h"
 }
 
 #if JUCE_WINDOWS

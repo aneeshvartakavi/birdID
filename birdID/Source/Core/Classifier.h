@@ -13,7 +13,7 @@
 #define CLASSIFIER_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "LibSVM\SVMTrain.h"
+#include "../LibSVM/SVMTrain.h"
 
 class Classifier
 {

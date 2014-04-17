@@ -9,7 +9,8 @@
 */
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "MainComponent.h"
+#include "GUI/MainComponent.h"
+
 
 
 //==============================================================================

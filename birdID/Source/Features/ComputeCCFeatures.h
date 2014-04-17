@@ -12,15 +12,12 @@
 #define COMPUTECCFEATURES_H_INCLUDED
 
 #include "JuceHeader.h"
-#include "../ConnectedComponents.h"
+#include "../Core/ConnectedComponents.h"
 
 extern "C"
 {
 #include "../Export/processLabelMatrix.h"
 #include "../Export/denoiseSpectrogram.h"
-//#include "../Export/denoiseSpectrogram_emxAPI.h"
-//#include "../Export/processLabelMatrix_initialize.h"
-
 }
 
 class ComputeCCFeatures

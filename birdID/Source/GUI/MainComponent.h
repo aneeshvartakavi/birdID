@@ -22,7 +22,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
-#include "BirdID.h"
+#include "../Core/BirdID.h"
 #include "ThumbnailComponent.h"
 #include "AudioSetup.h"
 //[/Headers]

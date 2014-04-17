@@ -12,13 +12,12 @@
 #define FEATUREEXTRACTOR_H_INCLUDED
 
 #include "JuceHeader.h"
-//#include "Eigen\Dense.h"
 
-//#include "Features\ComputeSpectralFeatures.h"
-#include "Features\ComputeCSpecFeatures.h"
-#include "Features\ComputePitchFeatures.h"
-#include "Features\ComputeMFCCFeatures.h"
-#include "Features\ComputeBWFeatures.h"
+#include "../Features/ComputeBWFeatures.h"
+#include "../Features/ComputeCSpecFeatures.h"
+#include "../Features/ComputePitchFeatures.h"
+#include "../Features/ComputeMFCCFeatures.h"
+
 
 class FeatureExtractor
 {

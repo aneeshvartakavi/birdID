@@ -17,11 +17,11 @@
 #define PREPROCESSOR_H_INCLUDED
 
 
-#include "Features\ComputeCCFeatures.h"
+#include "../Features/ComputeCCFeatures.h"
 
 extern "C"
 {
-	#include "Export\denoiseSpectrogram.h"
+	#include "../Export/denoiseSpectrogram.h"
 }
 
 

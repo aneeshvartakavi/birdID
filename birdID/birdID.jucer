@@ -69,28 +69,34 @@
       <FILE id="VKyVCF" name="rtwtypes.h" compile="0" resource="0" file="Source/Export/rtwtypes.h"/>
     </GROUP>
     <GROUP id="{F7A16C6D-EFA5-8D82-2830-A70D3C0C94A8}" name="Source">
-      <GROUP id="{370F53A3-863B-3ED5-8DE8-813B7ACFDA66}" name="GUI Components">
-        <FILE id="Z4zcVd" name="AudioSetup.cpp" compile="1" resource="0" file="Source/AudioSetup.cpp"/>
-        <FILE id="kak0en" name="AudioSetup.h" compile="0" resource="0" file="Source/AudioSetup.h"/>
-        <FILE id="WYP9Ja" name="ThumbnailComponent.h" compile="0" resource="0"
-              file="Source/ThumbnailComponent.h"/>
-        <FILE id="nB2V6l" name="MainComponent.cpp" compile="1" resource="0"
-              file="Source/MainComponent.cpp"/>
-        <FILE id="EvymOb" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <GROUP id="{5C2C796D-C62F-3DBD-C7E6-5F8F9DF4A014}" name="Core">
+        <FILE id="C7LXY2" name="BirdID.cpp" compile="1" resource="0" file="Source/Core/BirdID.cpp"/>
+        <FILE id="y4HFZM" name="BirdID.h" compile="0" resource="0" file="Source/Core/BirdID.h"/>
+        <FILE id="DHUy6Z" name="Classifier.cpp" compile="1" resource="0" file="Source/Core/Classifier.cpp"/>
+        <FILE id="fuS0sU" name="Classifier.h" compile="0" resource="0" file="Source/Core/Classifier.h"/>
+        <FILE id="HrTwGG" name="ConnectedComponents.h" compile="0" resource="0"
+              file="Source/Core/ConnectedComponents.h"/>
+        <FILE id="ioXgZm" name="FeatureExtractor.cpp" compile="1" resource="0"
+              file="Source/Core/FeatureExtractor.cpp"/>
+        <FILE id="EvvsEW" name="FeatureExtractor.h" compile="0" resource="0"
+              file="Source/Core/FeatureExtractor.h"/>
+        <FILE id="t0hDkt" name="PreProcessor.cpp" compile="1" resource="0"
+              file="Source/Core/PreProcessor.cpp"/>
+        <FILE id="ygkwyw" name="PreProcessor.h" compile="0" resource="0" file="Source/Core/PreProcessor.h"/>
       </GROUP>
-      <FILE id="bhj1aZ" name="Classifier.cpp" compile="1" resource="0" file="Source/Classifier.cpp"/>
-      <FILE id="t7q9JP" name="Classifier.h" compile="0" resource="0" file="Source/Classifier.h"/>
-      <FILE id="MU6Nh6" name="ConnectedComponents.h" compile="0" resource="0"
-            file="Source/ConnectedComponents.h"/>
-      <FILE id="PSwAaH" name="PreProcessor.cpp" compile="1" resource="0"
-            file="Source/PreProcessor.cpp"/>
-      <FILE id="kYNOH2" name="PreProcessor.h" compile="0" resource="0" file="Source/PreProcessor.h"/>
+      <GROUP id="{370F53A3-863B-3ED5-8DE8-813B7ACFDA66}" name="GUI">
+        <FILE id="VJuzs4" name="AudioSetup.cpp" compile="1" resource="0" file="Source/GUI/AudioSetup.cpp"/>
+        <FILE id="Kd0Bdk" name="AudioSetup.h" compile="0" resource="0" file="Source/GUI/AudioSetup.h"/>
+        <FILE id="YgWKzJ" name="MainComponent.cpp" compile="1" resource="0"
+              file="Source/GUI/MainComponent.cpp"/>
+        <FILE id="J5TMQl" name="MainComponent.h" compile="0" resource="0" file="Source/GUI/MainComponent.h"/>
+        <FILE id="qQfRw5" name="ThumbnailComponent.h" compile="0" resource="0"
+              file="Source/GUI/ThumbnailComponent.h"/>
+      </GROUP>
       <GROUP id="{2248CDB0-5799-FA2D-9889-8E584BC8B104}" name="Yin">
         <FILE id="xX95L7" name="Yin.cpp" compile="1" resource="0" file="Source/Yin/Yin.cpp"/>
         <FILE id="gpzbeL" name="Yin.h" compile="0" resource="0" file="Source/Yin/Yin.h"/>
       </GROUP>
-      <FILE id="parTeY" name="BirdID.cpp" compile="1" resource="0" file="Source/BirdID.cpp"/>
-      <FILE id="n8cVQo" name="BirdID.h" compile="0" resource="0" file="Source/BirdID.h"/>
       <GROUP id="{51850F17-C21B-F1C6-0656-6B777A2D608F}" name="Features">
         <FILE id="k9gc0O" name="ComputeCSpecFeatures.h" compile="0" resource="0"
               file="Source/Features/ComputeCSpecFeatures.h"/>
@@ -119,10 +125,6 @@
         <FILE id="Eq4m2Y" name="ComputeSpectralFeatures.h" compile="0" resource="0"
               file="Source/Features/ComputeSpectralFeatures.h"/>
       </GROUP>
-      <FILE id="bBl17Y" name="FeatureExtractor.cpp" compile="1" resource="0"
-            file="Source/FeatureExtractor.cpp"/>
-      <FILE id="sATaIG" name="FeatureExtractor.h" compile="0" resource="0"
-            file="Source/FeatureExtractor.h"/>
       <FILE id="wM8bXn" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
   </MAINGROUP>
