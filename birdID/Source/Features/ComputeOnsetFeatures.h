@@ -25,21 +25,39 @@ class ComputeOnsetFeatures
 public:
 	ComputeOnsetFeatures(float* magnitudeSpec, int numRows_,int numCols_, emxArray_real_T* time_)
 	{
+		numFeatures = 12;
 		numRows = numRows_;
 		numCols = numCols_;
 
 		denoisedSpec = emxCreate_real_T(numRows,numCols);
-		
+		onsets = emxCreate_boolean_T(1,numCols);
+		time = emxCreate_real_T(1,numCols);
 		// Copy over the array
 		for (int i=0;i<numRows*numCols;i++)
 		{
 			denoisedSpec->data[i] = static_cast<real_T>(magnitudeSpec[i]);
 		}
 
-		time = time_;
+		// Copy time array
+		for (int i=0;i<numCols;i++)
+		{
+			time->data[i] = static_cast<real_T>(time_->data[i]);
+		}
+
+		features = new real_T[numFeatures];
+		
 	}
 
-	~ComputeOnsetFeatures();
+	~ComputeOnsetFeatures()
+	{
+		emxDestroyArray_real_T(denoisedSpec);
+		emxDestroyArray_real_T(time);
+	
+		emxDestroyArray_boolean_T(onsets);
+
+		delete features;
+	}
+
 	
 	void extractFeatures()
 	{
@@ -51,7 +69,7 @@ public:
 	void returnFeatures(float* featureVector)
 	{
 		
-		for(int i=0;i<8;i++)
+		for(int i=0;i<numFeatures;i++)
 		{
 			featureVector[i] = static_cast<float>(features[i]);
 		}
@@ -61,16 +79,25 @@ public:
 
 	int getNumFeatures()
 	{
-		return 8;
+		return numFeatures;
 	}
+
+	void returnOnsets(bool* onsets_)
+	{
+		for(int i=0;i<numCols;i++)
+		{
+			onsets_[i] = static_cast<bool>(onsets->data[i]);
+		}
+	}
+
 private:
 
-	ScopedPointer<emxArray_real_T> denoisedSpec;
-	ScopedPointer<emxArray_real_T> time;
-	ScopedPointer<emxArray_boolean_T> onsets;
+	emxArray_real_T* denoisedSpec;
+	emxArray_real_T* time;
+	emxArray_boolean_T* onsets;
 	real_T* features;
 	int numRows,numCols;
-
+	int numFeatures;
 };
 
 

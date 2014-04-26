@@ -27,12 +27,13 @@ void Yin::initialize(float yinSampleRate,int yinBufferSize)
 
 Yin::Yin()
 {
-
+	yinBuffer = 0;
 }
 
 Yin::~Yin()
 {
-	delete yinBuffer;
+	if(yinBuffer!=0)
+		delete yinBuffer;
 }
 
 Yin::Yin(float yinSampleRate,int yinBufferSize)

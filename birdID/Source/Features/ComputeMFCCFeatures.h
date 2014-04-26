@@ -80,7 +80,7 @@ private:
 
 	emxArray_real_T* denoisedAudio;
 	real_T sampleRate;
-
+	
 };
 
 

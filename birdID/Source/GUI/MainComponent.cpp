@@ -108,13 +108,13 @@ MainContentComponent::~MainContentComponent()
     //[Destructor_pre]. You can add your own custom destruction code here..
     transportSource.setSource (nullptr);
 	sharedAudioDeviceManager->removeAudioCallback (&audioSourcePlayer);
-
+	sharedAudioDeviceManager = nullptr;
 	currentAudioFileSource = nullptr;
 	audioSourcePlayer.setSource(nullptr);
 	audioThumbnail->removeChangeListener (this);
 	zoomSlider->removeListener (this);
 	audioSetup = nullptr;
-	currentAudioFileSource = nullptr;
+	
     //[/Destructor_pre]
 
     audioThumbnail = nullptr;
@@ -128,9 +128,7 @@ MainContentComponent::~MainContentComponent()
 
     //[Destructor]. You can add your own custom destruction code here..
 	birdID = nullptr;
-	currentAudioFileSource = nullptr;
-	audioSetup = nullptr;
-	sharedAudioDeviceManager = nullptr;
+	
     //[/Destructor]
 }
 

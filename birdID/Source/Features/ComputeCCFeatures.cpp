@@ -32,7 +32,9 @@ ComputeCCFeatures::~ComputeCCFeatures()
 	emxDestroyArray_real_T(labels);
 	emxDestroyArray_real_T(originalSpec);
 	emxDestroyArray_real_T(denoisedSpec);
-
+	
+	// Preallocate
+	cc = ConnectedComponents(1024);
 }
 
 

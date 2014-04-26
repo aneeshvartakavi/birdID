@@ -10,20 +10,36 @@
 
 #include "ComputePitchFeatures.h"
 
-ComputePitchFeatures::ComputePitchFeatures(int blockSize_,int hopSize_)
+ComputePitchFeatures::ComputePitchFeatures(emxArray_real_T* time_, int numCols)
 {
-	blockSize = blockSize_;
-	hopSize = hopSize_;
+	numFeatures = 10;
+	
+	blockSize = 1024;
+	hopSize = 512;
 	yin = new Yin();
 	// Call initialize when file is read
 	// Basic file formats
 	formatManager.registerBasicFormats();
 	rightData = NULL;
+
+	// Deep copy time
+
+	time = emxCreate_real_T(1,numCols);
+	for(int i=0;i<numCols;i++)
+	{
+		time->data[i] = time_->data[i];
+	}
+	
+	features = new real_T[numFeatures];
+
+	pitch = NULL;
+
 }
 
 ComputePitchFeatures::~ComputePitchFeatures()
 {
-	yin = nullptr;
+	//delete yin;
+	yin = NULL;
 	if(rightData!=NULL)
 	{
 		delete rightData;
@@ -32,19 +48,62 @@ ComputePitchFeatures::~ComputePitchFeatures()
 
 	//delete leftData;
 	leftData=NULL;
+	if(pitch!=NULL)
+	{
+		delete pitch;
+		pitch = NULL;
+	}
 
-	delete pitch;
-	pitch = NULL;
+	emxDestroyArray_real_T(denoisedSpec);
+	emxDestroyArray_real_T(time);
+	emxDestroyArray_real_T(pitchEMX);
+	emxDestroyArray_boolean_T(onsets);
+
+	delete features;
+	features = NULL;
+	
 }
 
-void ComputePitchFeatures::computeFeatures(File& audioFile)
+
+void ComputePitchFeatures::extractFeatures(File& audioFile, float* magnitudeSpec, int numRows, int numCols,bool* onsets_)
 {
+	// Deep copy denoisedSpec
+	denoisedSpec = emxCreate_real_T(numRows,numCols);
+		
+	for (int i=0;i<numRows*numCols;i++)
+	{
+		denoisedSpec->data[i] = static_cast<real_T>(magnitudeSpec[i]);
+	}
+	
+	// Deep copy onsets
+	onsets = emxCreate_boolean_T(1,numCols);
+	for(int i=0;i<numCols;i++)
+	{
+		onsets->data[i] = static_cast<boolean_T>(onsets_[i]);
+	}
+
+
+
 	// Compute pitch
 	computePitch(audioFile);
+	
+	// Copy pitch
+	pitchEMX = emxCreate_real_T(1,static_cast<int>(numBlocks));
+
+	for(int i=0;i<numBlocks;i++)
+	{
+		pitchEMX->data[i] = pitch[i];
+	}
+
+	
 	// Threshold it
-	processPitch(100,8000);
+	computePitchFeatures_exp_initialize();
+	computePitchFeatures_exp(pitchEMX,denoisedSpec,onsets,time,static_cast<real_T>(sampleRate),static_cast<real_T>(numSamples),features);
+
+
+	//processPitch(100,8000);
 	// Compute the derivative
-	computeFirstDerivative();
+	//computeFirstDerivative();
 	
 }
 
@@ -52,8 +111,8 @@ void ComputePitchFeatures::computePitch(File& audioFile)
 {
 	ScopedPointer<AudioFormatReader> fileReader = formatManager.createReaderFor(audioFile);
 		int numChannels = fileReader->numChannels;
-		int sampleRate = static_cast<int>(fileReader->sampleRate);
-		int64 numSamples = fileReader->lengthInSamples;
+		sampleRate = static_cast<int>(fileReader->sampleRate);
+		numSamples = fileReader->lengthInSamples;
 
 		numBlocks = numSamples%hopSize;
 		
@@ -61,13 +120,13 @@ void ComputePitchFeatures::computePitch(File& audioFile)
 		numBlocks = (numSamples+numBlocks)/hopSize;
 		numBlocks+=1;
 
-		ScopedPointer<AudioSampleBuffer> sampleBuffer = new AudioSampleBuffer(1,numSamples);
+		ScopedPointer<AudioSampleBuffer> sampleBuffer = new AudioSampleBuffer(1,static_cast<int>(numSamples));
 		// Just in case
 		sampleBuffer->clear();
 		// Initialize Yin
-		yin->initialize(sampleRate,blockSize);
+		yin->initialize(static_cast<float>(sampleRate),blockSize);
 
-		pitch = new float[numBlocks];
+		pitch = new float[static_cast<int>(numBlocks)];
 
 		for (int j=0;j<numBlocks;j++)
 		{
@@ -92,24 +151,39 @@ void ComputePitchFeatures::computePitch(File& audioFile)
 		}
 }
 
-
-void ComputePitchFeatures::computeFirstDerivative()
+void ComputePitchFeatures::returnFeatures(float* featureVector)
 {
-	for(int i=1;i<numBlocks;i++)
+		
+	for(int i=0;i<numFeatures;i++)
 	{
-		pitch[i] = pitch[i]-pitch[i-1];
+		featureVector[i] = static_cast<float>(features[i]);
 	}
-	pitch[0] = 0.f;
+		
 
 }
 
-void ComputePitchFeatures::processPitch(int lowF0,int highF0)
+int ComputePitchFeatures::getNumFeatures()
 {
-	for(int i=1;i<numBlocks;i++)
-	{
-		if(pitch[i]<lowF0 || pitch[i]>highF0)
-		{
-			pitch[i] = 0;
-		}
-	}
+	return numFeatures;
 }
+
+//void ComputePitchFeatures::computeFirstDerivative()
+//{
+//	for(int i=1;i<numBlocks;i++)
+//	{
+//		pitch[i] = pitch[i]-pitch[i-1];
+//	}
+//	pitch[0] = 0.f;
+//
+//}
+
+//void ComputePitchFeatures::processPitch(int lowF0,int highF0)
+//{
+//	for(int i=1;i<numBlocks;i++)
+//	{
+//		if(pitch[i]<lowF0 || pitch[i]>highF0)
+//		{
+//			pitch[i] = 0;
+//		}
+//	}
+//}

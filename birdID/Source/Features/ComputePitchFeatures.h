@@ -14,15 +14,25 @@
 #include "../Yin/Yin.h"
 #include "JuceHeader.h"
 
+extern "C"
+{
+#include "../Export/computePitchFeatures_exp.h"
+#include "../Export/denoiseSpectrogram.h"
+#include "../Export/computeOnsetFeatures_export.h"
+}
+
 class ComputePitchFeatures
 {
 public:
-	ComputePitchFeatures(int blockSize_,int hopSize_);
+	ComputePitchFeatures(emxArray_real_T* time_, int numCols);
 	~ComputePitchFeatures();
 
-	void computeFeatures(File& audioFile);
+	void extractFeatures(File& audioFile, float* magnitudeSpec, int numRows, int numCols,bool* onsets_);
 
 	void getFeatureVector();
+	void returnFeatures(float* featureVector);
+	int getNumFeatures();
+
 private:
 	
 	void computePitch(File& audioFile);
@@ -31,17 +41,29 @@ private:
 
 	void computeFirstDerivative();
 	
+	emxArray_real_T* denoisedSpec;
+	emxArray_real_T* time;
+	emxArray_boolean_T* onsets;
+	emxArray_real_T* pitchEMX;
+
+	real_T* features;
+	
+	int numRows,numCols;
+
 	ScopedPointer<Yin> yin;
 	
-	int blockSize;
-	int hopSize;
-	int64 numBlocks;
-
 	float* rightData;
 	float* leftData;
 
 	float* pitch;
 	AudioFormatManager formatManager;
+
+	int blockSize;
+	int hopSize;
+	int64 numBlocks;
+	int sampleRate;
+	int64 numSamples;
+	int numFeatures;
 };
 
 

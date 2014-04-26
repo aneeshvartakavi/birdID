@@ -15,6 +15,12 @@
       <FILE id="xo6j6W" name="svm.h" compile="0" resource="0" file="Source/LibSVM/svm.h"/>
     </GROUP>
     <GROUP id="{6FC844E7-B40C-8F4C-42F7-003ACB0CE33A}" name="Export">
+      <FILE id="Bug8Ft" name="computePitchFeatures_exp.c" compile="1" resource="0"
+            file="Source/Export/computePitchFeatures_exp.c"/>
+      <FILE id="SkRSKT" name="computePitchFeatures_exp.h" compile="0" resource="0"
+            file="Source/Export/computePitchFeatures_exp.h"/>
+      <FILE id="MeEDay" name="computePitchFeatures_exp_types.h" compile="0"
+            resource="0" file="Source/Export/computePitchFeatures_exp_types.h"/>
       <FILE id="c6MJTB" name="computeOnsetFeatures_export.c" compile="1"
             resource="0" file="Source/Export/computeOnsetFeatures_export.c"/>
       <FILE id="BXKgBU" name="computeOnsetFeatures_export.h" compile="0"

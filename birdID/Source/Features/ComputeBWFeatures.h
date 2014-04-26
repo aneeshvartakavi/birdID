@@ -25,6 +25,7 @@ class ComputeBWFeatures
 public:
 	ComputeBWFeatures(float* magnitudeSpec, int numRows_,int numCols_)
 	{
+		numFeatures = 8;
 		numRows = numRows_;
 		numCols = numCols_;
 
@@ -36,14 +37,14 @@ public:
 			denoisedSpec->data[i] = static_cast<real_T>(magnitudeSpec[i]);
 		}
 
-		features = new real_T[8];
+		features = new real_T[numFeatures];
 	}
 
 	ComputeBWFeatures(emxArray_real_T* magSpec)
 	{
 		denoisedSpec = magSpec;
 
-		features = new real_T[8];
+		features = new real_T[numFeatures];
 	}
 
 
@@ -63,7 +64,7 @@ public:
 	void returnFeatures(float* featureVector)
 	{
 		
-		for(int i=0;i<8;i++)
+		for(int i=0;i<numFeatures;i++)
 		{
 			featureVector[i] = static_cast<float>(features[i]);
 		}
@@ -73,7 +74,7 @@ public:
 
 	int getNumFeatures()
 	{
-		return 8;
+		return numFeatures;
 	}
 
 
@@ -82,6 +83,7 @@ private:
 	emxArray_real_T* denoisedSpec;
 	real_T* features;
 	int numRows,numCols;
+	int numFeatures;
 };
 
 #endif  // COMPUTEBWFEATURES_H_INCLUDED

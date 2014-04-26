@@ -146,7 +146,7 @@ void BirdID::run()
 //	setProgress(0.50);
 //	
 //	//// 4. Extract features
-	featureExtractor = new FeatureExtractor(denoisedSpectrum,numRows,numCols,audioFile,denoisedAudioEMX,resampledAudioLength);
+	featureExtractor = new FeatureExtractor(denoisedSpectrum,numRows,numCols,audioFile,denoisedAudioEMX,resampledAudioLength,T);
 	//featureExtractor = new FeatureExtractor(denoisedSpecEMX,audioFile,denoisedAudioEMX);
 //	featureExtractor->setSpectralFeatureExtractionProperties();
 	featureExtractor->extractFeatures();
@@ -155,12 +155,12 @@ void BirdID::run()
 	featureVector = new float[numFeatures];
 	featureExtractor->returnFeatureVector(featureVector);
 	setProgress(0.75);
-//	// 5. Classify
+	// 5. Classify
 	classifier = new Classifier(numFeatures,numClasses);
-//	
-	int predictedClass = classifier->classify(featureVector);
-//
-	setProgress(0.99);
+
+//	int predictedClass = classifier->classify(featureVector);
+
+//	setProgress(0.99);
 }
 
 void BirdID::computeSpectrum()
