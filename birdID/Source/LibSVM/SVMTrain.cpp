@@ -455,7 +455,7 @@ SVMTrain::Error_t SVMTrain::evaluationOnTestDataset(double **ppfTestDataset, dou
     
     for (int i=0; i < iNumObservations; i++) {
         classify(ppfTestDataset[i]);
-        pfResultLabels[i] = m_dResult;
+        pfResultLabels[i] = static_cast<float>(m_dResult);
         
         if (pfTargetLabels[i] == m_dResult) {
             accuracy += 1;
@@ -565,4 +565,211 @@ int SVMTrain::SvmKernelTypeExternal2Internal( SvmKernelType_t eExternalKernelTyp
         case kSvmKernelType_RBF:
             return RBF;
     }
+}
+
+ SVMTrain::SvmType_t SVMTrain::GetSvmType(std::string typeString)
+ {
+	 if(typeString.compare("c_svc")==0)
+	 {
+		 return SvmType_t::kSvmType_C_SVC;
+	 }
+
+	 else if(typeString.compare("nu_svc")==0)
+	 {
+		 return SvmType_t::kSvmType_NU_SVC;
+	 }
+	 else
+	 {
+
+	 }
+
+	 // Implement the rest
+ }
+
+ SVMTrain::SvmKernelType_t SVMTrain::GetSvmKernelType(std::string typeString)
+ {
+	 if(typeString.compare("linear")==0)
+	 {
+		 return SvmKernelType_t::kSvmKernelType_LINEAR;
+	 }
+	 else
+	 {
+
+	 }
+
+
+	 // Implement the rest
+ }
+
+
+SVMTrain::Error_t SVMTrain::setSvmModel(std::string svmModel)
+{
+	m_pSVMModel             = new svm_model;
+    svm_parameter& stParam  = m_pSVMModel->param;
+    m_pSVMModel->rho        = NULL;
+    m_pSVMModel->probA      = NULL;
+    m_pSVMModel->probB      = NULL;
+    m_pSVMModel->label      = NULL;
+    m_pSVMModel->nSV        = NULL;
+
+    std::istringstream CModelStream(svmModel);
+
+    while (CModelStream.good())
+    {
+        // read the next line (expecting and skipping black lines)
+        std::string strNextLine;
+        getline (CModelStream, strNextLine);
+        if (strNextLine.empty()) continue;
+
+        // divide the line up into a name (anything before the first blank) and a value part
+        int iNameEndIndex = strNextLine.find(' ');
+        std::string strName = strNextLine.substr (0, iNameEndIndex);
+        std::string strValue = strNextLine.substr (iNameEndIndex+1);
+
+        // create a stream to parse the value part easily
+        std::istringstream CValueStream (strValue);
+
+        if (strName.compare ("svm_type") == 0)
+        {   // parse svm type
+            stParam.svm_type = SvmTypeExternal2Internal(GetSvmType (strValue.c_str()));
+        }
+        else if (strName.compare ("kernel_type") == 0)
+        {   // parse kernel_type
+            stParam.kernel_type = SvmKernelTypeExternal2Internal(GetSvmKernelType (strValue.c_str()));
+        }
+        else if (strName.compare ("gamma") == 0)
+        {   // parse gamma value (for RBF type only)
+            CValueStream >> stParam.gamma;
+        }
+        else if (strName.compare ("nr_class") == 0)
+        {   // parse number of classes
+            CValueStream >> m_pSVMModel->nr_class;
+        }
+        else if (strName.compare ("total_sv") == 0)
+        {   // parse number of support vectors
+            CValueStream >> m_pSVMModel->l;
+        }
+        else if (strName.compare ("rho") == 0)
+        {
+            // calculate and allocate the number of rho values
+            int n = m_pSVMModel->nr_class * (m_pSVMModel->nr_class-1)/2;
+            m_pSVMModel->rho = new double[n];
+
+            // tokenize and parse list of rho values
+            for (int i=0; i<n; i++)
+            {
+                CValueStream >> m_pSVMModel->rho[i];
+            }
+        }
+        else if (strName.compare ("label") == 0)
+        {
+            // allocate the array for label values
+            int n = m_pSVMModel->nr_class;
+            m_pSVMModel->label = new int [n];
+
+            // tokenize and parse list of labels
+            for (int i=0; i<n; i++)
+            {
+                CValueStream >> m_pSVMModel->label[i];
+            }
+        }
+        else if (strName.compare ("probA") == 0)
+        {
+            // implement me
+        }
+        else if (strName.compare ("probB") == 0)
+        {
+            // implement me
+        }
+        else if (strName.compare ("nr_sv") == 0)
+        {
+             // allocate the array for number of support vectors for each class
+            int n = m_pSVMModel->nr_class;
+            m_pSVMModel->nSV = new int [n];
+
+            // tokenize and parse list number of support vectors for each class
+            for (int i=0; i<n; i++)
+            {
+                CValueStream >> m_pSVMModel->nSV[i];
+            }
+        }
+        else if (strName.compare ("SV") == 0)
+        {
+            // stop header parsing, it's only SV data from here on...
+            break;
+        }
+    }
+
+
+    // allocate appropriately sized arrays for the SV coefficients & data
+    m_pSVMModel->sv_coef    = new double* [m_pSVMModel->nr_class-1];
+    for (int index = 0; index < m_pSVMModel->nr_class-1; index++)
+        m_pSVMModel->sv_coef[index] = new double [m_pSVMModel->l];
+    m_pSVMModel->SV = new svm_node* [m_pSVMModel->l];
+
+    std::string strSvData = svmModel.substr (svmModel.find("SV"));
+    int iNumSvElements = GetNumSvElements (strSvData) + m_pSVMModel->l;
+
+    svm_node *pPreAllocatedNodes = NULL;
+    if(m_pSVMModel->l > 0) 
+        pPreAllocatedNodes = new svm_node [iNumSvElements];
+
+
+    // go on parsing the SV data...
+
+    int j = 0;
+    for(int index = 0; index < m_pSVMModel->l; index++)
+    {
+        // find the next non-empty line
+        std::string strNextLine;
+        while (strNextLine.empty() && CModelStream.good())
+        {   // expect the model files to have blank lines
+            getline (CModelStream, strNextLine);
+        }
+
+        // read from that line using a stream
+       std:: istringstream CLineStream (strNextLine);
+
+        // use the next pre-allocated svm_node object
+        m_pSVMModel->SV[index] = &pPreAllocatedNodes[j];
+
+        // get sv_coef
+        for(int k = 0; k < m_pSVMModel->nr_class-1; k++)
+        {
+            CLineStream >> m_pSVMModel->sv_coef[k][index];
+        }
+
+        // expect the rest of the line to be index/value pairs
+        while (CLineStream.good() && j<iNumSvElements-1)
+        {
+            std::string strIndex;
+            getline (CLineStream, strIndex, ':');
+            if (strIndex.empty()) break;
+            pPreAllocatedNodes[j].index = strtol (strIndex.c_str(), NULL, 10);
+
+            std::string strValue;
+            getline (CLineStream, strValue, ' ');
+            pPreAllocatedNodes[j].value = strtod (strValue.c_str(), NULL);
+
+            // increment element index
+            j++;
+        }
+
+        // last index per line is always -1
+        pPreAllocatedNodes[j].index = -1;
+        j++;
+    }
+
+    return kNoError;
+}
+
+
+int SVMTrain::GetNumSvElements(std::string strSvString )
+{
+    int iNumElements = 0;
+    for (unsigned int i=0; i<strSvString.size(); i++)
+    {
+        if (strSvString[i] == ':') iNumElements++;
+    }
+    return iNumElements;
 }

@@ -3,7 +3,9 @@
 
     SVMTrain.h
     Created: 13 Feb 2014 3:16:11am
-    Author:  Govinda Ram Pingali
+    Author:  Aneesh Vartakavi
+
+	Credits : Govinda Ram Pingali, Alexander Lerch
 
   ==============================================================================
 */
@@ -16,7 +18,7 @@
 #include <iostream>
 #include <iterator>
 #include <string.h>
-
+#include <sstream>
 #include "svm.h"
 
 using std::vector;
@@ -79,8 +81,7 @@ public:
         double dP;	                    //<! loss tolerance for EPSILON_SVR: high -> low accuracy, low number of SVs, low (0) -> overfitting; has to be smaller than dataset range and higher than noise range
     };
     
-    
-    
+      
     
     
     Error_t setTrainingDataAndTrain(vector<vector<double>> ppdTrainingData,
@@ -90,8 +91,7 @@ public:
     
     Error_t setParameters(const SvmParameter_t &stSvmParam);
     
-    
-    double classify(double* pfFeatures, double* pdProbability = 0);
+	double classify(double* pfFeatures, double* pdProbability = 0);
     
     int getNumSvElements( std::string strSvString );
     
@@ -103,7 +103,8 @@ public:
     Error_t evaluationOnTestDataset(double** ppfTestDataset, double* pfTargetLabels, int iNumObservations, int iNumFeatures);
     Error_t setNumOfFolds (int iNumFolds = 10);
     
-    
+    Error_t setSvmModel(std::string svmModel);
+
 private:
     
     
@@ -112,9 +113,11 @@ private:
     static SvmKernelType_t SvmKernelTypeInternal2External (int iInternalSvmKernelType);
     static int             SvmKernelTypeExternal2Internal (SvmKernelType_t eExternalKernelType);
     
+    static SvmType_t GetSvmType(std::string typeString);
+	static SvmKernelType_t GetSvmKernelType(std::string typeString);
+    int GetNumSvElements(std::string strSvString );
     
-    
-    svm_model       *m_pSVMModel;
+	svm_model       *m_pSVMModel;
     svm_parameter   *m_pSVMParameters;
     svm_problem     *m_pSVMProblem;
     
