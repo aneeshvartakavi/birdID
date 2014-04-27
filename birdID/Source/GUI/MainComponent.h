@@ -53,11 +53,11 @@ public:
 	void showFile (const File& file);
 	void loadFileIntoTransport (const File& audioFile);
 	void changeListenerCallback (ChangeBroadcaster* source) override;
-    
+
 	// Returns the shared audio device manager
-	
+
 	static AudioDeviceManager& getSharedAudioDeviceManager();
-	//[/UserMethods]
+    //[/UserMethods]
 
     void paint (Graphics& g);
     void resized();
@@ -74,12 +74,16 @@ private:
 	AudioSourcePlayer audioSourcePlayer;
     AudioTransportSource transportSource;
     AudioFormatManager formatManager;
-	
+
 	TimeSliceThread thread;
 
 	ScopedPointer<AudioSetup> audioSetup;
 
 	bool fileLoaded;
+	bool initialized;
+	int predictedClass;
+
+
     //[/UserVariables]
 
     //==============================================================================
@@ -90,6 +94,7 @@ private:
     ScopedPointer<Label> zoomLabel;
     ScopedPointer<TextButton> setupButton;
     ScopedPointer<TextButton> processButton;
+    ScopedPointer<ImageComponent> imageComponent;
 
 
     //==============================================================================

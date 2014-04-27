@@ -86,7 +86,16 @@ public:
 	{
 		for(int i=0;i<numCols;i++)
 		{
-			onsets_[i] = static_cast<bool>(onsets->data[i]);
+			if(onsets->data[i] == TRUE)
+			{
+				onsets_[i] = true;
+			}
+			else
+			{
+				onsets_[i] = false;
+			}
+
+			//onsets_[i] = static_cast<bool>(onsets->data[i]);
 		}
 	}
 

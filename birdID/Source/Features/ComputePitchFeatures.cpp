@@ -82,8 +82,6 @@ void ComputePitchFeatures::extractFeatures(File& audioFile, float* magnitudeSpec
 		onsets->data[i] = static_cast<boolean_T>(onsets_[i]);
 	}
 
-
-
 	// Compute pitch
 	computePitch(audioFile);
 	

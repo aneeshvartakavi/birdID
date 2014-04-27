@@ -30,7 +30,7 @@ extern "C"
 //#include "Eigen\FFT.h"
 #endif
 
-class BirdID : public ThreadWithProgressWindow
+class BirdID : public ThreadWithProgressWindow, public ChangeBroadcaster
 {
 public:
 	BirdID(int blockSize_,int hopSize_);
@@ -45,6 +45,11 @@ public:
 	// Run all the operations
 	void run();
 	
+	int returnPredictedClass()
+	{
+		return predictedClass;
+	}
+
 private:
 	
 	void computeSpectrum(); 
@@ -89,6 +94,7 @@ private:
 	int numFeatures;
 	int numClasses;
 	
+	int predictedClass;
 };
 
 

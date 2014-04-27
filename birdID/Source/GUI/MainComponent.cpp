@@ -81,6 +81,9 @@ MainContentComponent::MainContentComponent ()
     processButton->setColour (TextButton::textColourOnId, Colours::white);
     processButton->setColour (TextButton::textColourOffId, Colour (0xffcdc9c9));
 
+    addAndMakeVisible (imageComponent = new ImageComponent());
+    imageComponent->setName ("new component");
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -97,9 +100,33 @@ MainContentComponent::MainContentComponent ()
 	formatManager.registerBasicFormats();
 	sharedAudioDeviceManager->addAudioCallback (&audioSourcePlayer);
     audioSourcePlayer.setSource (&transportSource);
-	
 
 	fileLoaded = false;
+	birdID = new BirdID(1024,512);
+	birdID->addChangeListener(this);
+
+	String desktopPath = File::getSpecialLocation(File::SpecialLocationType::userDesktopDirectory).getFullPathName();
+	
+	File birdIDFolder(desktopPath + "/BirdID_Data1");
+	if(!birdIDFolder.exists())
+	{
+		AlertWindow::showMessageBox(AlertWindow::AlertIconType::WarningIcon,String("Important!"),String("Please unzip the birdID-Data folder to your desktop, and restart the program"));
+		initialized = false;
+	}
+	else
+	{
+		initialized = true;
+	}
+
+
+	
+
+//	String desktopPath = File::getSpecialLocation(File::SpecialLocationType::userDesktopDirectory).getFullPathName();
+//	File selectedFile(desktopPath + "/BirdID_Data/Images/bananaquit.jpg");
+	
+	//imageComponent->setImage (ImageCache::getFromFile (selectedFile));
+	//imagePreview->selectedFileChanged(File("C:\\Users\\Aneesh\\Documents\\GitHub\\birdID\\birdID\\bananaquit.jpg"));
+	
     //[/Constructor]
 }
 
@@ -114,7 +141,7 @@ MainContentComponent::~MainContentComponent()
 	audioThumbnail->removeChangeListener (this);
 	zoomSlider->removeListener (this);
 	audioSetup = nullptr;
-	
+	birdID->removeAllChangeListeners();
     //[/Destructor_pre]
 
     audioThumbnail = nullptr;
@@ -124,11 +151,12 @@ MainContentComponent::~MainContentComponent()
     zoomLabel = nullptr;
     setupButton = nullptr;
     processButton = nullptr;
+    imageComponent = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
 	birdID = nullptr;
-	
+
     //[/Destructor]
 }
 
@@ -153,6 +181,7 @@ void MainContentComponent::resized()
     zoomLabel->setBounds (808, 280, 56, 24);
     setupButton->setBounds (64, 696, 150, 24);
     processButton->setBounds (432, 696, 150, 24);
+    imageComponent->setBounds (368, 352, 296, 272);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -185,12 +214,16 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == processButton)
     {
         //[UserButtonCode_processButton] -- add your button handler code here..
-		if(fileLoaded)
+		
+		
+		if(fileLoaded&&initialized)
 		{
 			birdID->runThread();
 		}
-
-			
+		else if(initialized==false)
+		{
+			AlertWindow::showMessageBox(AlertWindow::AlertIconType::WarningIcon,String("Important!"),String("Please unzip the birdID-Data folder to your desktop, and restart the program"));
+		}
 		
         //[/UserButtonCode_processButton]
     }
@@ -225,6 +258,12 @@ void MainContentComponent::changeListenerCallback (ChangeBroadcaster* source)
 {
     if (source == audioThumbnail)
         showFile (audioThumbnail->getLastDroppedFile());
+	else if(source == birdID)
+	{
+		predictedClass = birdID->returnPredictedClass();
+		// Display in GUI
+	}
+
 }
 
 void MainContentComponent::showFile (const File& file)
@@ -254,8 +293,8 @@ void MainContentComponent::loadFileIntoTransport (const File& audioFile)
                                     &thread,                 // this is the background thread to use for reading-ahead
                                     reader->sampleRate);     // allows for sample rate correction
 
-		
-		birdID = new BirdID(1024,512);
+
+
 		birdID->selectFile(audioFile);
 		fileLoaded = true;
 	}
@@ -321,6 +360,9 @@ BEGIN_JUCER_METADATA
               explicitFocusOrder="0" pos="432 696 150 24" bgColOff="ff000000"
               textCol="ffffffff" textColOn="ffcdc9c9" buttonText="Identify"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
+  <GENERICCOMPONENT name="new component" id="3cd8dec603d6bf05" memberName="imageComponent"
+                    virtualName="" explicitFocusOrder="0" pos="368 352 296 272" class="ImageComponent"
+                    params=""/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

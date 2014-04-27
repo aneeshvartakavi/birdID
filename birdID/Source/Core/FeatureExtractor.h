@@ -149,30 +149,30 @@ public:
 		computePitchFeatures->returnFeatures(pitchFeatures);
 		
 		// Copy them all to the feature vector
-		//for(int i=0;i<numBWFeatures;i++)
-		//{
-		//	featureVector[i] = bwFeatures[i];
-		//}
+		for(int i=0;i<numBWFeatures;i++)
+		{
+			featureVector[i] = bwFeatures[i];
+		}
 
-		//for(int i=0;i<numCSpectralFeatures;i++)
-		//{
-		//	featureVector[i+numBWFeatures] = spectralFeatures[i];
-		//}
+		for(int i=0;i<numCSpectralFeatures;i++)
+		{
+			featureVector[i+numBWFeatures] = spectralFeatures[i];
+		}
 
-		//for(int i=0;i<numMFCCFeatures;i++)
-		//{
-		//	featureVector[i+numBWFeatures+numCSpectralFeatures] = mfccFeatures[i];
-		//}
-		//
-		//for(int i=0; i<numOnsetFeatures;i++)
-		//{
-		//	featureVector[i+numBWFeatures+numCSpectralFeatures+numMFCCFeatures] = onsetFeatures[i];
-		//}
+		for(int i=0;i<numMFCCFeatures;i++)
+		{
+			featureVector[i+numBWFeatures+numCSpectralFeatures] = mfccFeatures[i];
+		}
+		
+		for(int i=0; i<numOnsetFeatures;i++)
+		{
+			featureVector[i+numBWFeatures+numCSpectralFeatures+numMFCCFeatures] = onsetFeatures[i];
+		}
 
-		//for(int i=0; i<numPitchFeatures;i++)
-		//{
-		//	featureVector[i+numBWFeatures+numCSpectralFeatures+numMFCCFeatures+numOnsetFeatures] = pitchFeatures[i];
-		//}
+		for(int i=0; i<numPitchFeatures;i++)
+		{
+			featureVector[i+numBWFeatures+numCSpectralFeatures+numMFCCFeatures+numOnsetFeatures] = pitchFeatures[i];
+		}
 
 
 		// TODO - Check if it is all valid
