@@ -108,6 +108,7 @@ MainContentComponent::MainContentComponent ()
 
 
     //[Constructor] You can add your own custom stuff here..
+	completed = false;
 	sharedAudioDeviceManager = new AudioDeviceManager();
 	sharedAudioDeviceManager->initialise(2,2,nullptr,true);
 	audioThumbnail->addChangeListener(this);
@@ -141,6 +142,7 @@ MainContentComponent::MainContentComponent ()
 
 	predictedLabel->setVisible(false);
 	speciesLabel->setVisible(false);
+	
     //[/Constructor]
 }
 
@@ -277,10 +279,12 @@ void MainContentComponent::timerCallback()
 	{
 		File selectedFile(pathToDirectory + "/Images/" + predictedSpecies + ".jpg");
 		imageComponent->setImage (ImageCache::getFromFile (selectedFile));
+		imageComponent->setVisible(true);
 		predictedLabel->setVisible(true);
 		speciesLabel->setText(predictedSpecies,NotificationType::dontSendNotification);
 		speciesLabel->setVisible(true);
 		stopTimer();
+		completed = true;
 		//imagePreview->selectedFileChanged(File("C:\\Users\\Aneesh\\Documents\\GitHub\\birdID\\birdID\\bananaquit.jpg"));
 
 	}
@@ -327,6 +331,19 @@ void MainContentComponent::loadFileIntoTransport (const File& audioFile)
                                     &thread,                 // this is the background thread to use for reading-ahead
                                     reader->sampleRate);     // allows for sample rate correction
 
+		if(completed==true)
+		{
+			birdID = nullptr;
+			//birdID->removeAllChangeListeners();
+			//birdID->removeChangeListener(this);
+			predictedLabel->setVisible(false);
+			speciesLabel->setVisible(false);
+			imageComponent->setVisible(false);
+			birdID = new BirdID(1024,512);
+			birdID->addChangeListener(this);
+			predicted = false;
+			//completed = false;
+		}
 
 
 		birdID->selectFile(audioFile);

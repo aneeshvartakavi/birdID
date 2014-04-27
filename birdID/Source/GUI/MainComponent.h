@@ -85,7 +85,7 @@ private:
 	bool initialized;
 	String predictedSpecies;
 	bool predicted;
-
+	bool completed;
 
     //[/UserVariables]
 

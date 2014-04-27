@@ -52,7 +52,6 @@ BirdID::~BirdID()
 	deleteEMX(phaseSpecEMX);
 	deleteEMX(magSpecEMX);
 	
-
 }
 
 void BirdID::deleteIfAllocated(float* pointerToBeDeleted)
@@ -158,7 +157,6 @@ void BirdID::run()
 	// 5. Classify
 	classifier = new Classifier(numFeatures,numClasses);
 
-	//predictedClass = 2;
 	int predictedClass = classifier->classify(featureVector);
 	predictedSpecies = returnSpeciesName(predictedClass);
 	
