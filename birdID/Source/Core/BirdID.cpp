@@ -158,10 +158,9 @@ void BirdID::run()
 	// 5. Classify
 	classifier = new Classifier(numFeatures,numClasses);
 
+	//predictedClass = 2;
+	predictedClass = classifier->classify(featureVector);
 	sendChangeMessage();
-	predictedClass = 2;
-//	int predictedClass = classifier->classify(featureVector);
-
 //	setProgress(0.99);
 }
 

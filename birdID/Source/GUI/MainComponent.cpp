@@ -258,7 +258,8 @@ void MainContentComponent::changeListenerCallback (ChangeBroadcaster* source)
 	else if(source == birdID)
 	{
 		predictedClass = birdID->returnPredictedClass();
-		// Display in GUI
+		String className = returnSpeciesName(predictedClass);
+		
 	}
 
 }
@@ -309,6 +310,34 @@ AudioDeviceManager& MainContentComponent::getSharedAudioDeviceManager()
 
     return *sharedAudioDeviceManager;
 }
+
+String MainContentComponent::returnSpeciesName(int predictedClass)
+{
+	XmlDocument myDocument (File ("C:/Users/Aneesh/Desktop/BirdID_Data/species.xml"));
+	XmlElement* element = myDocument.getDocumentElement();
+
+	XmlElement* speciesElement = element->getChildElement(0);
+	int numSpecies = speciesElement->getAllSubText().getIntValue();
+	
+	speciesElement = element->getChildElement(1);
+	String speciesText = speciesElement->getAllSubText();
+	int startIndex = 0;
+	String tempString;
+
+	for(int i=0;i<numSpecies;i++)
+	{
+		int endIndex = speciesText.indexOfChar(startIndex+1,',');
+		if(i==predictedClass-1)
+			{
+				tempString = speciesText.substring(startIndex,endIndex);
+				break;
+			}
+		startIndex = endIndex+1;
+	}
+
+	return tempString;
+}
+
 
 //[/MiscUserCode]
 

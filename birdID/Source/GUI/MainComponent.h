@@ -57,6 +57,8 @@ public:
 	// Returns the shared audio device manager
 
 	static AudioDeviceManager& getSharedAudioDeviceManager();
+
+	String returnSpeciesName(int predictedClass);
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -74,6 +76,7 @@ private:
 	AudioSourcePlayer audioSourcePlayer;
     AudioTransportSource transportSource;
     AudioFormatManager formatManager;
+
 
 	TimeSliceThread thread;
 

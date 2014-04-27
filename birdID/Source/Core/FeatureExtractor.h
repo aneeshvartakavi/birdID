@@ -197,8 +197,8 @@ public:
 		// Uses the saved XML file
 		XmlDocument myDocument (File ("C:/Users/Aneesh/Desktop/BirdID_Data/species.xml"));
 		XmlElement* element = myDocument.getDocumentElement();
-
-		XmlElement* rangeElement = element->getChildElement(1);
+		// Get the element for range
+		XmlElement* rangeElement = element->getChildElement(2);
 		String rangeText = rangeElement->getAllSubText();
 		int startIndex = 0;
 		
@@ -208,8 +208,8 @@ public:
 			featureRanges[i] = rangeText.substring(startIndex,endIndex).getFloatValue();
 			startIndex = endIndex+1;
 		}
-
-		XmlElement* minElement = element->getChildElement(2);
+		// Get the element for minimum values
+		XmlElement* minElement = element->getChildElement(3);
 		String minText = minElement->getAllSubText();
 		startIndex = 0;
 		
@@ -227,6 +227,10 @@ public:
 			featureVector_[i] = featureVector_[i]/featureRanges[i];
 		}
 
+		// Clean up
+		rangeElement = nullptr;
+		minElement = nullptr;
+		element = nullptr;
 	}
 
 	void returnFeatureVector(float* featureVector_)
