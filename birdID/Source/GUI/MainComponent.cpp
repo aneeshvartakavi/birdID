@@ -107,7 +107,7 @@ MainContentComponent::MainContentComponent ()
 
 	String desktopPath = File::getSpecialLocation(File::SpecialLocationType::userDesktopDirectory).getFullPathName();
 	
-	File birdIDFolder(desktopPath + "/BirdID_Data1");
+	File birdIDFolder(desktopPath + "/BirdID_Data");
 	if(!birdIDFolder.exists())
 	{
 		AlertWindow::showMessageBox(AlertWindow::AlertIconType::WarningIcon,String("Important!"),String("Please unzip the birdID-Data folder to your desktop, and restart the program"));
@@ -117,9 +117,6 @@ MainContentComponent::MainContentComponent ()
 	{
 		initialized = true;
 	}
-
-
-	
 
 //	String desktopPath = File::getSpecialLocation(File::SpecialLocationType::userDesktopDirectory).getFullPathName();
 //	File selectedFile(desktopPath + "/BirdID_Data/Images/bananaquit.jpg");

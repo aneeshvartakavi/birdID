@@ -143,7 +143,7 @@ void BirdID::run()
 //	// Convert to audio
 	recoverAudio();
 //	
-//	setProgress(0.50);
+	setProgress(0.50);
 //	
 //	//// 4. Extract features
 	featureExtractor = new FeatureExtractor(denoisedSpectrum,numRows,numCols,audioFile,denoisedAudioEMX,resampledAudioLength,T);
@@ -195,7 +195,7 @@ void BirdID::computeSpectrum()
 
 void BirdID::recoverAudio()
 {
-	// Fill magSpecEMX with denoisedAudio
+	// Inverse STFT
 	denoisedSpecEMX = emxCreate_real_T(numRows,numCols);
 	
 	for(int i=0;i<numCols;i++)

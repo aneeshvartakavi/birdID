@@ -5,11 +5,8 @@
               jucerVersion="3.1.0">
   <MAINGROUP id="kn7qzG" name="birdID">
     <GROUP id="{7D4CB7A8-D42F-124B-3FDA-F93FA1563A16}" name="LibSVM">
-      <FILE id="ryugDX" name="svmTrain.model" compile="0" resource="1" file="Source/LibSVM/svmTrain.model"/>
       <FILE id="HallUE" name="SVMTrain.cpp" compile="1" resource="0" file="Source/LibSVM/SVMTrain.cpp"/>
       <FILE id="utQzlp" name="SVMTrain.h" compile="0" resource="0" file="Source/LibSVM/SVMTrain.h"/>
-      <FILE id="UCSMGA" name="min.txt" compile="0" resource="1" file="Source/LibSVM/min.txt"/>
-      <FILE id="GKNPMY" name="range.txt" compile="0" resource="1" file="Source/LibSVM/range.txt"/>
       <FILE id="A0npkN" name="svm.cpp" compile="1" resource="0" file="Source/LibSVM/svm.cpp"/>
       <FILE id="AHmvm2" name="svm.def" compile="0" resource="1" file="Source/LibSVM/svm.def"/>
       <FILE id="xo6j6W" name="svm.h" compile="0" resource="0" file="Source/LibSVM/svm.h"/>

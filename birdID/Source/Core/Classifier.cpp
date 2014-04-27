@@ -20,8 +20,12 @@ Classifier::Classifier( int numFeatures_, int numClasses_)
 	classProb = new double[numClasses];
 
 	svmTrain = new SVMTrain(numFeatures);
-	modelFile = File("C:\\Users\\Aneesh\\Documents\\GitHub\\birdID\\birdID\\Source\\LibSVM\\svmTrain.model");
+	//modelFile = File("C:\\Users\\Aneesh\\Documents\\GitHub\\birdID\\birdID\\Source\\LibSVM\\svmTrain.model");
+		//First load the model
+	modelFile = File("C:\\Users\\Aneesh\\Desktop\\BirdID_Data\\svmTrain.model");
+	std::string modelString = modelFile.loadFileAsString().toStdString();
 
+	svmTrain->setSvmModel(modelString);
 }
 
 Classifier::~Classifier()
@@ -37,8 +41,11 @@ Classifier::~Classifier()
 
 int Classifier::classify(const float* featureVector_)
 {
-	//First load the model
-	svmTrain->loadModelFromDisk( modelFile.getFullPathName().toStdString());
+
+	
+	
+	//svmTrain->loadModelFromDisk( modelFile.getFullPathName().toStdString());
+	
 	
 	// Then copy feature vector
 

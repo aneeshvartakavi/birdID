@@ -175,37 +175,9 @@ public:
 		}
 
 
-		// TODO - Check if it is all valid
 		// Scale after you have the full feature vector
-//		scaleFeatureVector(featureVector);
-		
-		//float *tempData = new float[513];
-		//float* featureVec = new float[numSpectralFeatures*numSpectralSubFeatures];
+		scaleFeatureVector(featureVector);
 
-		//// Extract columns of magnitude spectrum
-		//for(int i=0;i<numCols;i++)
-		//{
-		//	for(int j=0;j<numRows;j++)
-		//	{
-		//		tempData[j] = magSpec[i*numRows+j];
-		//	}
-		//	// Compute features
-		//	computeSpectralFeatures->computeFeatures(tempData);
-
-		//}
-
-		// Get resulting subfeatures - Move this to a return featureVector function
-
-		//computeSpectralFeatures->getSubFeatureVector(featureVec,numSpectralFeatures*numSpectralSubFeatures);
-
-		
-//		computePitchFeatures->computeFeatures(audioFile);
-
-		//delete featureVec;
-		//featureVec = nullptr;
-		//
-		//delete tempData;
-		//tempData=nullptr;
 	}
 
 	void scaleFeatureVector(float* featureVector_)
@@ -222,26 +194,30 @@ public:
 		}
 
 		
-		// Uses the saved text files min and range to scale each of the features in the featureVector_
-		//File thiss = File::getCurrentWorkingDirectory();
-		File minFile("C:\\Users\\Aneesh\\Documents\\GitHub\\birdID\\birdID\\Source\\LibSVM\\min.txt");
-		File rangeFile("C:\\Users\\Aneesh\\Documents\\GitHub\\birdID\\birdID\\Source\\LibSVM\\range.txt");
-		StringArray minLines,rangeLines;
-		if(minFile.existsAsFile() && rangeFile.existsAsFile())
+		// Uses the saved XML file
+		XmlDocument myDocument (File ("C:/Users/Aneesh/Desktop/BirdID_Data/species.xml"));
+		XmlElement* element = myDocument.getDocumentElement();
+
+		XmlElement* rangeElement = element->getChildElement(1);
+		String rangeText = rangeElement->getAllSubText();
+		int startIndex = 0;
+		
+		for(int i=0;i<numFeatures;i++)
 		{
-			minFile.readLines(minLines);
-			rangeFile.readLines(rangeLines);
-			for(int i=0;i<numFeatures;i++)
-			{
-				featureMin[i] = minLines[i].getFloatValue();
-				featureRanges[i] = rangeLines[i].getFloatValue();
-
-			}
-
+			int endIndex = rangeText.indexOfChar(startIndex+1,',');
+			featureRanges[i] = rangeText.substring(startIndex,endIndex).getFloatValue();
+			startIndex = endIndex+1;
 		}
-		else
+
+		XmlElement* minElement = element->getChildElement(2);
+		String minText = minElement->getAllSubText();
+		startIndex = 0;
+		
+		for(int i=0;i<numFeatures;i++)
 		{
-			DBG("Min and Range files not present!");
+			int endIndex = minText.indexOfChar(startIndex+1,',');
+			featureMin[i] = minText.substring(startIndex,endIndex).getFloatValue();
+			startIndex = endIndex+1;
 		}
 
 		// Perform the scaling
