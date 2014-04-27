@@ -35,7 +35,7 @@ MainContentComponent::MainContentComponent ()
 
     addAndMakeVisible (label1 = new Label (String::empty,
                                            TRANS("BirdID\n")));
-    label1->setFont (Font ("Candara", 22.00f, Font::plain));
+    label1->setFont (Font ("Candara", 24.00f, Font::plain));
     label1->setJustificationType (Justification::centred);
     label1->setEditable (false, false, false);
     label1->setColour (Label::backgroundColourId, Colour (0x00a6a6a6));
@@ -84,6 +84,22 @@ MainContentComponent::MainContentComponent ()
     addAndMakeVisible (imageComponent = new ImageComponent());
     imageComponent->setName ("new component");
 
+    addAndMakeVisible (predictedLabel = new Label ("new label",
+                                                   TRANS("Predicted Bird :")));
+    predictedLabel->setFont (Font ("Candara", 22.00f, Font::plain));
+    predictedLabel->setJustificationType (Justification::centredLeft);
+    predictedLabel->setEditable (false, false, false);
+    predictedLabel->setColour (TextEditor::textColourId, Colours::black);
+    predictedLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (speciesLabel = new Label ("new label",
+                                                 TRANS("label text")));
+    speciesLabel->setFont (Font ("Candara", 18.00f, Font::plain));
+    speciesLabel->setJustificationType (Justification::centredLeft);
+    speciesLabel->setEditable (false, false, false);
+    speciesLabel->setColour (TextEditor::textColourId, Colours::black);
+    speciesLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -106,8 +122,10 @@ MainContentComponent::MainContentComponent ()
 	birdID->addChangeListener(this);
 
 	String desktopPath = File::getSpecialLocation(File::SpecialLocationType::userDesktopDirectory).getFullPathName();
-	
-	File birdIDFolder(desktopPath + "/BirdID_Data");
+
+	File birdIDFolder(desktopPath + "/BirdID_Data/");
+	pathToDirectory = birdIDFolder.getFullPathName();
+
 	if(!birdIDFolder.exists())
 	{
 		AlertWindow::showMessageBox(AlertWindow::AlertIconType::WarningIcon,String("Important!"),String("Please unzip the birdID-Data folder to your desktop, and restart the program"));
@@ -116,14 +134,13 @@ MainContentComponent::MainContentComponent ()
 	else
 	{
 		initialized = true;
+
 	}
 
-//	String desktopPath = File::getSpecialLocation(File::SpecialLocationType::userDesktopDirectory).getFullPathName();
-//	File selectedFile(desktopPath + "/BirdID_Data/Images/bananaquit.jpg");
-	
-	//imageComponent->setImage (ImageCache::getFromFile (selectedFile));
-	//imagePreview->selectedFileChanged(File("C:\\Users\\Aneesh\\Documents\\GitHub\\birdID\\birdID\\bananaquit.jpg"));
-	
+	predicted = false;
+
+	predictedLabel->setVisible(false);
+	speciesLabel->setVisible(false);
     //[/Constructor]
 }
 
@@ -149,6 +166,8 @@ MainContentComponent::~MainContentComponent()
     setupButton = nullptr;
     processButton = nullptr;
     imageComponent = nullptr;
+    predictedLabel = nullptr;
+    speciesLabel = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -178,7 +197,9 @@ void MainContentComponent::resized()
     zoomLabel->setBounds (808, 280, 56, 24);
     setupButton->setBounds (64, 696, 150, 24);
     processButton->setBounds (432, 696, 150, 24);
-    imageComponent->setBounds (368, 352, 296, 272);
+    imageComponent->setBounds (224, 360, 296, 272);
+    predictedLabel->setBounds (608, 336, 150, 24);
+    speciesLabel->setBounds (616, 376, 192, 48);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -211,17 +232,18 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == processButton)
     {
         //[UserButtonCode_processButton] -- add your button handler code here..
-		
-		
+
+
 		if(fileLoaded&&initialized)
 		{
+			startTimer(500);
 			birdID->runThread();
 		}
 		else if(initialized==false)
 		{
 			AlertWindow::showMessageBox(AlertWindow::AlertIconType::WarningIcon,String("Important!"),String("Please unzip the birdID-Data folder to your desktop, and restart the program"));
 		}
-		
+
         //[/UserButtonCode_processButton]
     }
 
@@ -249,6 +271,21 @@ void MainContentComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 
+void MainContentComponent::timerCallback()
+{
+	if(predicted)
+	{
+		File selectedFile(pathToDirectory + "/Images/" + predictedSpecies + ".jpg");
+		imageComponent->setImage (ImageCache::getFromFile (selectedFile));
+		predictedLabel->setVisible(true);
+		speciesLabel->setText(predictedSpecies,NotificationType::dontSendNotification);
+		speciesLabel->setVisible(true);
+		stopTimer();
+		//imagePreview->selectedFileChanged(File("C:\\Users\\Aneesh\\Documents\\GitHub\\birdID\\birdID\\bananaquit.jpg"));
+
+	}
+
+}
 
 
 void MainContentComponent::changeListenerCallback (ChangeBroadcaster* source)
@@ -257,9 +294,8 @@ void MainContentComponent::changeListenerCallback (ChangeBroadcaster* source)
         showFile (audioThumbnail->getLastDroppedFile());
 	else if(source == birdID)
 	{
-		predictedClass = birdID->returnPredictedClass();
-		String className = returnSpeciesName(predictedClass);
-		
+		predictedSpecies = birdID->returnPredictedClass();
+		predicted = true;
 	}
 
 }
@@ -311,33 +347,6 @@ AudioDeviceManager& MainContentComponent::getSharedAudioDeviceManager()
     return *sharedAudioDeviceManager;
 }
 
-String MainContentComponent::returnSpeciesName(int predictedClass)
-{
-	XmlDocument myDocument (File ("C:/Users/Aneesh/Desktop/BirdID_Data/species.xml"));
-	XmlElement* element = myDocument.getDocumentElement();
-
-	XmlElement* speciesElement = element->getChildElement(0);
-	int numSpecies = speciesElement->getAllSubText().getIntValue();
-	
-	speciesElement = element->getChildElement(1);
-	String speciesText = speciesElement->getAllSubText();
-	int startIndex = 0;
-	String tempString;
-
-	for(int i=0;i<numSpecies;i++)
-	{
-		int endIndex = speciesText.indexOfChar(startIndex+1,',');
-		if(i==predictedClass-1)
-			{
-				tempString = speciesText.substring(startIndex,endIndex);
-				break;
-			}
-		startIndex = endIndex+1;
-	}
-
-	return tempString;
-}
-
 
 //[/MiscUserCode]
 
@@ -352,10 +361,10 @@ String MainContentComponent::returnSpeciesName(int predictedClass)
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="MainContentComponent" componentName=""
-                 parentClasses="public Component, public ChangeListener" constructorParams=""
-                 variableInitialisers="thread (&quot;Preview&quot;)&#10;" snapPixels="8"
-                 snapActive="1" snapShown="1" overlayOpacity="0.330" fixedSize="0"
-                 initialWidth="1024" initialHeight="768">
+                 parentClasses="public Component, public ChangeListener, public Timer"
+                 constructorParams="" variableInitialisers="thread (&quot;Preview&quot;)&#10;"
+                 snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
+                 fixedSize="0" initialWidth="1024" initialHeight="768">
   <BACKGROUND backgroundColour="ff4a4a4a"/>
   <GENERICCOMPONENT name="new component" id="7cb95d3164466318" memberName="audioThumbnail"
                     virtualName="" explicitFocusOrder="0" pos="48 120 920 144" class="ThumbnailComponent"
@@ -364,7 +373,7 @@ BEGIN_JUCER_METADATA
          explicitFocusOrder="0" pos="432 64 168 40" bkgCol="a6a6a6" edTextCol="ff000000"
          edBkgCol="0" labelText="BirdID&#10;" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Candara"
-         fontsize="22" bold="0" italic="0" justification="36"/>
+         fontsize="24" bold="0" italic="0" justification="36"/>
   <TEXTBUTTON name="" id="380005bb9b91b092" memberName="startButton" virtualName=""
               explicitFocusOrder="0" pos="56 280 150 24" bgColOff="ff000000"
               textCol="ffffffff" textColOn="ffcdc9c9" buttonText="Play/Stop"
@@ -387,8 +396,18 @@ BEGIN_JUCER_METADATA
               textCol="ffffffff" textColOn="ffcdc9c9" buttonText="Identify"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <GENERICCOMPONENT name="new component" id="3cd8dec603d6bf05" memberName="imageComponent"
-                    virtualName="" explicitFocusOrder="0" pos="368 352 296 272" class="ImageComponent"
+                    virtualName="" explicitFocusOrder="0" pos="224 360 296 272" class="ImageComponent"
                     params=""/>
+  <LABEL name="new label" id="554d49d2e82e58d" memberName="predictedLabel"
+         virtualName="" explicitFocusOrder="0" pos="608 336 150 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="Predicted Bird :" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Candara"
+         fontsize="22" bold="0" italic="0" justification="33"/>
+  <LABEL name="new label" id="18d8f8e5d14924f8" memberName="speciesLabel"
+         virtualName="" explicitFocusOrder="0" pos="616 376 192 48" edTextCol="ff000000"
+         edBkgCol="0" labelText="label text" editableSingleClick="0" editableDoubleClick="0"
+         focusDiscardsChanges="0" fontname="Candara" fontsize="18" bold="0"
+         italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

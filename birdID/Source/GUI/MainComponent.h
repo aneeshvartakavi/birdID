@@ -39,6 +39,7 @@
 */
 class MainContentComponent  : public Component,
                               public ChangeListener,
+                              public Timer,
                               public ButtonListener,
                               public SliderListener
 {
@@ -55,10 +56,8 @@ public:
 	void changeListenerCallback (ChangeBroadcaster* source) override;
 
 	// Returns the shared audio device manager
-
 	static AudioDeviceManager& getSharedAudioDeviceManager();
-
-	String returnSpeciesName(int predictedClass);
+	void timerCallback();
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -84,7 +83,8 @@ private:
 
 	bool fileLoaded;
 	bool initialized;
-	int predictedClass;
+	String predictedSpecies;
+	bool predicted;
 
 
     //[/UserVariables]
@@ -98,6 +98,8 @@ private:
     ScopedPointer<TextButton> setupButton;
     ScopedPointer<TextButton> processButton;
     ScopedPointer<ImageComponent> imageComponent;
+    ScopedPointer<Label> predictedLabel;
+    ScopedPointer<Label> speciesLabel;
 
 
     //==============================================================================
@@ -106,7 +108,7 @@ private:
 
 //[EndFile] You can add extra defines here...
 static ScopedPointer<AudioDeviceManager> sharedAudioDeviceManager;
-
+static String pathToDirectory;
 //[/EndFile]
 
 #endif   // __JUCE_HEADER_CB87035FA43504BB__

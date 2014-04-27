@@ -139,10 +139,10 @@ void BirdID::run()
 	preProcessor->process();
 	preProcessor->returnDenoisedSpectrogram(denoisedSpectrum);
 //	preProcessor->returnDenoisedSpectrogramEMX(denoisedSpecEMX);
-//
-//	// Convert to audio
+
+	// Convert to audio
 	recoverAudio();
-//	
+	
 	setProgress(0.50);
 //	
 //	//// 4. Extract features
@@ -159,10 +159,43 @@ void BirdID::run()
 	classifier = new Classifier(numFeatures,numClasses);
 
 	//predictedClass = 2;
-	predictedClass = classifier->classify(featureVector);
+	int predictedClass = classifier->classify(featureVector);
+	predictedSpecies = returnSpeciesName(predictedClass);
+	
 	sendChangeMessage();
-//	setProgress(0.99);
+	setProgress(0.99);
 }
+
+String BirdID::returnSpeciesName(int predictedClass)
+{
+	XmlDocument myDocument (File ("C:/Users/Aneesh/Desktop/BirdID_Data/species.xml"));
+	ScopedPointer<XmlElement> element = myDocument.getDocumentElement();
+
+	XmlElement* speciesElement = element->getChildElement(0);
+	int numSpecies = speciesElement->getAllSubText().getIntValue();
+	
+	speciesElement = element->getChildElement(1);
+	String speciesText = speciesElement->getAllSubText();
+	int startIndex = 0;
+	String tempString;
+
+	for(int i=0;i<numSpecies;i++)
+	{
+		int endIndex = speciesText.indexOfChar(startIndex+1,',');
+		if(i==predictedClass-1)
+			{
+				tempString = speciesText.substring(startIndex,endIndex);
+				break;
+			}
+		startIndex = endIndex+1;
+	}
+
+	element = nullptr;
+	//speciesElement = nullptr;
+	
+	return tempString;
+}
+
 
 void BirdID::computeSpectrum()
 {

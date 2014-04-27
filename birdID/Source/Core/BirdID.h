@@ -45,15 +45,17 @@ public:
 	// Run all the operations
 	void run();
 	
-	int returnPredictedClass()
+	String returnPredictedClass()
 	{
-		return predictedClass;
+		return predictedSpecies;
 	}
 
 private:
 	
 	void computeSpectrum(); 
 	
+	String returnSpeciesName(int predictedClass);
+
 	void recoverAudio();
 
 	void readAudioFileResampled(const File &audioFile_, float targetSampleRate);
@@ -94,7 +96,8 @@ private:
 	int numFeatures;
 	int numClasses;
 	
-	int predictedClass;
+	String predictedSpecies;
+	
 };
 
 

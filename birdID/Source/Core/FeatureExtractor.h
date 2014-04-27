@@ -196,7 +196,7 @@ public:
 		
 		// Uses the saved XML file
 		XmlDocument myDocument (File ("C:/Users/Aneesh/Desktop/BirdID_Data/species.xml"));
-		XmlElement* element = myDocument.getDocumentElement();
+		ScopedPointer<XmlElement> element = myDocument.getDocumentElement();
 		// Get the element for range
 		XmlElement* rangeElement = element->getChildElement(2);
 		String rangeText = rangeElement->getAllSubText();
@@ -228,8 +228,8 @@ public:
 		}
 
 		// Clean up
-		rangeElement = nullptr;
-		minElement = nullptr;
+	//	rangeElement = nullptr;
+//		minElement = nullptr;
 		element = nullptr;
 	}
 
