@@ -100,6 +100,7 @@ private:
     ScopedPointer<ImageComponent> imageComponent;
     ScopedPointer<Label> predictedLabel;
     ScopedPointer<Label> speciesLabel;
+    ScopedPointer<TextButton> browseButton;
 
 
     //==============================================================================

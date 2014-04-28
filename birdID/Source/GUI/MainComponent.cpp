@@ -100,6 +100,14 @@ MainContentComponent::MainContentComponent ()
     speciesLabel->setColour (TextEditor::textColourId, Colours::black);
     speciesLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
+    addAndMakeVisible (browseButton = new TextButton (String::empty));
+    browseButton->setButtonText (TRANS("Browse"));
+    browseButton->setConnectedEdges (Button::ConnectedOnLeft | Button::ConnectedOnRight);
+    browseButton->addListener (this);
+    browseButton->setColour (TextButton::buttonColourId, Colours::black);
+    browseButton->setColour (TextButton::textColourOnId, Colours::white);
+    browseButton->setColour (TextButton::textColourOffId, Colour (0xffcdc9c9));
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -142,7 +150,7 @@ MainContentComponent::MainContentComponent ()
 
 	predictedLabel->setVisible(false);
 	speciesLabel->setVisible(false);
-	
+
     //[/Constructor]
 }
 
@@ -170,6 +178,7 @@ MainContentComponent::~MainContentComponent()
     imageComponent = nullptr;
     predictedLabel = nullptr;
     speciesLabel = nullptr;
+    browseButton = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -199,9 +208,10 @@ void MainContentComponent::resized()
     zoomLabel->setBounds (808, 280, 56, 24);
     setupButton->setBounds (64, 696, 150, 24);
     processButton->setBounds (432, 696, 150, 24);
-    imageComponent->setBounds (224, 360, 296, 272);
-    predictedLabel->setBounds (608, 336, 150, 24);
-    speciesLabel->setBounds (616, 376, 192, 48);
+    imageComponent->setBounds (368, 360, 296, 272);
+    predictedLabel->setBounds (120, 408, 150, 32);
+    speciesLabel->setBounds (128, 464, 192, 48);
+    browseButton->setBounds (632, 280, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -247,6 +257,12 @@ void MainContentComponent::buttonClicked (Button* buttonThatWasClicked)
 		}
 
         //[/UserButtonCode_processButton]
+    }
+    else if (buttonThatWasClicked == browseButton)
+    {
+        //[UserButtonCode_browseButton] -- add your button handler code here..
+		audioThumbnail->readDirectory();
+        //[/UserButtonCode_browseButton]
     }
 
     //[UserbuttonClicked_Post]
@@ -413,18 +429,22 @@ BEGIN_JUCER_METADATA
               textCol="ffffffff" textColOn="ffcdc9c9" buttonText="Identify"
               connectedEdges="3" needsCallback="1" radioGroupId="0"/>
   <GENERICCOMPONENT name="new component" id="3cd8dec603d6bf05" memberName="imageComponent"
-                    virtualName="" explicitFocusOrder="0" pos="224 360 296 272" class="ImageComponent"
+                    virtualName="" explicitFocusOrder="0" pos="368 360 296 272" class="ImageComponent"
                     params=""/>
   <LABEL name="new label" id="554d49d2e82e58d" memberName="predictedLabel"
-         virtualName="" explicitFocusOrder="0" pos="608 336 150 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="120 408 150 32" edTextCol="ff000000"
          edBkgCol="0" labelText="Predicted Bird :" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Candara"
          fontsize="22" bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="18d8f8e5d14924f8" memberName="speciesLabel"
-         virtualName="" explicitFocusOrder="0" pos="616 376 192 48" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="128 464 192 48" edTextCol="ff000000"
          edBkgCol="0" labelText="label text" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Candara" fontsize="18" bold="0"
          italic="0" justification="33"/>
+  <TEXTBUTTON name="" id="61080a1f084882e3" memberName="browseButton" virtualName=""
+              explicitFocusOrder="0" pos="632 280 150 24" bgColOff="ff000000"
+              textCol="ffffffff" textColOn="ffcdc9c9" buttonText="Browse" connectedEdges="3"
+              needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

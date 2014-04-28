@@ -42,6 +42,7 @@ public:
         addAndMakeVisible (currentPositionMarker);
 
 		fileDropped = false;
+		fileLoaded = true;
     }
 
     ~ThumbnailComponent()
@@ -184,6 +185,8 @@ void ThumbnailComponent::readDirectory()
 		{
 			lastFileDropped = File();
 		}
+
+	fileDropped = true;
 }
 
 private:
@@ -198,6 +201,7 @@ private:
     File lastFileDropped;
 
 	bool fileDropped;
+	bool fileLoaded;
 
     DrawableRectangle currentPositionMarker;
 
