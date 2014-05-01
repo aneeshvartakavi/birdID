@@ -56,8 +56,7 @@ void PreProcessor::DenoiseSpectrogram()
 	denoiseSpectrogram_initialize();
 	// Call the exported function
 	denoiseSpectrogram(originalSpec,denoisedSpec);
-	// Destroy the first one
-	//emxDestroyArray_real_T(originalSpec);
+		
 	// Copy the output over
 	denoisedSpectrogram = new float[numCols*numRows];
 	
@@ -72,6 +71,7 @@ void PreProcessor::DenoiseSpectrogram()
 void PreProcessor::ccDenoising()
 {
 	ccFeatures = new ComputeCCFeatures(denoisedSpectrogram,numRows,numCols);
+	
 	// The denoised spectrogram is overwritten
 	ccFeatures->performCCDenoising(denoisedSpectrogram);
 }
@@ -93,10 +93,3 @@ void PreProcessor::returnDenoisedSpectrogramEMX(emxArray_real_T* denoisedSpectro
 {
 	denoisedSpectrogram = denoisedSpec;
 }
-
-
-//
-//void PreProcessor::returnDenoisedSpectrogramEMX(ScopedPointer<emxArray_real_T>  denoisedSpectrogram_)
-//{
-//	denoisedSpectrogram_ = denoisedSpec;
-//}

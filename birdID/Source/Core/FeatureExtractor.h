@@ -25,29 +25,24 @@ class FeatureExtractor
 public:
 		
 	FeatureExtractor(float* magnitudeSpectrum_, int numRows_,int numCols_, File& audioFile_,emxArray_real_T* denoisedAudio, int denoisedAudioLength, emxArray_real_T* T)
-	//FeatureExtractor(ScopedPointer<emxArray_real_T> denoisedSpec, File& audioFile_,ScopedPointer<emxArray_real_T> denoisedAudio)
 	{
 		
 		numRows = numRows_;
 		numCols = numCols_;
 		
 		magSpec = new float[numRows*numCols];
+		
 		// Deep copy spectrum
 		for(int i=0;i<numRows*numCols;i++)
 		{
 			magSpec[i] = magnitudeSpectrum_[i];
 		}
 		
-		//computeSpectralFeatures = new ComputeSpectralFeatures();
-		
-
 		blockSize = 1024;
 		hopSize = 512;
 		audioFile = audioFile_;
 
-		//denoisedSpecEMX = denoisedSpec;
-
-
+		// Initialize feature categories and display outputs
 		computeMFCCFeatures = new ComputeMFCCFeatures(denoisedAudio,16000, denoisedAudioLength);
 		numMFCCFeatures = computeMFCCFeatures->getNumFeatures();
 		mfccFeatures = new float[numMFCCFeatures];
@@ -71,7 +66,6 @@ public:
 		pitchFeatures = new float[numPitchFeatures];
 
 		numFeatures = numMFCCFeatures+numBWFeatures+numCSpectralFeatures + numPitchFeatures + numOnsetFeatures;
-		//numFeatures  = 150;
 		featureVector = new float[numFeatures];
 
 		// For scaling
@@ -193,7 +187,6 @@ public:
 
 		}
 
-		
 		// Uses the saved XML file
 		XmlDocument myDocument (File ("C:/Users/Aneesh/Desktop/BirdID_Data/species.xml"));
 		ScopedPointer<XmlElement> element = myDocument.getDocumentElement();
@@ -227,9 +220,7 @@ public:
 			featureVector_[i] = featureVector_[i]/featureRanges[i];
 		}
 
-		// Clean up
-	//	rangeElement = nullptr;
-//		minElement = nullptr;
+		// This element also delete child element
 		element = nullptr;
 	}
 

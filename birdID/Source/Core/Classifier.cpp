@@ -20,12 +20,13 @@ Classifier::Classifier( int numFeatures_, int numClasses_)
 	classProb = new double[numClasses];
 
 	svmTrain = new SVMTrain(numFeatures);
-	//modelFile = File("C:\\Users\\Aneesh\\Documents\\GitHub\\birdID\\birdID\\Source\\LibSVM\\svmTrain.model");
-		//First load the model
+	
+	//First load the model
+	// Hardcode for now, change it to use a static string from the main class
 	modelFile = File("C:\\Users\\Aneesh\\Desktop\\BirdID_Data\\svmTrain.model");
-	//std::string modelString = modelFile.loadFileAsString().toStdString();
+	
 
-	//svmTrain->setSvmModel(modelString);
+	
 }
 
 Classifier::~Classifier()

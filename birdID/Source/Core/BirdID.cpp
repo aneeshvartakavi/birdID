@@ -15,8 +15,10 @@ BirdID::BirdID(int blockSize_, int hopSize_): blockSize(blockSize_),hopSize(hopS
 
 	// Register basic formats to read
 	formatManager.registerBasicFormats();
-
+	
+	// Now set to 30, should read off the content pack
 	numClasses = 30;
+	
 	interpolator = new LagrangeInterpolator();
 	interpolator->reset();
 
@@ -24,7 +26,6 @@ BirdID::BirdID(int blockSize_, int hopSize_): blockSize(blockSize_),hopSize(hopS
 	denoisedSpectrum = NULL;
 	featureVector = NULL;
 	resampledAudio = NULL;
-
 	resampledAudioEMX = NULL;
 	denoisedSpecEMX = NULL;
 	denoisedAudioEMX = NULL;
@@ -38,7 +39,6 @@ BirdID::~BirdID()
 	featureExtractor = nullptr;
 	interpolator = nullptr;
 	classifier = nullptr;
-
 	preProcessor = nullptr;
 
 	deleteIfAllocated(denoisedSpectrum);
@@ -73,7 +73,7 @@ void BirdID::deleteEMX(emxArray_real_T* emxArray)
 
 }
 
-
+// Read an audio file and resample
 void BirdID::readAudioFileResampled(const File &audioFile_, float targetSampleRate)
 {
 	//Creating a reader for the file, depending on its format
@@ -93,7 +93,8 @@ void BirdID::readAudioFileResampled(const File &audioFile_, float targetSampleRa
 		// Initialize destination buffer
 		resampledAudio = new float[resampledAudioLength];
 		
-			
+		// Cheating by reading only one channel
+
 		//if(numChannels == 1)
 		//{
 			// Read audio
@@ -121,6 +122,8 @@ void BirdID::readAudioFileResampled(const File &audioFile_, float targetSampleRa
 
 }
 
+// Called by thread to process
+
 void BirdID::run()
 {
 	// Order of operations
@@ -137,32 +140,33 @@ void BirdID::run()
 	preProcessor = new PreProcessor(magSpecEMX,numRows,numCols);
 	preProcessor->process();
 	preProcessor->returnDenoisedSpectrogram(denoisedSpectrum);
-//	preProcessor->returnDenoisedSpectrogramEMX(denoisedSpecEMX);
 
 	// Convert to audio
 	recoverAudio();
 	
 	setProgress(0.50);
-//	
-//	//// 4. Extract features
+	
+//	 4. Extract features
 	featureExtractor = new FeatureExtractor(denoisedSpectrum,numRows,numCols,audioFile,denoisedAudioEMX,resampledAudioLength,T);
-	//featureExtractor = new FeatureExtractor(denoisedSpecEMX,audioFile,denoisedAudioEMX);
-//	featureExtractor->setSpectralFeatureExtractionProperties();
 	featureExtractor->extractFeatures();
 	// Get features back
 	numFeatures = featureExtractor->getNumFeatures();
 	featureVector = new float[numFeatures];
 	featureExtractor->returnFeatureVector(featureVector);
 	setProgress(0.75);
+	
 	// 5. Classify
 	classifier = new Classifier(numFeatures,numClasses);
 
 	int predictedClass = classifier->classify(featureVector);
 	predictedSpecies = returnSpeciesName(predictedClass);
 	
+	// Send asynchronous message to GUI
 	sendChangeMessage();
 	setProgress(0.99);
 }
+
+// Called by the GUI component to retrieve species name
 
 String BirdID::returnSpeciesName(int predictedClass)
 {
@@ -189,12 +193,12 @@ String BirdID::returnSpeciesName(int predictedClass)
 	}
 
 	element = nullptr;
-	//speciesElement = nullptr;
+	
 	
 	return tempString;
 }
 
-
+// Compute STFT
 void BirdID::computeSpectrum()
 {
 	// Create a vector for resampled audio
@@ -220,12 +224,12 @@ void BirdID::computeSpectrum()
 
 	bufferSTFT(resampledAudioEMX,static_cast<real_T>(blockSize),static_cast<real_T>(hopSize),magSpecEMX,phaseSpecEMX,T);
 	
-	
 }
 
+// Inverse STFT
 void BirdID::recoverAudio()
 {
-	// Inverse STFT
+	
 	denoisedSpecEMX = emxCreate_real_T(numRows,numCols);
 	
 	for(int i=0;i<numCols;i++)

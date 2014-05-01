@@ -25,11 +25,6 @@ extern "C"
 	#include "../Export/inverseSTFT.h"
 }
 
-#if JUCE_WINDOWS
-//#include "Eigen\Dense.h"
-//#include "Eigen\FFT.h"
-#endif
-
 class BirdID : public ThreadWithProgressWindow, public ChangeBroadcaster
 {
 public:
@@ -51,18 +46,20 @@ public:
 	}
 
 private:
-	
+	// Forward STFT
 	void computeSpectrum(); 
 	
+	// Called by the GUI to update species names
 	String returnSpeciesName(int predictedClass);
-
+	// Inverse STFT
 	void recoverAudio();
-
+	// Read an input file, and resample to 16kHz
 	void readAudioFileResampled(const File &audioFile_, float targetSampleRate);
-	
+	// Helper function
 	void deleteIfAllocated(float* pointerToBeDeleted);
-	
+	 
 	void deleteEMX(emxArray_real_T* emxArray);
+
 
 	float* denoisedSpectrum;
 	float* resampledAudio;
@@ -72,16 +69,18 @@ private:
 	AudioFormatManager formatManager;
 	AudioTransportSource transportSource;
 
-	// Resampling stuff
+	// Interpolator for resampling
 	ScopedPointer<LagrangeInterpolator> interpolator;
 	
 	// Current audio file to read
 	File audioFile;
 
+	// Pointers to processing stages
 	ScopedPointer<FeatureExtractor> featureExtractor;
 	ScopedPointer<PreProcessor> preProcessor;
 	ScopedPointer<Classifier> classifier;
 
+	// EMX data structures
 	emxArray_real_T* magSpecEMX;
 	emxArray_real_T* denoisedSpecEMX;
 	emxArray_real_T* phaseSpecEMX;

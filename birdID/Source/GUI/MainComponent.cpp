@@ -39,6 +39,7 @@ MainContentComponent::MainContentComponent ()
     label1->setJustificationType (Justification::centred);
     label1->setEditable (false, false, false);
     label1->setColour (Label::backgroundColourId, Colour (0x00a6a6a6));
+    label1->setColour (Label::textColourId, Colour (0xffffecec));
     label1->setColour (TextEditor::textColourId, Colours::black);
     label1->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
@@ -62,6 +63,7 @@ MainContentComponent::MainContentComponent ()
     zoomLabel->setFont (Font ("Candara", 20.50f, Font::plain));
     zoomLabel->setJustificationType (Justification::centredLeft);
     zoomLabel->setEditable (false, false, false);
+    zoomLabel->setColour (Label::textColourId, Colours::white);
     zoomLabel->setColour (TextEditor::textColourId, Colours::black);
     zoomLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
@@ -89,6 +91,7 @@ MainContentComponent::MainContentComponent ()
     predictedLabel->setFont (Font ("Candara", 22.00f, Font::plain));
     predictedLabel->setJustificationType (Justification::centredLeft);
     predictedLabel->setEditable (false, false, false);
+    predictedLabel->setColour (Label::textColourId, Colours::white);
     predictedLabel->setColour (TextEditor::textColourId, Colours::black);
     predictedLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
@@ -97,6 +100,7 @@ MainContentComponent::MainContentComponent ()
     speciesLabel->setFont (Font ("Candara", 18.00f, Font::plain));
     speciesLabel->setJustificationType (Justification::centredLeft);
     speciesLabel->setEditable (false, false, false);
+    speciesLabel->setColour (Label::textColourId, Colours::white);
     speciesLabel->setColour (TextEditor::textColourId, Colours::black);
     speciesLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
@@ -403,8 +407,8 @@ BEGIN_JUCER_METADATA
                     virtualName="" explicitFocusOrder="0" pos="48 120 920 144" class="ThumbnailComponent"
                     params="formatManager, transportSource, *zoomSlider"/>
   <LABEL name="" id="cd58986fe7eba495" memberName="label1" virtualName=""
-         explicitFocusOrder="0" pos="432 64 168 40" bkgCol="a6a6a6" edTextCol="ff000000"
-         edBkgCol="0" labelText="BirdID&#10;" editableSingleClick="0"
+         explicitFocusOrder="0" pos="432 64 168 40" bkgCol="a6a6a6" textCol="ffffecec"
+         edTextCol="ff000000" edBkgCol="0" labelText="BirdID&#10;" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Candara"
          fontsize="24" bold="0" italic="0" justification="36"/>
   <TEXTBUTTON name="" id="380005bb9b91b092" memberName="startButton" virtualName=""
@@ -416,10 +420,10 @@ BEGIN_JUCER_METADATA
           min="0" max="10" int="0" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="new label" id="8eaa9a342604a1de" memberName="zoomLabel"
-         virtualName="" explicitFocusOrder="0" pos="808 280 56 24" edTextCol="ff000000"
-         edBkgCol="0" labelText="Zoom" editableSingleClick="0" editableDoubleClick="0"
-         focusDiscardsChanges="0" fontname="Candara" fontsize="20.5" bold="0"
-         italic="0" justification="33"/>
+         virtualName="" explicitFocusOrder="0" pos="808 280 56 24" textCol="ffffffff"
+         edTextCol="ff000000" edBkgCol="0" labelText="Zoom" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Candara"
+         fontsize="20.5" bold="0" italic="0" justification="33"/>
   <TEXTBUTTON name="" id="ebe0a02516466f36" memberName="setupButton" virtualName=""
               explicitFocusOrder="0" pos="64 696 150 24" bgColOff="ff000000"
               textCol="ffffffff" textColOn="ffcdc9c9" buttonText="Audio Setup"
@@ -432,15 +436,15 @@ BEGIN_JUCER_METADATA
                     virtualName="" explicitFocusOrder="0" pos="368 360 296 272" class="ImageComponent"
                     params=""/>
   <LABEL name="new label" id="554d49d2e82e58d" memberName="predictedLabel"
-         virtualName="" explicitFocusOrder="0" pos="120 408 150 32" edTextCol="ff000000"
-         edBkgCol="0" labelText="Predicted Bird :" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Candara"
-         fontsize="22" bold="0" italic="0" justification="33"/>
+         virtualName="" explicitFocusOrder="0" pos="120 408 150 32" textCol="ffffffff"
+         edTextCol="ff000000" edBkgCol="0" labelText="Predicted Bird :"
+         editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
+         fontname="Candara" fontsize="22" bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="18d8f8e5d14924f8" memberName="speciesLabel"
-         virtualName="" explicitFocusOrder="0" pos="128 464 192 48" edTextCol="ff000000"
-         edBkgCol="0" labelText="label text" editableSingleClick="0" editableDoubleClick="0"
-         focusDiscardsChanges="0" fontname="Candara" fontsize="18" bold="0"
-         italic="0" justification="33"/>
+         virtualName="" explicitFocusOrder="0" pos="128 464 192 48" textCol="ffffffff"
+         edTextCol="ff000000" edBkgCol="0" labelText="label text" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Candara"
+         fontsize="18" bold="0" italic="0" justification="33"/>
   <TEXTBUTTON name="" id="61080a1f084882e3" memberName="browseButton" virtualName=""
               explicitFocusOrder="0" pos="632 280 150 24" bgColOff="ff000000"
               textCol="ffffffff" textColOn="ffcdc9c9" buttonText="Browse" connectedEdges="3"

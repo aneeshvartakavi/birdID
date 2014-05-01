@@ -34,7 +34,7 @@ private:
 	double* featureVector;
 	double* classProb;
 	
-	//
+	
 	int numFeatures;
 	int numClasses;
 };

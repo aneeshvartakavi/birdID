@@ -5,7 +5,8 @@
 	Created: 12 Mar 2014 12:46:52am
 	Author:  Aneesh
 
-	A class to compute the spectral features
+	A class to compute the spectral features.
+	Will handle all the features and subfeatures and return the feature vector.
   ==============================================================================
 */
 
